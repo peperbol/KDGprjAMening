@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e67a568e-8924-44b1-8bdb-d35dda5ffdb4" name="KDG" url="http://petrichor.multimediatechnology.be">
+        <fileTransfer host="websites.kdg.be" port="21" accessType="FTPS" username="petrichor">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
