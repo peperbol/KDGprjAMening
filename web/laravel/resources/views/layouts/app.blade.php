@@ -4,6 +4,8 @@
         <title>Laravel Quickstart - Basic</title>
 
         <!-- CSS And JavaScript -->
+        
+        <link href="css/style.css" rel="stylesheet">
     </head>
 
     <body>
