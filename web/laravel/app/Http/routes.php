@@ -42,14 +42,29 @@ Route::group(['middleware' => ['web']], function () {
      */
     Route::get('/', function () {
         //je gaat al je bestaande taken uit het model ophalen
-        $tasks = Task::orderBy('created_at', 'asc')->get();
+        //$tasks = Task::orderBy('created_at', 'asc')->get();
         
         //je kan een 2de argument meegeven aan de view, namelijk je data, die je dan kan aanspreken in de view
         //als ik het tweede argument hier wegdoe krijg ik een overzicht met errors...
-        return view('tasks', [
-            'tasks' => $tasks
-        ]);
+        //return view('tasks', [
+        //    'tasks' => $tasks
+        //]);
+        return view('project_overview');
     });
+    
+    
+    Route::get('/overview', function () {
+        return view('project_overview');
+    });
+    
+    Route::get('/add', function () {
+        return view('add_project');
+    });
+    
+    Route::get('/comments', function () {
+        return view('comments');
+    });
+    
 
     /**
      * Add New Task //als we in deze view komen kan je een nieuwe taak toevoegen

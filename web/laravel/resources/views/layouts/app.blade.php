@@ -12,6 +12,11 @@
         <div class="container">
             <nav class="navbar navbar-default">
                 <!-- Navbar Contents -->
+                <ul>
+                    <li><a href="{{ url('/overview') }}">Project overzicht</a></li>
+                    <li><a href="{{ url('/add') }}">Project toevoegen</a></li>
+                    <li><a href="{{ url('/comments') }}">Reacties</a></li>
+                </ul>
             </nav>
         </div>
 
