@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Split
-  m_Shader: {fileID: 4800000, guid: d74a3b8e3756cf349af465887f415349, type: 3}
+  m_Name: Reversefont
+  m_Shader: {fileID: 4800000, guid: 5b8a30b1531e1734a88fefdc45489e1d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -78,20 +78,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _MainTex1
-        second:
-          m_Texture: {fileID: 2800000, guid: ebbf6f5a47d1a694b938a7742143f74f, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _MainTex2
-        second:
-          m_Texture: {fileID: 2800000, guid: 7015e8a8948a9134db4dd26665b075ee, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -143,8 +129,8 @@ Material:
         second: 0
       data:
         first:
-          name: _Split
-        second: 0.5
+          name: _AlphaCutOff
+        second: 0.924
     m_Colors:
       data:
         first:

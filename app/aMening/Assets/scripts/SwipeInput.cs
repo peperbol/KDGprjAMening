@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SwipeInput : MonoBehaviour
 {
-
-    // Use this for initialization
-    void Start()
-    {
-        
-    }
     public float tweenMultipier;
     float split = 0.5f;
     public Material splitMaterial;
+    public LayoutElement left;
+    public LayoutElement right;
+    public Text leftText;
+    public Text rightText;
     public float snapSplit = 0.15f;
     public float confirmSplit = 0.005f;
     public float Split
@@ -24,7 +23,18 @@ public class SwipeInput : MonoBehaviour
             {
                 splitMaterial.SetFloat("_Split", split);
             }
+            left.flexibleWidth = split * 1000;
+            right.flexibleWidth = (1 - split) * 1000;
+            Color c = leftText.color;
+            c.a = split * 2;
+            leftText.color = c;
+            c = rightText.color;
+            c.a = (1 - split)*2;
+            rightText.color = c;
         }
+    }
+    void Start()
+    {
     }
     void Update()
     {

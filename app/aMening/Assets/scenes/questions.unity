@@ -256,7 +256,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Plein
+  m_Text: ' Plein'
 --- !u!222 &1174243519
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -488,7 +488,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Plein
+  m_Text: 'Parking '
 --- !u!222 &1637693646
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -687,5 +687,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tweenMultipier: 0.1
   splitMaterial: {fileID: 2100000, guid: 808e4d5b917bdf947ac7124e835d9c0d, type: 2}
+  left: {fileID: 1174243520}
+  right: {fileID: 1637693644}
+  leftText: {fileID: 1174243518}
+  rightText: {fileID: 1637693645}
   snapSplit: 0.2
   confirmSplit: 0.005
