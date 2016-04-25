@@ -82,14 +82,14 @@ Material:
         first:
           name: _MainTex1
         second:
-          m_Texture: {fileID: 2800000, guid: ebbf6f5a47d1a694b938a7742143f74f, type: 3}
+          m_Texture: {fileID: 2800000, guid: 748b856aa7bcc554db328e5985249a1b, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _MainTex2
         second:
-          m_Texture: {fileID: 2800000, guid: 7015e8a8948a9134db4dd26665b075ee, type: 3}
+          m_Texture: {fileID: 2800000, guid: ffad37cbe3b00724987ba49dc4e15773, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -145,6 +145,10 @@ Material:
         first:
           name: _Split
         second: 0.5
+      data:
+        first:
+          name: _AspectRatio
+        second: 0.8160189
     m_Colors:
       data:
         first:

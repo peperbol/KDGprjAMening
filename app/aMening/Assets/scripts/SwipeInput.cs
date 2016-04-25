@@ -13,6 +13,7 @@ public class SwipeInput : MonoBehaviour
     public Text rightText;
     public float snapSplit = 0.15f;
     public float confirmSplit = 0.005f;
+    public float swipeSpeedMultiplier = 2;
     public float Split
     {
         get { return split; }
@@ -41,8 +42,7 @@ public class SwipeInput : MonoBehaviour
 
         if (Input.touchCount > 0)
         {
-            Split += Input.touches[0].deltaPosition.x / Screen.width;
-            Debug.Log(Split);
+            Split += Input.touches[0].deltaPosition.x / Screen.width * swipeSpeedMultiplier;
         }
         else
         { 

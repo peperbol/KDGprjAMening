@@ -5,6 +5,7 @@
 		_MainTex1 ("Texture 1", 2D) = "white" {}
 		_MainTex2 ("Texture 2", 2D) = "white" {}
 		_Split("Split", Range(0,1)) = 0.5
+		_AspectRatio("Aspect Ratio",Float) = 1
 	}
 	SubShader
 	{
@@ -34,8 +35,11 @@
 			sampler2D _MainTex1;
 			sampler2D _MainTex2;
 			float _Split;
+			float _AspectRatio;
 			float4 _MainTex_ST;
-			
+			float4 _MainTex1_TexelSize;
+			float4 _MainTex2_TexelSize;
+
 			v2f vert (appdata v)
 			{
 				v2f o;
@@ -49,12 +53,16 @@
 				fixed4 col;
 				if (i.uv.x < _Split)
 				{
-					i.uv.x = 0.5f - _Split / 2 + i.uv.x;
+					float aspectratio = _MainTex1_TexelSize.z * _MainTex1_TexelSize.y;
+					
+					i.uv.x = 0.5f + (- _Split / 2 + i.uv.x) / aspectratio * _AspectRatio;
 					col = tex2D(_MainTex1, i.uv);
 				}
 				else {
 
-					i.uv.x = 0.5f - (1 - _Split) / 2 + i.uv.x - _Split;
+					float aspectratio = _MainTex2_TexelSize.z * _MainTex2_TexelSize.y;
+
+					i.uv.x = 0.5f + ( - (1 - _Split) / 2 + i.uv.x - _Split) / aspectratio * _AspectRatio;
 					col = tex2D(_MainTex2, i.uv);
 				}
 				// sample the texture
