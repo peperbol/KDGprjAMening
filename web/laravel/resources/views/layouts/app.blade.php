@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Laravel Quickstart - Basic</title>
+        <title>@yield('title')</title>
 
         <!-- CSS And JavaScript -->
         

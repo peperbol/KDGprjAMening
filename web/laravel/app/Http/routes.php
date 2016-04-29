@@ -40,6 +40,7 @@ Route::group(['middleware' => ['web']], function () {
     /**
      * Show Task Dashboard //als we hierin komen krijgen we een overzicht van alle taken
      */
+    /*
     Route::get('/', function () {
         //je gaat al je bestaande taken uit het model ophalen
         //$tasks = Task::orderBy('created_at', 'asc')->get();
@@ -51,11 +52,17 @@ Route::group(['middleware' => ['web']], function () {
         //]);
         return view('project_overview');
     });
+    */
     
-    
+    /*
     Route::get('/overview', function () {
         return view('project_overview');
     });
+    */
+    Route::get('/', 'BaseController@getOverview3');
+    
+    Route::get('/overview', 'BaseController@getOverview3');
+    
     
     Route::get('/add', function () {
         return view('add_project');
