@@ -59,9 +59,9 @@ Route::group(['middleware' => ['web']], function () {
         return view('project_overview');
     });
     */
-    Route::get('/', 'ProjectController@getOverview');
+    Route::get('/', 'BaseController@getOverview3');
     
-    Route::get('/overview', 'ProjectController@getOverview');
+    Route::get('/overview', 'BaseController@getOverview3');
     
     
     Route::get('/add', function () {

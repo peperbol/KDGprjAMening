@@ -12,6 +12,12 @@ class Event extends Model
     
     public function project()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Project, 'id_project');
     }
+    
+    
+    public function get_proj_name() {
+        return Project::where('id_project', $this->project_id)->first()->name;
+    }
+    
 }

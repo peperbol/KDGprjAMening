@@ -12,7 +12,7 @@ class Projectphase extends Model
     
     public function project()
     {
-        return $this->belongsTo(Project::class);
+        return $this->belongsTo(Project, 'id_project');
     }
     
     public function question()
@@ -24,4 +24,8 @@ class Projectphase extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    
+    
+    
+    
 }
