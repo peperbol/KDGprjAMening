@@ -1,0 +1,8 @@
+{
+  "id" : 1,
+  "question": "Wat voor een vijver wil u in ons nieuw park?",
+  "leftlabel": "Groot",
+  "rightlabel": "Klein",
+  "fullpicture": true,
+  "phase": 6551
+}
