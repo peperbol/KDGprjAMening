@@ -140,7 +140,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Parking '
+  m_Text: Ja
 --- !u!114 &11444342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,7 +264,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Plein
+  m_Text: Nee
 --- !u!222 &22233170
 CanvasRenderer:
   m_ObjectHideFlags: 1
