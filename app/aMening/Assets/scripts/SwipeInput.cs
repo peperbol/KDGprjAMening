@@ -28,6 +28,7 @@ public class SwipeInput : MonoBehaviour
     public Color confirmColorBorder;
     public float flyForce = 1000;
     public float flyTorque = 1000;
+    public float timeToDestoryQuestion = 1;
     private LoadQuestion questionLoader;
     public float Split
     {
@@ -35,9 +36,14 @@ public class SwipeInput : MonoBehaviour
         set
         {
             split = Mathf.Clamp(value, 0, 1);
-            if (splitImage)
+            if (!questionLoader.lastQuestion.fullPicture)
             {
                 splitImageInstance.material.SetFloat("_Split", Split);
+            }
+            else
+            {
+
+                splitImageInstance.material.SetFloat("_Split", 1);
             }
             Color c;
             //base color
@@ -89,9 +95,6 @@ public class SwipeInput : MonoBehaviour
         left = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Left");
         right = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Right");
         splitImageInstance = inst;
-
-
-        Split = 0.5f;
         return inst;
     }
     void Start()
@@ -104,7 +107,7 @@ public class SwipeInput : MonoBehaviour
         }
 
         NewInstance();
-        questionLoader.NextQuestion(leftText, rightText);
+        questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material);
         questionLoader.SetTitle();
         Split = 0.5f;
     }
@@ -173,7 +176,8 @@ public class SwipeInput : MonoBehaviour
 
         NewInstance();
 
-        questionLoader.NextQuestion(leftText, rightText);
+        questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material);
+        Split = 0.5f;
 
         while (time < 1)
         {
@@ -194,5 +198,7 @@ public class SwipeInput : MonoBehaviour
             yield return null;
         }
         selected = false;
+        yield return new WaitForSeconds(timeToDestoryQuestion);
+        Destroy(rb.gameObject);
     }
 }

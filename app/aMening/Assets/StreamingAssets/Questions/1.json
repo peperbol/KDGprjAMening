@@ -3,6 +3,6 @@
   "question": "Wat voor een vijver wil u in ons nieuw park?",
   "leftlabel": "Groot",
   "rightlabel": "Klein",
-  "fullpicture": true,
+  "fullpicture": false,
   "phase": 6551
 }

@@ -5,7 +5,7 @@ using System;
 
 public class Question
 {
-    private const string imageDirectoryPath = "Questions/Images";
+    private const string imageDirectoryPath = "Questions/Images/";
     private const string fileDirectoryPath = "Questions/";
     public static string ImageDirectoryPath
     {
@@ -14,7 +14,7 @@ public class Question
             if (Application.isMobilePlatform)
                 return "jar:file://" + Application.dataPath + "!/assets/" + imageDirectoryPath;
             else
-                return ("file:///" + Application.dataPath + "/StreamingAssets/" + imageDirectoryPath).Replace(" ", "%20");
+                return "file:///" + Application.dataPath + "/StreamingAssets/" + imageDirectoryPath;
             return Application.persistentDataPath + imageDirectoryPath;
         }
     }
@@ -25,21 +25,35 @@ public class Question
             if (Application.isMobilePlatform)
                 return "jar:file://" + Application.dataPath + "!/assets/" + fileDirectoryPath;
             else
-                return ("file:///" + Application.dataPath + "/StreamingAssets/" + fileDirectoryPath).Replace(" ", "%20");
+                return "file:///" + Application.dataPath + "/StreamingAssets/" + fileDirectoryPath;
             return Application.persistentDataPath + fileDirectoryPath;
         }
     }
     public string FilePath { get { return FileDirectoryPath + id + ".json"; } }
-    public string ImagePath { get { return ImageDirectoryPath + id + ".jpg"; } }
 
     public string id { get; private set; }
     public string questionText { get; private set; }
     public string leftText { get; private set; }
     public string rightText { get; private set; }
     public string phase { get; private set; }
-    public Texture2D LeftImage { get { throw new System.NotImplementedException(); } }
-    public Texture2D RightImage { get { throw new System.NotImplementedException(); } }
+    public bool fullPicture { get; private set; }
+    public Texture2D LeftImage { get { return LoadImage(id + "L"); } }
+    public Texture2D RightImage { get { return LoadImage(id + "R"); } }
+    public Texture2D MainImage { get { return LoadImage(id); } }
+    private Texture2D LoadImage(string name)
+    {
 
+        var www = new WWW(ImageDirectoryPath + name + ".jpg");
+        while (!www.isDone) { };
+        if (!string.IsNullOrEmpty(www.error))
+        {
+            Debug.LogWarning(www.error);
+            throw new FileNotFoundException();
+        }
+        Texture2D tex = new Texture2D(500, 500);
+        www.LoadImageIntoTexture(tex);
+        return tex;
+    }
     public Question(string id)
     {
 
@@ -63,6 +77,9 @@ public class Question
         rightText = s;
         obj.GetField(ref s, "phase");
         phase = s;
+        bool b = false;
+        obj.GetField(ref b, "fullpicture");
+        fullPicture = b;
     }
 
     public Question(string id, string questionText, string leftText, string rightText, string phase)

@@ -23,14 +23,23 @@ public class LoadQuestion : MonoBehaviour {
             }
             catch (System.IO.FileNotFoundException) { Debug.LogWarning("Did not find file of id " + id); }
         }
-        ids.Clear();
+       // ids.Clear();
     }
 
-    public void NextQuestion( Text left, Text right) {
-        if (questions.Count <= 0) return;
+    public void NextQuestion(Text left, Text right, Material mat) {
+        if (questions.Count <= 0) QueueIds();
         lastQuestion = questions.Dequeue();
         left.text = lastQuestion.leftText;
         right.text = lastQuestion.rightText;
+        if (lastQuestion.fullPicture)
+        {
+            mat.SetTexture("_MainTex1", lastQuestion.MainImage);
+        }
+        else
+        {
+            mat.SetTexture("_MainTex1", lastQuestion.LeftImage);
+            mat.SetTexture("_MainTex2", lastQuestion.RightImage);
+        }
     }
     public void SetTitle() {
 
