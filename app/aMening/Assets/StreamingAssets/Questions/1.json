@@ -1,6 +1,7 @@
 {
   "id" : 1,
   "question": "Wat voor een vijver wil u in ons nieuw park?",
+  "project": "Heraanlegging Koning Albertpark",
   "leftlabel": "Groot",
   "rightlabel": "Klein",
   "fullpicture": false,

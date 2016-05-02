@@ -33,6 +33,7 @@ public class Question
 
     public string id { get; private set; }
     public string questionText { get; private set; }
+    public string projectText { get; private set; }
     public string leftText { get; private set; }
     public string rightText { get; private set; }
     public string phase { get; private set; }
@@ -77,6 +78,8 @@ public class Question
         rightText = s;
         obj.GetField(ref s, "phase");
         phase = s;
+        obj.GetField(ref s, "project");
+        projectText = s;
         bool b = false;
         obj.GetField(ref b, "fullpicture");
         fullPicture = b;

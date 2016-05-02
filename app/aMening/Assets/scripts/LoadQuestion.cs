@@ -7,6 +7,7 @@ using System.Linq;
 public class LoadQuestion : MonoBehaviour {
 
     public Text questionText;
+    public Text projectText;
     public Queue<Question> questions = new Queue<Question>();
     public Material Image;
     public List<string> ids;
@@ -42,8 +43,8 @@ public class LoadQuestion : MonoBehaviour {
         }
     }
     public void SetTitle() {
-
         questionText.text = lastQuestion.questionText;
+        projectText.text = lastQuestion.projectText.ToUpper();
     }
 
 	void Update () {

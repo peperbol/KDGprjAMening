@@ -15,7 +15,7 @@ public class SwipeInput : MonoBehaviour
     private LayoutElement right;
     private Text leftText;
     private Text rightText;
-    public Image overlay;
+    public GameObject overlay;
     public float snapSplit = 0.15f;
     public float confirmSplit = 0.005f;
     public float confirmColorSplit = 0.15f;
@@ -159,7 +159,6 @@ public class SwipeInput : MonoBehaviour
     {
         selected = true;
         float time = 0;
-        Color c = overlay.color;
 
         Rigidbody2D rb = splitImageInstance.gameObject.AddComponent<Rigidbody2D>();
 
@@ -178,13 +177,16 @@ public class SwipeInput : MonoBehaviour
 
         questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material);
         Split = 0.5f;
-
+        Color c;
         while (time < 1)
         {
             time += Time.deltaTime / timeToSelect * 2;
-
-            c.a = time;
-            overlay.color = c;
+            foreach (Image item in overlay.GetComponentsInChildren<Image>())
+            {
+                c = item.color;
+                c.a = time;
+                item.color = c;
+            }
             yield return null;
         }
         questionLoader.SetTitle();
@@ -193,8 +195,12 @@ public class SwipeInput : MonoBehaviour
         {
             time -= Time.deltaTime / timeToSelect * 2;
 
-            c.a = time;
-            overlay.color = c;
+            foreach (Image item in overlay.GetComponentsInChildren<Image>())
+            {
+                c = item.color;
+                c.a = time;
+                item.color = c;
+            }
             yield return null;
         }
         selected = false;

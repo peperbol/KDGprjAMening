@@ -1,6 +1,7 @@
 {
   "id" : 3,
   "question": "Moeten we meer budget in afvalopruiming steken?",
+  "project": "Herziening budgetten",
   "leftlabel": "Nee",
   "rightlabel": "Ja",
   "fullpicture": true,
