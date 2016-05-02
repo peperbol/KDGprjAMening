@@ -5,16 +5,17 @@ using System;
 
 public class Question
 {
-    private const string imageDirectoryPath = "Questions/Images/";
-    private const string fileDirectoryPath = "Questions/";
+    private const string imageDirectoryPath = "/Questions/Images/";
+    private const string fileDirectoryPath = "/Questions/";
     public static string ImageDirectoryPath
     {
         get
         {
+            /*
             if (Application.isMobilePlatform)
                 return "jar:file://" + Application.dataPath + "!/assets/" + imageDirectoryPath;
             else
-                return "file:///" + Application.dataPath + "/StreamingAssets/" + imageDirectoryPath;
+                return "file:///" + Application.dataPath + "/StreamingAssets/" + imageDirectoryPath;*/
             return Application.persistentDataPath + imageDirectoryPath;
         }
     }
@@ -22,10 +23,11 @@ public class Question
     {
         get
         {
+            /*
             if (Application.isMobilePlatform)
                 return "jar:file://" + Application.dataPath + "!/assets/" + fileDirectoryPath;
             else
-                return "file:///" + Application.dataPath + "/StreamingAssets/" + fileDirectoryPath;
+                return "file:///" + Application.dataPath + "/StreamingAssets/" + fileDirectoryPath;*/
             return Application.persistentDataPath + fileDirectoryPath;
         }
     }
@@ -44,7 +46,7 @@ public class Question
     private Texture2D LoadImage(string name)
     {
 
-        var www = new WWW(ImageDirectoryPath + name + ".jpg");
+        var www = new WWW("file:///"+ ImageDirectoryPath + name + ".jpg");
         while (!www.isDone) { };
         if (!string.IsNullOrEmpty(www.error))
         {
@@ -60,7 +62,7 @@ public class Question
 
         this.id = id;
         //File.ReadAllText()
-        var www = new WWW(FilePath);
+        var www = new WWW("file:///"+FilePath);
         while (!www.isDone) { };
         if (!string.IsNullOrEmpty(www.error))
         {

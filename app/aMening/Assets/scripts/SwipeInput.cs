@@ -30,12 +30,16 @@ public class SwipeInput : MonoBehaviour
     public float flyTorque = 1000;
     public float timeToDestoryQuestion = 1;
     private LoadQuestion questionLoader;
+    public float NormalTextMargin = 65;
+    public float SelectedTextMargin = 30;
     public float Split
     {
         get { return split; }
         set
         {
             split = Mathf.Clamp(value, 0, 1);
+            if (questionLoader.lastQuestion == null) return;
+            //split
             if (!questionLoader.lastQuestion.fullPicture)
             {
                 splitImageInstance.material.SetFloat("_Split", Split);
@@ -76,10 +80,15 @@ public class SwipeInput : MonoBehaviour
             c = rightText.color;
             c.a = (1 - Split) * 2;
             rightText.color = c;
+
+            leftText.rectTransform.offsetMin = -(leftText.rectTransform.offsetMax = new Vector2(leftText.rectTransform.offsetMax.x, -Mathf.Lerp(SelectedTextMargin, NormalTextMargin, (1 - Split) * 2)));
+            rightText.rectTransform.offsetMin = -(rightText.rectTransform.offsetMax = new Vector2(rightText.rectTransform.offsetMax.x, -Mathf.Lerp(SelectedTextMargin, NormalTextMargin, Split * 2)));
+
         }
     }
 
-    public Image NewInstance() {
+    public Image NewInstance()
+    {
         Image inst = Instantiate(splitImage);
         inst.rectTransform.SetParent(ImageContainer);
         inst.rectTransform.anchorMin = Vector2.zero;
@@ -97,19 +106,23 @@ public class SwipeInput : MonoBehaviour
         splitImageInstance = inst;
         return inst;
     }
-    void Start()
+    void OnEnable()
     {
         questionLoader = FindObjectOfType<LoadQuestion>();
-
-        for (int i = 0; i < ImageContainer.childCount; i++)
+        
+        for (int i = 0; i < ImageContainer.childCount && !selected; i++)
         {
             Destroy(ImageContainer.GetChild(i).gameObject);
         }
 
         NewInstance();
-        questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material);
+        if (!questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material))
+        {
+            Destroy(splitImageInstance.gameObject);
+        }
         questionLoader.SetTitle();
         Split = 0.5f;
+
     }
     void Update()
     {
@@ -119,8 +132,8 @@ public class SwipeInput : MonoBehaviour
             Split += Input.touches[0].deltaPosition.x / ImageContainer.rect.size.x * swipeSpeedMultiplier;
         }
         else
-        { 
-            float delta = Mathf.Abs(Split - 0.5f) ;
+        {
+            float delta = Mathf.Abs(Split - 0.5f);
             if (delta < 0.5f - snapSplit)
             {
                 delta *= tweenMultipier;
@@ -153,7 +166,7 @@ public class SwipeInput : MonoBehaviour
             }
         }
 
-        
+
     }
     IEnumerator Select()
     {
@@ -164,7 +177,7 @@ public class SwipeInput : MonoBehaviour
 
         if (Split > 0.5f)
         {
-            rb.AddForce(Vector2.right * flyForce/ ImageContainer.rect.size.x);
+            rb.AddForce(Vector2.right * flyForce / ImageContainer.rect.size.x);
             rb.AddTorque(flyTorque);
         }
         else
@@ -175,7 +188,10 @@ public class SwipeInput : MonoBehaviour
 
         NewInstance();
 
-        questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material);
+        if (!questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material))
+        {
+            Destroy(splitImageInstance.gameObject);
+        }
         Split = 0.5f;
         Color c;
         while (time < 1)

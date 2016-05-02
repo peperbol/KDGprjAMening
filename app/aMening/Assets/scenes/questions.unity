@@ -320,7 +320,6 @@ GameObject:
   m_Component:
   - 224: {fileID: 432979106}
   - 222: {fileID: 432979108}
-  - 114: {fileID: 432979107}
   m_Layer: 5
   m_Name: overlay
   m_TagString: Untagged
@@ -347,33 +346,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0000019073486, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &432979107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 432979105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.972549, g: 0.96862745, b: 0.96862745, a: 0}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
 --- !u!222 &432979108
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -995,6 +967,7 @@ GameObject:
   - 4: {fileID: 1427909844}
   - 114: {fileID: 1427909843}
   - 114: {fileID: 1427909842}
+  - 114: {fileID: 1427909845}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -1016,11 +989,7 @@ MonoBehaviour:
   questionText: {fileID: 369741067}
   projectText: {fileID: 1887855927}
   Image: {fileID: 2100000, guid: 808e4d5b917bdf947ac7124e835d9c0d, type: 2}
-  ids:
-  - 1
-  - 2
-  - 3
-  - 4
+  ids: []
 --- !u!114 &1427909843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1036,11 +1005,11 @@ MonoBehaviour:
   ImageContainer: {fileID: 1109709058}
   splitImage: {fileID: 11446518, guid: 9e631ce5769cdfc49b06e781feed77f1, type: 2}
   splitMaterial: {fileID: 2100000, guid: 808e4d5b917bdf947ac7124e835d9c0d, type: 2}
-  overlay: {fileID: 0}
+  overlay: {fileID: 432979105}
   snapSplit: 0.2
   confirmSplit: 0.005
   confirmColorSplit: 0.4
-  swipeSpeedMultiplier: 4
+  swipeSpeedMultiplier: 3
   timeToSelect: 0.4
   normalColorText: {r: 1, g: 1, b: 1, a: 1}
   confirmColorText: {r: 0.6666667, g: 0.79607844, b: 0.34117648, a: 1}
@@ -1049,6 +1018,8 @@ MonoBehaviour:
   flyForce: 50000000
   flyTorque: -30
   timeToDestoryQuestion: 1
+  NormalTextMargin: 65
+  SelectedTextMargin: 35
 --- !u!4 &1427909844
 Transform:
   m_ObjectHideFlags: 0
@@ -1061,6 +1032,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+--- !u!114 &1427909845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1427909841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da38e812fcd330f478f448edca6afdd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1592066645
 GameObject:
   m_ObjectHideFlags: 0
