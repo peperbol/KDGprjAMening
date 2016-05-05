@@ -40,14 +40,16 @@ public class Question
     public string rightText { get; private set; }
     public string phase { get; private set; }
     public bool fullPicture { get; private set; }
-    public Texture2D LeftImage { get { return LoadImage(id + "L"); } }
-    public Texture2D RightImage { get { return LoadImage(id + "R"); } }
-    public Texture2D MainImage { get { return LoadImage(id); } }
-    private Texture2D LoadImage(string name)
+    public void GetLeftImage (MonoBehaviour mb, Action<Texture2D> callback) { mb.StartCoroutine(LoadImage(id + "L", callback)); }
+    public void GetRightImage(MonoBehaviour mb, Action< Texture2D> callback) { mb.StartCoroutine(LoadImage(id + "R", callback)); }
+    public void GetMainImage (MonoBehaviour mb, Action<Texture2D> callback) { mb.StartCoroutine(LoadImage(id, callback)); }
+
+    public IEnumerator LoadImage(string name, Action<Texture2D> callback)
     {
 
-        var www = new WWW("file:///"+ ImageDirectoryPath + name + ".jpg");
-        while (!www.isDone) { };
+        var www = new WWW("file:///" + ImageDirectoryPath + name + ".jpg");
+
+        while (!www.isDone) { yield return null; }
         if (!string.IsNullOrEmpty(www.error))
         {
             Debug.LogWarning(www.error);
@@ -55,14 +57,14 @@ public class Question
         }
         Texture2D tex = new Texture2D(500, 500);
         www.LoadImageIntoTexture(tex);
-        return tex;
+        callback(tex);
     }
     public Question(string id)
     {
 
         this.id = id;
         //File.ReadAllText()
-        var www = new WWW("file:///"+FilePath);
+        var www = new WWW("file:///" + FilePath);
         while (!www.isDone) { };
         if (!string.IsNullOrEmpty(www.error))
         {

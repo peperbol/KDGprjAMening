@@ -11,10 +11,15 @@ public class SwipeInput : MonoBehaviour
     public Image splitImage;
     public Material splitMaterial;
     private Image splitImageInstance;
+    private Image nextSplitImageInstance;
     private LayoutElement left;
+    private LayoutElement nextLeft;
     private LayoutElement right;
+    private LayoutElement nextRight;
     private Text leftText;
     private Text rightText;
+    private Text nextLeftText;
+    private Text nextRightText;
     public GameObject overlay;
     public float snapSplit = 0.15f;
     public float confirmSplit = 0.005f;
@@ -32,6 +37,17 @@ public class SwipeInput : MonoBehaviour
     private LoadQuestion questionLoader;
     public float NormalTextMargin = 65;
     public float SelectedTextMargin = 30;
+    private bool waitingForMore;
+    public bool WaitingForMore {
+        get
+        {
+            return waitingForMore;
+        }
+        set
+        {
+
+        }
+    }
     public float Split
     {
         get { return split; }
@@ -46,7 +62,6 @@ public class SwipeInput : MonoBehaviour
             }
             else
             {
-
                 splitImageInstance.material.SetFloat("_Split", 1);
             }
             Color c;
@@ -99,28 +114,46 @@ public class SwipeInput : MonoBehaviour
         inst.rectTransform.SetAsFirstSibling();
 
         inst.material = new Material(splitMaterial);
-        leftText = inst.GetComponentsInChildren<Text>().First(e => e.tag == "Left");
-        rightText = inst.GetComponentsInChildren<Text>().First(e => e.tag == "Right");
-        left = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Left");
-        right = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Right");
-        splitImageInstance = inst;
+
+        leftText = nextLeftText;
+        rightText = nextRightText;
+        left = nextLeft;
+        right = nextRight;
+        splitImageInstance = nextSplitImageInstance;
+
+        nextLeftText = inst.GetComponentsInChildren<Text>().First(e => e.tag == "Left");
+        nextRightText = inst.GetComponentsInChildren<Text>().First(e => e.tag == "Right");
+        nextLeft = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Left");
+        nextRight = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Right");
+        nextSplitImageInstance = inst;
         return inst;
     }
-    void OnEnable()
+    void Awake()
     {
         questionLoader = FindObjectOfType<LoadQuestion>();
-        
+
         for (int i = 0; i < ImageContainer.childCount && !selected; i++)
         {
             Destroy(ImageContainer.GetChild(i).gameObject);
         }
+    }
+    void OnEnable()
+    {
+        NewInstance();
+        
+        questionLoader.SetTitle();
+        if (!questionLoader.NextQuestion(nextLeftText, nextRightText, nextSplitImageInstance.material))
+        {
+            Destroy(nextSplitImageInstance.gameObject);
+        }
 
         NewInstance();
-        if (!questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material))
-        {
-            Destroy(splitImageInstance.gameObject);
-        }
         questionLoader.SetTitle();
+        if (!questionLoader.NextQuestion(nextLeftText, nextRightText, nextSplitImageInstance.material))
+        {
+            Destroy(nextSplitImageInstance.gameObject);
+        }
+        //questionLoader.SetTitle();
         Split = 0.5f;
 
     }

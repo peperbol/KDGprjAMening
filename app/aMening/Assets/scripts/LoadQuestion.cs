@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class LoadQuestion : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class LoadQuestion : MonoBehaviour
     {
         ids.Add(id);
         si.enabled = true;
-    }
+        }
     public void Answer(bool isLeft)
     {
 
@@ -37,7 +38,7 @@ public class LoadQuestion : MonoBehaviour
             }
             catch (System.IO.FileNotFoundException) { Debug.LogWarning("Did not find file of id " + id); }
         }
-         ids.Clear();
+        ids.Clear();
     }
     void loadscreen()
     {
@@ -53,16 +54,20 @@ public class LoadQuestion : MonoBehaviour
             return false;
         }
         lastQuestion = questions.Dequeue();
+        Debug.Log(questions.Count);
         left.text = lastQuestion.leftText;
         right.text = lastQuestion.rightText;
         if (lastQuestion.fullPicture)
         {
-            mat.SetTexture("_MainTex1", lastQuestion.MainImage);
+            mat.SetTexture("_MainTex1", Texture2D.whiteTexture);
+            lastQuestion.GetMainImage(this, e => mat.SetTexture("_MainTex1", e));
         }
         else
         {
-            mat.SetTexture("_MainTex1", lastQuestion.LeftImage);
-            mat.SetTexture("_MainTex2", lastQuestion.RightImage);
+            mat.SetTexture("_MainTex1", Texture2D.whiteTexture);
+            mat.SetTexture("_MainTex2", Texture2D.whiteTexture);
+            lastQuestion.GetLeftImage( this, e=> mat.SetTexture("_MainTex1", e) );
+            lastQuestion.GetRightImage(this, e => mat.SetTexture("_MainTex2", e));
         }
         return true;
     }
