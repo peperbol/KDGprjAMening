@@ -55,9 +55,7 @@ public class Question
             Debug.LogWarning(www.error);
             throw new FileNotFoundException();
         }
-        Texture2D tex = new Texture2D(500, 500);
-        www.LoadImageIntoTexture(tex);
-        callback(tex);
+        callback(www.textureNonReadable);
     }
     public Question(string id)
     {

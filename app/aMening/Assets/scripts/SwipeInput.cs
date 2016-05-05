@@ -42,13 +42,20 @@ public class SwipeInput : MonoBehaviour
             return (i != splitImageInstance.Length);
         }
     }
+    public bool HasQuestions
+    {
+        get
+        {
+            return question[0] != null;
+        }
+    }
     public float Split
     {
         get { return split; }
         set
         {
             split = Mathf.Clamp(value, 0, 1);
-            if (question[0] == null) return;
+            if (!HasQuestions) return;
             //split
             if (!question[0].fullPicture)
             {
@@ -100,7 +107,7 @@ public class SwipeInput : MonoBehaviour
         {
             NewInstance();
         }
-        if (!selected) questionLoader.SetTitle(question[0]);
+        questionLoader.SetTitle(question[0]);
     }
     public void Next()
     {
@@ -173,7 +180,7 @@ public class SwipeInput : MonoBehaviour
     }
     void Update()
     {
-        if (selected ||  (question[0] == null)) return;
+        if (selected ||  !HasQuestions) return;
         if (Input.touchCount > 0)
         {
             Split += Input.touches[0].deltaPosition.x / ImageContainer.rect.size.x * swipeSpeedMultiplier;
@@ -247,7 +254,11 @@ public class SwipeInput : MonoBehaviour
             yield return null;
         }
         questionLoader.SetTitle(question[0]);
-
+        while (!HasQuestions)
+        {
+            yield return null;
+        }
+        questionLoader.SetTitle(question[0]);
         while (time > 0)
         {
             time -= Time.deltaTime / timeToSelect * 2;
@@ -260,8 +271,6 @@ public class SwipeInput : MonoBehaviour
             }
             yield return null;
         }
-
-        questionLoader.SetTitle(question[0]);
         selected = false;
         yield return new WaitForSeconds(timeToDestoryQuestion);
         Destroy(rb.gameObject);
