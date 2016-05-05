@@ -13,7 +13,6 @@ public class LoadQuestion : MonoBehaviour
     public Queue<Question> questions = new Queue<Question>();
     public Material Image;
     public List<string> ids;
-    public Question lastQuestion;
     SwipeInput si;
     void Awake()
     {
@@ -21,9 +20,10 @@ public class LoadQuestion : MonoBehaviour
     }
     public void Add(string id)
     {
+        Debug.Log("new");
         ids.Add(id);
-        si.enabled = true;
-        }
+        si.fillQueue();
+    }
     public void Answer(bool isLeft)
     {
 
@@ -40,21 +40,18 @@ public class LoadQuestion : MonoBehaviour
         }
         ids.Clear();
     }
-    void loadscreen()
+    public bool IsQuestionAvailable { get {
+            if (questions.Count <= 0) QueueIds();
+            return questions.Count > 0;
+        } }
+    public Question NextQuestion(Text left, Text right, Material mat)
     {
-        lastQuestion = null;
-        si.enabled = false;
-    }
-    public bool NextQuestion(Text left, Text right, Material mat)
-    {
-        if (questions.Count <= 0) QueueIds();
-        if (questions.Count <= 0)
+        if (!IsQuestionAvailable)
         {
-            loadscreen();
-            return false;
+            return null;
         }
-        lastQuestion = questions.Dequeue();
-        Debug.Log(questions.Count);
+        Question lastQuestion = questions.Dequeue();
+
         left.text = lastQuestion.leftText;
         right.text = lastQuestion.rightText;
         if (lastQuestion.fullPicture)
@@ -69,14 +66,14 @@ public class LoadQuestion : MonoBehaviour
             lastQuestion.GetLeftImage( this, e=> mat.SetTexture("_MainTex1", e) );
             lastQuestion.GetRightImage(this, e => mat.SetTexture("_MainTex2", e));
         }
-        return true;
+        return lastQuestion;
     }
-    public void SetTitle()
+    public void SetTitle(Question q)
     {
-        if (lastQuestion != null)
+        if (q != null)
         {
-            questionText.text = lastQuestion.questionText;
-            projectText.text = lastQuestion.projectText.ToUpper();
+            questionText.text = q.questionText;
+            projectText.text = q.projectText.ToUpper();
         }
         else
         {

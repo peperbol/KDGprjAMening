@@ -10,16 +10,12 @@ public class SwipeInput : MonoBehaviour
     public RectTransform ImageContainer;
     public Image splitImage;
     public Material splitMaterial;
-    private Image splitImageInstance;
-    private Image nextSplitImageInstance;
-    private LayoutElement left;
-    private LayoutElement nextLeft;
-    private LayoutElement right;
-    private LayoutElement nextRight;
-    private Text leftText;
-    private Text rightText;
-    private Text nextLeftText;
-    private Text nextRightText;
+    private Image[] splitImageInstance;
+    private LayoutElement[] left;
+    private LayoutElement[] right;
+    private Text[] leftText;
+    private Text[] rightText;
+    private Question[] question;
     public GameObject overlay;
     public float snapSplit = 0.15f;
     public float confirmSplit = 0.005f;
@@ -37,15 +33,13 @@ public class SwipeInput : MonoBehaviour
     private LoadQuestion questionLoader;
     public float NormalTextMargin = 65;
     public float SelectedTextMargin = 30;
-    private bool waitingForMore;
-    public bool WaitingForMore {
+    public bool WaitingForMore
+    {
         get
         {
-            return waitingForMore;
-        }
-        set
-        {
-
+            int i;
+            for (i = 0; i < splitImageInstance.Length && splitImageInstance[i] != null; i++) { }
+            return (i != splitImageInstance.Length);
         }
     }
     public float Split
@@ -54,15 +48,15 @@ public class SwipeInput : MonoBehaviour
         set
         {
             split = Mathf.Clamp(value, 0, 1);
-            if (questionLoader.lastQuestion == null) return;
+            if (question[0] == null) return;
             //split
-            if (!questionLoader.lastQuestion.fullPicture)
+            if (!question[0].fullPicture)
             {
-                splitImageInstance.material.SetFloat("_Split", Split);
+                splitImageInstance[0].material.SetFloat("_Split", Split);
             }
             else
             {
-                splitImageInstance.material.SetFloat("_Split", 1);
+                splitImageInstance[0].material.SetFloat("_Split", 1);
             }
             Color c;
             //base color
@@ -73,36 +67,67 @@ public class SwipeInput : MonoBehaviour
                 Color cBorder = Color.Lerp(confirmColorBorder, normalColorBorder, delta / confirmColorSplit);
                 if (Split < 0.5f)
                 {
-                    rightText.color = c;
-                    rightText.GetComponent<Outline>().effectColor = cBorder;
+                    rightText[0].color = c;
+                    rightText[0].GetComponent<Outline>().effectColor = cBorder;
                 }
                 else
                 {
-                    leftText.color = c;
-                    leftText.GetComponent<Outline>().effectColor = cBorder;
+                    leftText[0].color = c;
+                    leftText[0].GetComponent<Outline>().effectColor = cBorder;
                 }
             }
             else
             {
-                leftText.color = rightText.color = normalColorText;
+                leftText[0].color = rightText[0].color = normalColorText;
             }
             //alpha
-            left.flexibleWidth = Split * 1000;
-            right.flexibleWidth = (1 - Split) * 1000;
-            c = leftText.color;
+            left[0].flexibleWidth = Split * 1000;
+            right[0].flexibleWidth = (1 - Split) * 1000;
+            c = leftText[0].color;
             c.a = Split * 2;
-            leftText.color = c;
-            c = rightText.color;
+            leftText[0].color = c;
+            c = rightText[0].color;
             c.a = (1 - Split) * 2;
-            rightText.color = c;
+            rightText[0].color = c;
 
-            leftText.rectTransform.offsetMin = -(leftText.rectTransform.offsetMax = new Vector2(leftText.rectTransform.offsetMax.x, -Mathf.Lerp(SelectedTextMargin, NormalTextMargin, (1 - Split) * 2)));
-            rightText.rectTransform.offsetMin = -(rightText.rectTransform.offsetMax = new Vector2(rightText.rectTransform.offsetMax.x, -Mathf.Lerp(SelectedTextMargin, NormalTextMargin, Split * 2)));
+            leftText[0].rectTransform.offsetMin = -(leftText[0].rectTransform.offsetMax = new Vector2(leftText[0].rectTransform.offsetMax.x, -Mathf.Lerp(SelectedTextMargin, NormalTextMargin, (1 - Split) * 2)));
+            rightText[0].rectTransform.offsetMin = -(rightText[0].rectTransform.offsetMax = new Vector2(rightText[0].rectTransform.offsetMax.x, -Mathf.Lerp(SelectedTextMargin, NormalTextMargin, Split * 2)));
 
         }
     }
+    public void fillQueue() {
+        while (WaitingForMore && questionLoader.IsQuestionAvailable)
+        {
+            NewInstance();
+        }
+        if (!selected) questionLoader.SetTitle(question[0]);
+    }
+    public void Next()
+    {
+        MoveQueue();
+        fillQueue();
+        Split = 0.5f;
+    }
+    private void MoveQueue()
+    {
 
-    public Image NewInstance()
+        for (int j = 0; j < splitImageInstance.Length - 1; j++)
+        {
+            leftText[j] = leftText[j + 1];
+            rightText[j] = rightText[j + 1];
+            left[j] = left[j + 1];
+            right[j] = right[j + 1];
+            splitImageInstance[j] = splitImageInstance[j + 1];
+            question[j] = question[j + 1];
+        }
+        leftText[splitImageInstance.Length - 1] = null;
+        rightText[splitImageInstance.Length - 1] = null;
+        left[splitImageInstance.Length - 1] = null;
+        right[splitImageInstance.Length - 1] = null;
+        splitImageInstance[splitImageInstance.Length - 1] = null;
+        question[splitImageInstance.Length - 1] = null;
+    }
+    private int NewInstance()
     {
         Image inst = Instantiate(splitImage);
         inst.rectTransform.SetParent(ImageContainer);
@@ -114,19 +139,20 @@ public class SwipeInput : MonoBehaviour
         inst.rectTransform.SetAsFirstSibling();
 
         inst.material = new Material(splitMaterial);
+        int i;
+        for (i = 0; i < splitImageInstance.Length && splitImageInstance[i] != null; i++) { }
+        if (i == splitImageInstance.Length)
+        {
+            return i;
+        }
 
-        leftText = nextLeftText;
-        rightText = nextRightText;
-        left = nextLeft;
-        right = nextRight;
-        splitImageInstance = nextSplitImageInstance;
-
-        nextLeftText = inst.GetComponentsInChildren<Text>().First(e => e.tag == "Left");
-        nextRightText = inst.GetComponentsInChildren<Text>().First(e => e.tag == "Right");
-        nextLeft = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Left");
-        nextRight = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Right");
-        nextSplitImageInstance = inst;
-        return inst;
+        leftText[i] = inst.GetComponentsInChildren<Text>().First(e => e.tag == "Left");
+        rightText[i] = inst.GetComponentsInChildren<Text>().First(e => e.tag == "Right");
+        left[i] = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Left");
+        right[i] = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Right");
+        splitImageInstance[i] = inst;
+        question[i] = questionLoader.NextQuestion(leftText[i], rightText[i], splitImageInstance[i].material);
+        return i;
     }
     void Awake()
     {
@@ -136,30 +162,18 @@ public class SwipeInput : MonoBehaviour
         {
             Destroy(ImageContainer.GetChild(i).gameObject);
         }
-    }
-    void OnEnable()
-    {
-        NewInstance();
-        
-        questionLoader.SetTitle();
-        if (!questionLoader.NextQuestion(nextLeftText, nextRightText, nextSplitImageInstance.material))
-        {
-            Destroy(nextSplitImageInstance.gameObject);
-        }
-
-        NewInstance();
-        questionLoader.SetTitle();
-        if (!questionLoader.NextQuestion(nextLeftText, nextRightText, nextSplitImageInstance.material))
-        {
-            Destroy(nextSplitImageInstance.gameObject);
-        }
-        //questionLoader.SetTitle();
-        Split = 0.5f;
-
+        int buffer = 2;
+        splitImageInstance = new Image[buffer];
+        leftText = new Text[buffer];
+        rightText = new Text[buffer];
+        left = new LayoutElement[buffer];
+        right = new LayoutElement[buffer];
+        question = new Question[buffer];
+        fillQueue();
     }
     void Update()
     {
-        if (selected) return;
+        if (selected ||  (question[0] == null)) return;
         if (Input.touchCount > 0)
         {
             Split += Input.touches[0].deltaPosition.x / ImageContainer.rect.size.x * swipeSpeedMultiplier;
@@ -206,7 +220,7 @@ public class SwipeInput : MonoBehaviour
         selected = true;
         float time = 0;
 
-        Rigidbody2D rb = splitImageInstance.gameObject.AddComponent<Rigidbody2D>();
+        Rigidbody2D rb = splitImageInstance[0].gameObject.AddComponent<Rigidbody2D>();
 
         if (Split > 0.5f)
         {
@@ -219,13 +233,7 @@ public class SwipeInput : MonoBehaviour
             rb.AddTorque(-flyTorque);
         }
 
-        NewInstance();
-
-        if (!questionLoader.NextQuestion(leftText, rightText, splitImageInstance.material))
-        {
-            Destroy(splitImageInstance.gameObject);
-        }
-        Split = 0.5f;
+        Next();
         Color c;
         while (time < 1)
         {
@@ -238,7 +246,7 @@ public class SwipeInput : MonoBehaviour
             }
             yield return null;
         }
-        questionLoader.SetTitle();
+        questionLoader.SetTitle(question[0]);
 
         while (time > 0)
         {
@@ -252,6 +260,8 @@ public class SwipeInput : MonoBehaviour
             }
             yield return null;
         }
+
+        questionLoader.SetTitle(question[0]);
         selected = false;
         yield return new WaitForSeconds(timeToDestoryQuestion);
         Destroy(rb.gameObject);
