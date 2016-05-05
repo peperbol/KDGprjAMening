@@ -20,7 +20,7 @@ class Project extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id');
     }
     
     /*public function event()
@@ -40,9 +40,9 @@ class Project extends Model
     }
     */
     
-    public function projectphase()
+    public function phase()
     {
-        return $this->hasMany(Projectphase::class, 'project_id');
+        return $this->hasMany(Phase::class, 'project_id');
     }
     
     

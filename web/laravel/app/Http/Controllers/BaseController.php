@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Project;
-use App\Projectphase;
+use App\Phase;
 use App\Event;
+use App\User;
 
 use Illuminate\Http\Request;
 
@@ -42,8 +43,7 @@ class BaseController extends Controller
     //project overview
     public function getOverview() {
         $projects = Project::all();
-        $events = Event::all();
-        return view('project_overview', ["projects" => $projects, "events" => $events]);
+        return view('project_overview', ["projects" => $projects]);
     }
     
     public function getOverview2() {
@@ -64,6 +64,28 @@ class BaseController extends Controller
     }
     
     
+    public function getEditProject ($id) {
+        //$project = Project::where('id_project', $id)->get();
+        $project = Project::with('user')->find($id);
+        $user = User::where("id", $project->user_id)->get();
+        $phases = Phase::where("project_id", $id)->get();
+        $events = Event::where("project_id", $id)->get();
+        //dd($project);
+        //return view('edit_project', ['id' => $id]);
+        return view('edit_project', ['project' => $project, 'user' => $user, 'phases' => $phases, 'events' => $events]);
+    }
+    
+    public function getEditPhase ($id) {
+        $phase = Phase::where("id_phase", $id)->get();
+        return view('edit_phase', ['phase' => $phase]);
+    }
+    
+    
+    public function addPhase ($id) {
+        //de id die hier binnenkomt is de id van het project waar de fase aan moet toegevoegd worden
+        $project = Project::with('user')->find($id);
+        return view('add_phase', ['project' => $project]);
+    }
     
     
     

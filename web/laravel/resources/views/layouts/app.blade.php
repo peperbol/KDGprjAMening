@@ -5,7 +5,9 @@
 
         <!-- CSS And JavaScript -->
         
-        <link href="css/style.css" rel="stylesheet">
+        <!--<link href="css/style.css" rel="stylesheet">-->
+        <!-- moet op onderstaande manier zodat de css accessible is in alle views-->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" >
     </head>
 
     <body>
@@ -14,7 +16,7 @@
                 <!-- Navbar Contents -->
                 <ul>
                     <li><a href="{{ url('/overview') }}">Project overzicht</a></li>
-                    <li><a href="{{ url('/add') }}">Project toevoegen</a></li>
+                    <li><a href="{{ url('/add_project') }}">Project toevoegen</a></li>
                     <li><a href="{{ url('/comments') }}">Reacties</a></li>
                 </ul>
             </nav>

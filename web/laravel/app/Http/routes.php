@@ -59,18 +59,31 @@ Route::group(['middleware' => ['web']], function () {
         return view('project_overview');
     });
     */
-    Route::get('/', 'BaseController@getOverview3');
+    Route::get('/', 'BaseController@getOverview');
     
-    Route::get('/overview', 'BaseController@getOverview3');
+    //hoofdnavigatie
+    Route::get('/overview', 'BaseController@getOverview');
     
-    
-    Route::get('/add', function () {
+    Route::get('/add_project', function () {
         return view('add_project');
     });
     
     Route::get('/comments', function () {
         return view('comments');
     });
+    
+    
+    //extra
+    //als deze hieronder werkt, werkt die daaronder dan nog??, maar deze werkt niet, want hij vindt de route niet..., hij vindt alleen de laatste...
+    Route::get('/add_phase/{id}', ['as' => 'add_phase', 'uses' => 'BaseController@addPhase']);
+    
+    
+    
+    //project bewerken (aangeklikt vanaf project overview)
+    Route::get('/edit_project/{id}', ['as' => 'edit_project', 'uses' => 'BaseController@getEditProject']);
+    
+    
+    
     
 
     /**
