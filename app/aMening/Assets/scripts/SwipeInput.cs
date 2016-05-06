@@ -6,7 +6,8 @@ using System.Linq;
 public class SwipeInput : MonoBehaviour
 {
     public float tweenMultipier;
-    float split = 0.5f;
+    public float VelocityFalloff = 0.01f;
+    private float split = 0.5f;
     public RectTransform ImageContainer;
     public Image splitImage;
     public Material splitMaterial;
@@ -17,7 +18,9 @@ public class SwipeInput : MonoBehaviour
     private Text[] rightText;
     private Question[] question;
     public GameObject overlay;
-    public float snapSplit = 0.15f;
+    protected Vector2 fingerVelocity;
+    public float gravity = 1;
+    public float maxVelocity;
     public float confirmSplit = 0.005f;
     public float confirmColorSplit = 0.15f;
     public float swipeSpeedMultiplier = 2;
@@ -65,6 +68,7 @@ public class SwipeInput : MonoBehaviour
             {
                 splitImageInstance[0].material.SetFloat("_Split", 1);
             }
+            splitImageInstance[0].enabled = true;
             Color c;
             //base color
             float delta = 0.5f - Mathf.Abs(Split - 0.5f);
@@ -102,7 +106,8 @@ public class SwipeInput : MonoBehaviour
 
         }
     }
-    public void fillQueue() {
+    public void fillQueue()
+    {
         while (WaitingForMore && questionLoader.IsQuestionAvailable)
         {
             NewInstance();
@@ -177,43 +182,29 @@ public class SwipeInput : MonoBehaviour
         right = new LayoutElement[buffer];
         question = new Question[buffer];
         fillQueue();
+        Physics2D.gravity = new Vector2(0, -gravity * Screen.width);
     }
     void Update()
     {
-        if (selected ||  !HasQuestions) return;
+        if (selected || !HasQuestions) return;
         if (Input.touchCount > 0)
         {
-            Split += Input.touches[0].deltaPosition.x / ImageContainer.rect.size.x * swipeSpeedMultiplier;
+            if (Input.touches[0].phase != TouchPhase.Moved) return;
+
+            Split += Input.touches[0].deltaPosition.x / Screen.width / Input.touches[0].deltaTime * Time.deltaTime;
+            fingerVelocity = Input.touches[0].deltaPosition / Input.touches[0].deltaTime ;
+
         }
         else
         {
-            float delta = Mathf.Abs(Split - 0.5f);
-            if (delta < 0.5f - snapSplit)
-            {
-                delta *= tweenMultipier;
-                if (Split > 0.5f)
-                {
-                    Split -= delta;
-                }
-                else
-                {
-                    Split += delta;
-                }
-            }
-            else if (delta < 0.5f - confirmSplit)
-            {
+            float delta = Split - 0.5f;
+            fingerVelocity *= 1 - VelocityFalloff;
+            fingerVelocity.x -= delta * tweenMultipier * Screen.width;
+            Split += fingerVelocity.x * Time.deltaTime / Screen.width;
 
-                delta *= 0.5f - tweenMultipier;
-                if (Split > 0.5f)
-                {
-                    Split += delta;
-                }
-                else
-                {
-                    Split -= delta;
-                }
-            }
-            else
+            delta = Mathf.Abs(Split - 0.5f);
+
+            if (delta > 0.5f - confirmSplit)
             {
                 Split = Mathf.Round(Split);
                 StartCoroutine(Select());
@@ -226,9 +217,8 @@ public class SwipeInput : MonoBehaviour
     {
         selected = true;
         float time = 0;
-
         Rigidbody2D rb = splitImageInstance[0].gameObject.AddComponent<Rigidbody2D>();
-
+        /*
         if (Split > 0.5f)
         {
             rb.AddForce(Vector2.right * flyForce / ImageContainer.rect.size.x);
@@ -238,7 +228,9 @@ public class SwipeInput : MonoBehaviour
         {
             rb.AddForce(Vector2.left * flyForce / ImageContainer.rect.size.x);
             rb.AddTorque(-flyTorque);
-        }
+        }*/
+        rb.velocity = Vector2.ClampMagnitude(fingerVelocity / 2, maxVelocity* Screen.width); ;
+        fingerVelocity = Vector2.zero;
 
         Next();
         Color c;

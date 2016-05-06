@@ -12,6 +12,7 @@ public class LoadQuestion : MonoBehaviour
     public Text projectText;
     public Queue<Question> questions = new Queue<Question>();
     public Material Image;
+    public OverlaySlider loadingScreen;
     public List<string> ids;
     SwipeInput si;
     void Awake()
@@ -20,7 +21,7 @@ public class LoadQuestion : MonoBehaviour
     }
     public void Add(string id)
     {
-        Debug.Log("new");
+
         ids.Add(id);
         si.fillQueue();
     }
@@ -57,14 +58,20 @@ public class LoadQuestion : MonoBehaviour
         if (lastQuestion.fullPicture)
         {
             mat.SetTexture("_MainTex1", Texture2D.whiteTexture);
-            lastQuestion.GetMainImage(this, e => mat.SetTexture("_MainTex1", e));
+            lastQuestion.GetMainImage(this, e => {
+                mat.SetTexture("_MainTex1", e);
+                loadingScreen.visisble = false;
+                });
         }
         else
         {
             mat.SetTexture("_MainTex1", Texture2D.whiteTexture);
             mat.SetTexture("_MainTex2", Texture2D.whiteTexture);
             lastQuestion.GetLeftImage( this, e=> mat.SetTexture("_MainTex1", e) );
-            lastQuestion.GetRightImage(this, e => mat.SetTexture("_MainTex2", e));
+            lastQuestion.GetRightImage(this, e => {
+                mat.SetTexture("_MainTex2", e);
+                loadingScreen.visisble = false;
+            });
         }
         return lastQuestion;
     }
