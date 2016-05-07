@@ -15,6 +15,7 @@ public class LoadQuestion : MonoBehaviour
     public OverlaySlider loadingScreen;
     public List<string> ids;
     SwipeInput si;
+    
     void Awake()
     {
         si = FindObjectOfType<SwipeInput>();
@@ -39,6 +40,7 @@ public class LoadQuestion : MonoBehaviour
             }
             catch (System.IO.FileNotFoundException) { Debug.LogWarning("Did not find file of id " + id); }
         }
+
         ids.Clear();
     }
     public bool IsQuestionAvailable { get {

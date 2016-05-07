@@ -66,9 +66,11 @@
     <Compile Include="Assets\scripts\DownloadQuestions.cs" />
     <Compile Include="Assets\scripts\JSONObject.cs" />
     <Compile Include="Assets\scripts\LoadQuestion.cs" />
+    <Compile Include="Assets\scripts\OpenUrl.cs" />
     <Compile Include="Assets\scripts\OverlaySlider.cs" />
     <Compile Include="Assets\scripts\Question.cs" />
     <Compile Include="Assets\scripts\SetAspectRatio.cs" />
+    <Compile Include="Assets\scripts\SetSettings.cs" />
     <Compile Include="Assets\scripts\SwipeInput.cs" />
   </ItemGroup>
   <ItemGroup>
