@@ -73,9 +73,10 @@ Route::group(['middleware' => ['web']], function () {
     });
     
     
-    //extra
-    //als deze hieronder werkt, werkt die daaronder dan nog??, maar deze werkt niet, want hij vindt de route niet..., hij vindt alleen de laatste...
+    //add views
     Route::get('/add_phase/{id}', ['as' => 'add_phase', 'uses' => 'BaseController@addPhase']);
+    
+    Route::get('/add_event/{id}', ['as' => 'add_event', 'uses' => 'BaseController@addEvent']);
     
     
     
@@ -83,7 +84,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/edit_project/{id}', ['as' => 'edit_project', 'uses' => 'BaseController@getEditProject']);
     
     
+    //toevoegen uitvoeren (dus als er op de submit button geklikt wordt)
+    Route::post('/new_project', 'BaseController@storeNewProject');
     
+    Route::post('/new_phase', 'BaseController@storeNewPhase');
+    
+    Route::post('/new_event', 'BaseController@storeNewEvent');
     
 
     /**

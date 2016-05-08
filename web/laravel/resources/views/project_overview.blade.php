@@ -29,7 +29,6 @@
            @foreach ($projects as $project)
                <li>
                    <span>{{ $project->name }}</span>
-                   <a href="{{ url('/edit_project') }}">xxx</a>
                    {{--<a href="{{ URL::route('/testje', $project->id_project) }}"> {{ $project->id_project }}</a>--}}
                    <a href="{{ route('edit_project', [$project->id_project]) }}">Bewerken</a>
                    <a href="{{ url('/overview') }}">results</a>

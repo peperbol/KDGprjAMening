@@ -3,10 +3,10 @@
 @section('content')
    
    <div class="temp_content">
-      <h1>Fase toevoegen aan {{ $project->name }}</h1>
+      <h1>Event toevoegen aan {{ $project->name }}</h1>
        
        
-       <form action="{{ url('new_phase') }}" method="POST" >
+       <form action="{{ url('new_event') }}" method="POST" >
            {{ csrf_field() }}
            <div>
                <label for="name">Naam:</label>
@@ -19,13 +19,15 @@
            </div>
            
            <div>
-               <label for="enddate">Einddatum:</label>
-               <input id="enddate" name="enddate" type="date" required>
+               <label for="startdate">Startdatum:</label>
+               <input id="startdate" name="startdate" type="date" required>
+               <input id="starttime" name="starttime" type="time" required>
            </div>
            
            <div>
-               <label for="order">Volgorde:</label>
-               <input id="order" name="order" type="number">
+               <label for="enddate">Einddatum:</label>
+               <input id="enddate" name="enddate" type="date" required>
+               <input id="endtime" name="endtime" type="time" required>
            </div>
            
            <div>

@@ -41,10 +41,11 @@
        </form>
        
        {{ $phases }}
-       
+       {{ $events }}
        
        <div>
            <a href="{{ route('add_phase', [$project->id_project]) }}">Fase toevoegen</a>
+           <a href="{{ route('add_event', [$project->id_project]) }}">Event toevoegen</a>
        </div>
        
        
