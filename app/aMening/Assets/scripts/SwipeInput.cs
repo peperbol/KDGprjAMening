@@ -218,20 +218,11 @@ public class SwipeInput : MonoBehaviour
         selected = true;
         float time = 0;
         Rigidbody2D rb = splitImageInstance[0].gameObject.AddComponent<Rigidbody2D>();
-        /*
-        if (Split > 0.5f)
-        {
-            rb.AddForce(Vector2.right * flyForce / ImageContainer.rect.size.x);
-            rb.AddTorque(flyTorque);
-        }
-        else
-        {
-            rb.AddForce(Vector2.left * flyForce / ImageContainer.rect.size.x);
-            rb.AddTorque(-flyTorque);
-        }*/
+
         rb.velocity = Vector2.ClampMagnitude(fingerVelocity / 2, maxVelocity* Screen.width); ;
         fingerVelocity = Vector2.zero;
 
+        questionLoader.Answer(question[0], Split < 0.5f);
         Next();
         Color c;
         while (time < 1)

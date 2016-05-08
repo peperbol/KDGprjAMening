@@ -5,33 +5,7 @@ using System;
 
 public class Question
 {
-    private const string imageDirectoryPath = "/Questions/Images/";
-    private const string fileDirectoryPath = "/Questions/";
-    public static string ImageDirectoryPath
-    {
-        get
-        {
-            /*
-            if (Application.isMobilePlatform)
-                return "jar:file://" + Application.dataPath + "!/assets/" + imageDirectoryPath;
-            else
-                return "file:///" + Application.dataPath + "/StreamingAssets/" + imageDirectoryPath;*/
-            return Application.persistentDataPath + imageDirectoryPath;
-        }
-    }
-    public static string FileDirectoryPath
-    {
-        get
-        {
-            /*
-            if (Application.isMobilePlatform)
-                return "jar:file://" + Application.dataPath + "!/assets/" + fileDirectoryPath;
-            else
-                return "file:///" + Application.dataPath + "/StreamingAssets/" + fileDirectoryPath;*/
-            return Application.persistentDataPath + fileDirectoryPath;
-        }
-    }
-    public string FilePath { get { return FileDirectoryPath + id + ".json"; } }
+    public string FilePath { get { return PathsConfig.FileDirectoryPath + id + ".json"; } }
 
     public string id { get; private set; }
     public string questionText { get; private set; }
@@ -47,7 +21,7 @@ public class Question
     public IEnumerator LoadImage(string name, Action<Texture2D> callback)
     {
 
-        var www = new WWW("file:///" + ImageDirectoryPath + name + ".jpg");
+        var www = new WWW(PathsConfig.WWWFilePrefix + PathsConfig.ImageDirectoryPath + name + ".jpg");
 
         while (!www.isDone) { yield return null; }
         if (!string.IsNullOrEmpty(www.error))
@@ -62,7 +36,7 @@ public class Question
 
         this.id = id;
         //File.ReadAllText()
-        var www = new WWW("file:///" + FilePath);
+        var www = new WWW(PathsConfig.WWWFilePrefix + FilePath);
         while (!www.isDone) { };
         if (!string.IsNullOrEmpty(www.error))
         {

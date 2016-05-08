@@ -15,7 +15,7 @@ public class LoadQuestion : MonoBehaviour
     public OverlaySlider loadingScreen;
     public List<string> ids;
     SwipeInput si;
-    
+
     void Awake()
     {
         si = FindObjectOfType<SwipeInput>();
@@ -26,9 +26,9 @@ public class LoadQuestion : MonoBehaviour
         ids.Add(id);
         si.fillQueue();
     }
-    public void Answer(bool isLeft)
+    public void Answer(Question q, bool isLeft)
     {
-
+        FindObjectOfType<ToDoHandler>().AddAnswered(q.id);
     }
     void QueueIds()
     {
@@ -43,10 +43,14 @@ public class LoadQuestion : MonoBehaviour
 
         ids.Clear();
     }
-    public bool IsQuestionAvailable { get {
+    public bool IsQuestionAvailable
+    {
+        get
+        {
             if (questions.Count <= 0) QueueIds();
             return questions.Count > 0;
-        } }
+        }
+    }
     public Question NextQuestion(Text left, Text right, Material mat)
     {
         if (!IsQuestionAvailable)
@@ -60,17 +64,19 @@ public class LoadQuestion : MonoBehaviour
         if (lastQuestion.fullPicture)
         {
             mat.SetTexture("_MainTex1", Texture2D.whiteTexture);
-            lastQuestion.GetMainImage(this, e => {
+            lastQuestion.GetMainImage(this, e =>
+            {
                 mat.SetTexture("_MainTex1", e);
                 loadingScreen.visisble = false;
-                });
+            });
         }
         else
         {
             mat.SetTexture("_MainTex1", Texture2D.whiteTexture);
             mat.SetTexture("_MainTex2", Texture2D.whiteTexture);
-            lastQuestion.GetLeftImage( this, e=> mat.SetTexture("_MainTex1", e) );
-            lastQuestion.GetRightImage(this, e => {
+            lastQuestion.GetLeftImage(this, e => mat.SetTexture("_MainTex1", e));
+            lastQuestion.GetRightImage(this, e =>
+            {
                 mat.SetTexture("_MainTex2", e);
                 loadingScreen.visisble = false;
             });
