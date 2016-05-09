@@ -19,10 +19,25 @@
                <li>{{ $event->description }} - {{ $event->get_proj_name() }}</li>
            @endforeach
        </ul>--}}
-       <ul>
+       <!--<ul>
            
-               <li><?php var_dump($projects->event[0]->name) ?></li>
+               <li><?php /*var_dump($projects->event[0]->name) */?></li>
        </ul>
+       --}}-->
+       
+       <ul>
+           @foreach ($projects as $project)
+               <li>
+                   <span>{{ $project->name }}</span>
+                   {{--<a href="{{ URL::route('/testje', $project->id_project) }}"> {{ $project->id_project }}</a>--}}
+                   <a href="{{ route('edit_project', [$project->id_project]) }}">Bewerken</a>
+                   <a href="{{ url('/overview') }}">results</a>
+                   <a href="{{ url('/overview') }}">comments</a>
+               </li>
+           @endforeach
+       </ul>
+       
+       
    </div>
    
 @endsection

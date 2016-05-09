@@ -4,7 +4,8 @@
    
    <div class="temp_content">
        Hierin komt de veranderlijke content.
-       Voor deze pagina zal dat dus een overzicht met de geplaatste reacties zijn
+       Voor deze pagina zal dat dus een overzicht met de geplaatste reacties zijn.
+       Recentste reacties op alle projecten.
    </div>
    
 @endsection

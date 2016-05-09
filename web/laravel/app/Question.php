@@ -8,9 +8,9 @@ class Question extends Model
 {
     protected $fillable = array('questiontext', 'leftlabel', 'rightlabel', 'left_picture_path', 'right_picture_path', 'project_phase_id', 'hidden');
     
-    public function projectphase()
+    public function phase()
     {
-        return $this->belongsTo(Projectphase::class);
+        return $this->belongsTo(Phase::class);
     }
     
     public function answer()

@@ -1,7 +1,22 @@
 body {
     font-family: "Calibri", sans-serif;
+    font-size: 100%;
 }
 
 .temp_content {
     background-color: #97b7b7;
 }
+
+
+/* forms */
+
+input {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+input[readonly] {
+    background-color: transparent;
+    border: none;
+}
+

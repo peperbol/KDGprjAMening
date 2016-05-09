@@ -12,6 +12,7 @@ return array(
     'CreateEventsTable' => $baseDir . '/database/migrations/2016_04_22_120017_create_events_table.php',
     'CreateGendersTable' => $baseDir . '/database/migrations/2016_04_24_160940_create_genders_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePhasesTable' => $baseDir . '/database/migrations/2016_05_05_172522_create_phases_table.php',
     'CreateProjectPhasesTable' => $baseDir . '/database/migrations/2016_04_24_145827_create_project_phases_table.php',
     'CreateProjectsTabel' => $baseDir . '/database/migrations/2016_04_22_114424_create_projects_tabel.php',
     'CreateQuestionsTable' => $baseDir . '/database/migrations/2016_04_24_150844_create_questions_table.php',

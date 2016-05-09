@@ -59,18 +59,37 @@ Route::group(['middleware' => ['web']], function () {
         return view('project_overview');
     });
     */
-    Route::get('/', 'BaseController@getOverview3');
+    Route::get('/', 'BaseController@getOverview');
     
-    Route::get('/overview', 'BaseController@getOverview3');
+    //hoofdnavigatie
+    Route::get('/overview', 'BaseController@getOverview');
     
-    
-    Route::get('/add', function () {
+    Route::get('/add_project', function () {
         return view('add_project');
     });
     
     Route::get('/comments', function () {
         return view('comments');
     });
+    
+    
+    //add views
+    Route::get('/add_phase/{id}', ['as' => 'add_phase', 'uses' => 'BaseController@addPhase']);
+    
+    Route::get('/add_event/{id}', ['as' => 'add_event', 'uses' => 'BaseController@addEvent']);
+    
+    
+    
+    //project bewerken (aangeklikt vanaf project overview)
+    Route::get('/edit_project/{id}', ['as' => 'edit_project', 'uses' => 'BaseController@getEditProject']);
+    
+    
+    //toevoegen uitvoeren (dus als er op de submit button geklikt wordt)
+    Route::post('/new_project', 'BaseController@storeNewProject');
+    
+    Route::post('/new_phase', 'BaseController@storeNewPhase');
+    
+    Route::post('/new_event', 'BaseController@storeNewEvent');
     
 
     /**
