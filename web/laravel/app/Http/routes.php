@@ -59,7 +59,11 @@ Route::group(['middleware' => ['web']], function () {
         return view('project_overview');
     });
     */
-    Route::get('/', 'BaseController@getOverview');
+    //Route::get('/', 'BaseController@getOverview');
+    
+    Route::get('/', function () {
+        return view('homepage/home');
+    });
     
     //hoofdnavigatie
     Route::get('/overview', 'BaseController@getOverview');
@@ -78,10 +82,14 @@ Route::group(['middleware' => ['web']], function () {
     
     Route::get('/add_event/{id}', ['as' => 'add_event', 'uses' => 'BaseController@addEvent']);
     
+    Route::get('/add_question/{id}', ['as' => 'add_question', 'uses' => 'BaseController@addQuestion']);
     
     
     //project bewerken (aangeklikt vanaf project overview)
     Route::get('/edit_project/{id}', ['as' => 'edit_project', 'uses' => 'BaseController@getEditProject']);
+    
+    Route::get('/edit_phase/{id}', ['as' => 'edit_phase', 'uses' => 'BaseController@getEditPhase']);
+    
     
     
     //toevoegen uitvoeren (dus als er op de submit button geklikt wordt)

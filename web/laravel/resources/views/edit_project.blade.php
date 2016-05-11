@@ -40,8 +40,17 @@
            
        </form>
        
-       {{ $phases }}
-       {{ $events }}
+       <h2>Fases</h2>
+       
+       @foreach($phases as $phase)
+           <div>
+               <span>{{ $phase->name }}</span>
+               <a href="{{ route('edit_phase', [$phase->id_project_phase]) }}">Bewerken</a>
+           </div>
+       @endforeach
+       
+       {{-- {{ $phases }} --}}
+       {{-- {{ $events }} --}}
        
        <div>
            <a href="{{ route('add_phase', [$project->id_project]) }}">Fase toevoegen</a>

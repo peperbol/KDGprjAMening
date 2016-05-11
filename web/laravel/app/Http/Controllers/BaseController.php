@@ -76,24 +76,29 @@ class BaseController extends Controller
     }
     
     public function getEditPhase ($id) {
-        $phase = Phase::where("id_phase", $id)->get();
+        $phase = Phase::where("id_project_phase", $id)->get();
         return view('edit_phase', ['phase' => $phase]);
     }
     
     
     //add views
     public function addPhase ($id) {
-        //de id die hier binnenkomt is de id van het project waar de fase aan moet toegevoegd worden
+        //the id passed to this function is the id from the project to which the phase must be added
         $project = Project::with('user')->find($id);
         return view('add_phase', ['project' => $project]);
     }
     
     public function addEvent ($id) {
-        //de id die hier binnenkomt is de id van het project waar de fase aan moet toegevoegd worden
+        //the id passed to this function is the id from the project to which the event must be added
         $project = Project::with('user')->find($id);
         return view('add_event', ['project' => $project]);
     }
     
+    public function addQuestion ($id) {
+        //the id passed to this function is the id from the project to which the event must be added
+        $phase = Phase::where("id_project_phase", $id)->get();
+        return view('add_question', ['phase' => $phase]);
+    }
     
     
     //store / insert views
@@ -115,6 +120,9 @@ class BaseController extends Controller
         //user_id moet ook meegegeven worden via de url + controller en moet hier dan worden toegekend --> moet nog gedaan worden
         $user = 1; // VOORLOPIG !!!!
         
+        //aangezien we nummer niet meer gaan gebruiken, maar het hele adres in street steken, gaan we house_number gewoon standaard op 1 zetten
+        $house_number = 1;
+        
         //op manier volgens https://laravel.com/docs/5.0/eloquent#inserting-related-models
         $project = new Project(['name' => $request->name,
                                 'description' => $request->description,
@@ -122,9 +130,9 @@ class BaseController extends Controller
                                 'hidden' => $hidden,
                                 'imagepath' => $imagepath,
                                 'street' => $request->street,
-                                'house_number' => $request->number,
-                                'latitude' => null,
-                                'longitude' => null,
+                                'house_number' => $house_number,
+                                'latitude' => $request->latitude,
+                                'longitude' => $request->longitude,
                                 'user_id' => $user
                                ]);
         
@@ -218,23 +226,6 @@ class BaseController extends Controller
     // extra functions
     
     function convertToMysqlDatetime( $date , $time ) {
-        //
-        /*
-        $new_date = str_replace('-', ',', $date);
-        $new_time = str_replace(':', ',', $time);
-        //de nul hieronder staat voor het aantal seconden
-        $datetime_comma = $new_time.',0,'.$new_date;
-        $fulldate = explode(',',$datetime_comma);
-        $h = $fulldate[0];
-        $i = $fulldate[1];
-        $s = $fulldate[2];
-        $m = $fulldate[3];
-        $d =$fulldate[4];
-        $y = $fulldate[5];
-        
-        $newdate2 = date("Y-m-d H:i:s",mktime($h,$i,$s,$m,$d,$y));
-        echo $newdate2;
-        */
         $datetime = $date . " " . $time;
         return $datetime;
     }
