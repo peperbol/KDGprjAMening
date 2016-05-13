@@ -114,7 +114,7 @@ public class SwipeInput : MonoBehaviour
 
         }
     }
-    public void fillQueue()
+    public void fillQueue(bool first)
     {
         while (WaitingForMore && questionLoader.IsQuestionAvailable)
         {
@@ -122,11 +122,12 @@ public class SwipeInput : MonoBehaviour
         }
         questionLoader.SetTitle(question[0]);
         UpdatePositions();
+        if (!first) bgm.UpdateBG();
     }
     public void Next()
     {
         MoveQueue();
-        fillQueue();
+        fillQueue(false);
         Split = 0.5f;
     }
     private void UpdatePositions()
@@ -199,9 +200,8 @@ public class SwipeInput : MonoBehaviour
         left = new LayoutElement[buffer];
         right = new LayoutElement[buffer];
         question = new Question[buffer];
-        fillQueue();
+        fillQueue(true);
         Physics2D.gravity = new Vector2(0, -gravity * Screen.width);
-        bgm.UpdateBG();
     }
     void Update()
     {
@@ -243,7 +243,6 @@ public class SwipeInput : MonoBehaviour
 
         questionLoader.Answer(question[0], Split < 0.5f);
         Next();
-        bgm.UpdateBG();
         Color c;
         while (time < 1)
         {

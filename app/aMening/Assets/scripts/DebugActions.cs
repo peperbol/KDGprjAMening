@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DebugActions : MonoBehaviour {
     public GameObject Panel;
-	
 
+    public static bool loopQuestions = false;
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -20,7 +20,12 @@ public class DebugActions : MonoBehaviour {
     }
     public void DeleteDownloadedData() {
         Directory.Delete(PathsConfig.ImageDirectoryPath, true);
-        Directory.Delete(PathsConfig.FileDirectoryPath, true);
+        Directory.Delete(PathsConfig.DocDirectoryPath, true);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void LoopQuestions()
+    {
+        loopQuestions = !loopQuestions;
     }
 }

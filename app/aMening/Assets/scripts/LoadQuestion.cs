@@ -24,11 +24,11 @@ public class LoadQuestion : MonoBehaviour
     {
 
         ids.Add(id);
-        si.fillQueue();
+        si.fillQueue(false);
     }
     public void Answer(Question q, bool isLeft)
     {
-        FindObjectOfType<ToDoHandler>().AddAnswered(q.id);
+       if(!DebugActions.loopQuestions) FindObjectOfType<ToDoHandler>().AddAnswered(q.id);
     }
     void QueueIds()
     {
@@ -41,7 +41,7 @@ public class LoadQuestion : MonoBehaviour
             catch (System.IO.FileNotFoundException) { Debug.LogWarning("Did not find file of id " + id); }
         }
 
-        ids.Clear();
+        if (!DebugActions.loopQuestions) ids.Clear();
     }
     public bool IsQuestionAvailable
     {
@@ -67,7 +67,7 @@ public class LoadQuestion : MonoBehaviour
             lastQuestion.GetMainImage(this, e =>
             {
                 mat.SetTexture("_MainTex1", e);
-                loadingScreen.visisble = false;
+                removeBootupScreen();
                 obj.SetActive(true);
             });
         }
@@ -79,11 +79,17 @@ public class LoadQuestion : MonoBehaviour
             lastQuestion.GetRightImage(this, e =>
             {
                 mat.SetTexture("_MainTex2", e);
-                loadingScreen.visisble = false;
+                removeBootupScreen();
                 obj.SetActive(true);
             });
         }
         return lastQuestion;
+    }
+    public void removeBootupScreen()
+    {
+
+        loadingScreen.visisble = false;
+
     }
     public void SetTitle(Question q)
     {
