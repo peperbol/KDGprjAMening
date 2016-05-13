@@ -26,6 +26,7 @@ public class DebugActions : MonoBehaviour {
 
     public void LoopQuestions()
     {
+        Panel.SetActive(false);
         loopQuestions = !loopQuestions;
     }
 }

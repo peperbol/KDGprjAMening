@@ -58,7 +58,6 @@ public class LoadQuestion : MonoBehaviour
             return null;
         }
         Question lastQuestion = questions.Dequeue();
-
         left.text = lastQuestion.leftText;
         right.text = lastQuestion.rightText;
         if (lastQuestion.fullPicture)
@@ -67,8 +66,8 @@ public class LoadQuestion : MonoBehaviour
             lastQuestion.GetMainImage(this, e =>
             {
                 mat.SetTexture("_MainTex1", e);
-                removeBootupScreen();
-                obj.SetActive(true);
+                RemoveBootupScreen();
+                StartCoroutine(ActivateQuestion(obj));
             });
         }
         else
@@ -79,13 +78,18 @@ public class LoadQuestion : MonoBehaviour
             lastQuestion.GetRightImage(this, e =>
             {
                 mat.SetTexture("_MainTex2", e);
-                removeBootupScreen();
-                obj.SetActive(true);
+                RemoveBootupScreen();
+                StartCoroutine(ActivateQuestion(obj));
             });
         }
         return lastQuestion;
     }
-    public void removeBootupScreen()
+    IEnumerator ActivateQuestion(GameObject obj)
+    {
+        yield return null;
+        obj.SetActive(true);
+    }
+    public void RemoveBootupScreen()
     {
 
         loadingScreen.visisble = false;
@@ -97,6 +101,7 @@ public class LoadQuestion : MonoBehaviour
         {
             questionText.text = q.questionText;
             projectText.text = q.projectText.ToUpper();
+            Debug.Log("g");
         }
         else
         {

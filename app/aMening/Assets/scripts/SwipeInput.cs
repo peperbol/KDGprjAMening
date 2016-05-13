@@ -76,7 +76,6 @@ public class SwipeInput : MonoBehaviour
             {
                 splitImageInstance[0].material.SetFloat("_Split", 1);
             }
-            splitImageInstance[0].enabled = true;
             Color c;
             //base color
             float delta = 0.5f - Mathf.Abs(Split - 0.5f);
@@ -120,7 +119,6 @@ public class SwipeInput : MonoBehaviour
         {
             NewInstance();
         }
-        questionLoader.SetTitle(question[0]);
         UpdatePositions();
         if (!first) bgm.UpdateBG();
     }
