@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Project toevoegen')
+
 @section('pageSpecificCSS')
     <link href="{{ asset('css/add_project.css') }}" rel="stylesheet" type="text/css" >
 @endsection
@@ -10,7 +12,7 @@
        Hierin komt de veranderlijke content.
        Voor deze pagina zal dat dus een form zijn met alle velden om een nieuw project aan te maken.
        
-       <form action="{{ url('new_project') }}" method="POST" >
+       <form id="add_project_form" action="{{ url('new_project') }}" method="POST" enctype="multipart/form-data">
            {{ csrf_field() }}
            <div>
                <label for="name">Naam:</label>
@@ -64,7 +66,7 @@
            </div>
            
            <div>
-               <label for="longitude">Latitude:</label>
+               <label for="longitude">Longitude:</label>
                <input id="longitude" name="longitude" type="text" required>
            </div>
            

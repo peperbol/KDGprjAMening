@@ -61,11 +61,17 @@ Route::group(['middleware' => ['web']], function () {
     */
     //Route::get('/', 'BaseController@getOverview');
     
-    Route::get('/', function () {
-        return view('homepage/home');
-    });
+    //homepage for users
+    Route::get('/', 'BaseController@getHomepage');
     
-    //hoofdnavigatie
+    
+    //API
+    Route::get('/api_test', 'ApiController@test');
+    Route::get('/api_project_info/{id}', 'ApiController@project_info');
+    
+    
+    
+    //main dashboard admins
     Route::get('/overview', 'BaseController@getOverview');
     
     Route::get('/add_project', function () {
@@ -98,6 +104,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/new_phase', 'BaseController@storeNewPhase');
     
     Route::post('/new_event', 'BaseController@storeNewEvent');
+    
+    
+    //update projects
+    Route::post('/update_project', 'BaseController@updateProject');
     
 
     /**

@@ -22,6 +22,12 @@
 
             <div class="projects_list">
                 <!-- hierin komt een lijst met alle projecten -->
+                <ul>
+                    @foreach($projects as $project)
+                        <li>{{ $project->name }}</li>
+                    @endforeach
+                </ul>
+                
             </div>
             
         </div>

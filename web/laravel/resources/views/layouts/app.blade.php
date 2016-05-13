@@ -25,8 +25,9 @@
 
        <!--special Blade directive that specifies where all child pages that extend the layout can inject their own content-->
        <!-- dus in het yield-"veld" komt alle specifieke inhoud, die verschillend is voor andere pagina's-->
+       <div>
         @yield('content')
-        
+        </div>
         
         <footer>
             <div>
