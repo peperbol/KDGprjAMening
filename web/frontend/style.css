@@ -216,8 +216,7 @@ a.button-toevoegen-project {
 
 .fotoProject, .fotoFase1 {
  
-    margin-top: 5px;
-    margin-bottom: 17px;
+    margin-bottom: 10px;
     
 }
 
@@ -228,6 +227,43 @@ a.button-toevoegen-project {
     display: inline;
     
 }
+
+
+
+div.upload {
+    
+    width: 171px;
+    height: 36px;
+    background: url(images/uploadKnop.png);
+    overflow: hidden;
+    
+}
+
+
+
+
+div.upload input {
+    
+    display: block !important;
+    width: 171px !important;
+    height: 36px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    margin-bottom: 0;
+    
+}
+
+
+
+
+p.filename {
+    
+    font-size: 0.8em;
+    margin-top: 5px;
+    margin-left: 165px;  
+    
+}
+
 
 
 
@@ -252,14 +288,6 @@ a.button-toevoegen-project {
 
 
 
-/*.container_overview_projects a {
-    
-    margin: 0;
-    padding: 15px 10px;
-    margin-left: 37px;
-    width: 100px;
-    
-}*/
 
 
 
