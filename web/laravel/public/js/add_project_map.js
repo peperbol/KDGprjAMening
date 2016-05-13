@@ -99,3 +99,11 @@ google.maps.event.addListener(markers[0], 'dragstart', function (evt) {
     
   });
 }
+
+//to prevent submitting the form when hitting enter on the google maps search
+$('#add_project_form').on('submit', function(){
+    if ($('input:focus').length){return false;}
+});
+
+
+
