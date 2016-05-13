@@ -15,7 +15,7 @@ public class LoadQuestion : MonoBehaviour
     public OverlaySlider loadingScreen;
     public List<string> ids;
     SwipeInput si;
-
+    public bool QuestionsPending { get { return questions.Count > 0 || ids.Count > 0; } }
     void Awake()
     {
         si = FindObjectOfType<SwipeInput>();
@@ -51,7 +51,7 @@ public class LoadQuestion : MonoBehaviour
             return questions.Count > 0;
         }
     }
-    public Question NextQuestion(Text left, Text right, Material mat)
+    public Question NextQuestion(Text left, Text right, Material mat, GameObject obj)
     {
         if (!IsQuestionAvailable)
         {
@@ -68,6 +68,7 @@ public class LoadQuestion : MonoBehaviour
             {
                 mat.SetTexture("_MainTex1", e);
                 loadingScreen.visisble = false;
+                obj.SetActive(true);
             });
         }
         else
@@ -79,6 +80,7 @@ public class LoadQuestion : MonoBehaviour
             {
                 mat.SetTexture("_MainTex2", e);
                 loadingScreen.visisble = false;
+                obj.SetActive(true);
             });
         }
         return lastQuestion;

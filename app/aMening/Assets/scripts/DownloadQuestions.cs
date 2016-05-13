@@ -11,9 +11,10 @@ public class DownloadQuestions : MonoBehaviour
     {
         StartCoroutine(Download(ids));
     }
+    public bool DownloadsPending { private set; get; }
     IEnumerator Download(List<string> ids)
     {
-
+        DownloadsPending = true;
         LoadQuestion lq = FindObjectOfType<LoadQuestion>();
         Directory.CreateDirectory(PathsConfig.FileDirectoryPath);
         Directory.CreateDirectory(PathsConfig.ImageDirectoryPath);
@@ -54,9 +55,6 @@ public class DownloadQuestions : MonoBehaviour
             }
             lq.Add(ids[i]);
         }
-    }
-    void Update()
-    {
-
+        DownloadsPending = false;
     }
 }
