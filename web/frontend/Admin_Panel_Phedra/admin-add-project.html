@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="addProject">
+<html>
 
 	<head>
 	
@@ -42,9 +42,10 @@
 
                         <div class="fotoProject">
                            <label for="button-bestand-selecteren">Foto:</label>
-                           <!--<a href="#" class="button-bestand-selecteren">Bestand selecteren</a>-->
-                           <input type="file" name="button-bestand-selecteren">
-                           
+                            <div class="upload">
+                                <input type="file" name="button-bestand-selecteren" id="fileProject">
+                            </div>
+                            <p class="filename filenameProject">Nog geen bestand gekozen</p>
                         </div>
 
 
@@ -101,8 +102,11 @@
 
 
                        <div class="fotoFase1">
-                           <label>Foto:</label>
-                           <a href="#" class="button-bestand-selecteren">Bestand selecteren</a>
+                           <label for="button-bestand-selecteren">Foto:</label>
+                            <div class="upload">
+                                <input type="file" name="button-bestand-selecteren" id="fileFase1">
+                            </div>
+                            <p class="filename filenameFase1">Nog geen bestand gekozen</p>
                         </div>
 
                         <div class="einddatumFase1">
