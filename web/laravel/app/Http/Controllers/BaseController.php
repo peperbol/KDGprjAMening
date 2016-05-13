@@ -40,6 +40,13 @@ class BaseController extends Controller
     }
     
     
+    //users homepage
+    public function getHomepage() {
+        $projects = Project::all();
+        return view('homepage/home', ["projects" => $projects]);
+    }
+    
+    
     //project overview
     public function getOverview() {
         $projects = Project::all();
@@ -107,6 +114,46 @@ class BaseController extends Controller
     {
         //dd($request);
         
+        //the path where the images will be stored
+        $project_images_path = public_path() . "\\images\\project_images\\";
+        
+        //allowed extensions
+        $allowed_extensions = ["jpeg", "png"];
+        
+        
+        /* image must be
+        *       checked for extension
+        *       moved to directory on server
+        *       path opslagen in database
+        */
+        
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            
+            $file = $request->file('image');
+            //check whether file extension is valid
+            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
+                
+                //the time stamp will be added to uploaded images to prevent identical names
+                $timestamp = time();
+                //create new file name
+                $new_file_name = $timestamp . $file->getClientOriginalName();
+                
+                //everything ok? -> save image on server
+                $file->move($project_images_path, $new_file_name);
+                
+                $imagepath = $project_images_path . $new_file_name;
+                
+            }
+            else {
+                // not ok return to add project view with error
+            }
+            //dd($request->file('image')->getClientOriginalExtension());
+            //dd($project_images_path);
+        }
+        
+        
+        
+        
         //als de checkbox aangevinkt is, krijg je de waarde 1 terug, anders is de waarde blank
         $hidden = $request->hidden;
         //als hij niet aangevinkt is moeten we de 0 doorgeven:
@@ -114,8 +161,6 @@ class BaseController extends Controller
             $hidden = 0;
         }
         
-        //voor de image, moeten we deze eerst gaan opslagen op de server op een bepaald destination path en dan dat path in de database opslagen
-        $imagepath = null;
         
         //user_id moet ook meegegeven worden via de url + controller en moet hier dan worden toegekend --> moet nog gedaan worden
         $user = 1; // VOORLOPIG !!!!
@@ -214,6 +259,53 @@ class BaseController extends Controller
         $event->save();
         
         
+        //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
+        return redirect('/overview');
+    }
+    
+    
+    
+    //updates
+    public function updateProject(Request $request)
+    {
+        //dd($request);
+        
+        $project = Project::find($request->id_project);
+        
+        //als de checkbox aangevinkt is, krijg je de waarde 1 terug, anders is de waarde blank
+        $hidden = $request->hidden;
+        //als hij niet aangevinkt is moeten we de 0 doorgeven:
+        if($hidden != 1) {
+            $hidden = 0;
+        }
+        
+        //voor de image, moeten we deze eerst gaan opslagen op de server op een bepaald destination path en dan dat path in de database opslagen
+        $imagepath = null;
+        
+        if($request->street == "") {
+            $street = $request->street_old;
+        }
+        else {
+            $street = $request->street;
+        }
+        
+        //aangezien we nummer niet meer gaan gebruiken, maar het hele adres in street steken, gaan we house_number gewoon standaard op 1 zetten
+        $house_number = 1;
+        
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->startdate = $request->startdate;
+        $project->hidden = $hidden;
+        $project->imagepath = $imagepath;
+        $project->street = $street;
+        $project->house_number = $house_number;
+        $project->latitude = $request->latitude;
+        $project->longitude = $request->longitude;
+        $project->user_id = $request->user;
+        
+        $project->save();
+        
+        //nog een flash message
         //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
         return redirect('/overview');
     }

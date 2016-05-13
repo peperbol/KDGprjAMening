@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="leftSide">
+        <div id="map">
+            
+        </div>
+        <ul class="projectList">
+            <li><a href="project1.html">
+            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
+            <li><a href="project1.html">
+            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
+            <li><a href="project1.html">
+            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
+            <li><a href="project1.html">
+            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
+            <li><a href="project1.html">
+            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
+            <li><a href="project1.html">
+            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
+        </ul>
+    </div>
+
+    <div class="rightSide">
+        <div class="imgWrapper">
+            <img class="headerImg" src="../img/header.jpg">    
+        </div>
+        <h2>Stadsproject 4</h2>
+        <p>Kort tekstje met uitleg over het project. Bijvoorbeeld, dit is een monument dat op de groenplaats zou komen.</p>
+        
+        <ul>
+            <li><p>Het monument plaatsen?</p></li>
+            <li><a href="ja">JA</a></li>
+            <li><a href="nee1">NEE</a></li>
+        </ul>
+        
+        
+    </div>
+<!-- _________________________________________________________________________________________________________________ -->    
+    
+    <script>        
+        function initMap() {
+            var mapDiv = document.getElementById('map');
+            var map = new google.maps.Map(mapDiv, {
+          center: {lat: 44.540, lng: -78.546},
+          zoom: 8
+        });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+</body>
+</html>

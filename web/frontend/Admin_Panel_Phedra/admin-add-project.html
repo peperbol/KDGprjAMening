@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+		<title>Project toevoegen</title>
+		
+		<link rel="stylesheet" href="normalize.css">
+		<link rel="stylesheet" href="style.css">
+		
+	</head>
+	
+	
+	<body>
+	
+           
+            <div class="form_project_toevoegen">
+           
+               
+                <div class="container_add_project">
+
+                   
+                    <h3 class="title_add_project">Project:</h3>
+
+                   
+                    <form name="addProjectForm" id="formulier_add_project">
+
+
+                        <div class="titelProject">
+                           <label for="titelProject">Titel:</label>
+                           <input id="titelProject" type="text" name="titelProject" required>
+                        </div>
+
+
+
+                        <div class="beschrijvingProject">
+                           <label for="beschrijvingProject">Beschrijving:</label>
+                            <textarea id="beschrijvingProject" name="beschrijvingProject" required></textarea>
+                        </div>
+
+
+
+                        <div class="fotoProject">
+                           <label for="button-bestand-selecteren">Foto:</label>
+                            <div class="upload">
+                                <input type="file" name="button-bestand-selecteren" id="fileProject" required>
+                            </div>
+                            <p class="filename filenameProject">Nog geen bestand gekozen</p>
+                        </div>
+
+
+
+                        <div class="startdatumProject">
+                            <label for="startdatumProject">Startdatum:</label>
+                            <input id="startdatumProject" type="date" name="startdatumProject" required>
+                        </div>
+
+
+
+                        <div class="zichtbaarProject">
+                            <label for="zichtbaarProject">Verborgen:</label>
+                            <input type="checkbox" value="None" id="checkZichtbaarProject" name="checkZichtbaarProject" />
+                        </div>
+
+
+
+                        <div class="adminProject">
+                            <label for="adminProject">Aangemaakt door:</label>
+                            <p class="adminNaamProject">Phedra Moerloos</p>
+                        </div>
+
+
+
+
+
+                    </form>
+
+                </div>
+
+
+
+
+
+
+                <div class="container_add_fase1">
+
+                    <h3 class="title_add_fase1">Fase 1:</h3>
+
+                    <form name="addFase1Form" id="formulier_add_fase1">
+
+
+                        <div class="naamFase1">
+                           <label for="NaamFase1">Naam:</label>
+                           <input id="NaamFase1" type="text" name="NaamFase" required>
+                        </div>
+
+
+                        <div class="beschrijvingFase1">
+                           <label for="beschrijvingFase1">Beschrijving:</label>
+                            <textarea id="beschrijvingFase1" type="text" name="beschrijvingFase1" required></textarea>
+                        </div>
+
+
+                       <div class="fotoFase1">
+                           <label for="button-bestand-selecteren">Foto:</label>
+                            <div class="upload">
+                                <input type="file" name="button-bestand-selecteren" id="fileFase1">
+                            </div>
+                            <p class="filename filenameFase1">Nog geen bestand gekozen</p>
+                        </div>
+
+                        <div class="einddatumFase1">
+                            <label for="einddatumFase1">Einddatum:</label>
+                            <input id="einddatumFase1" type="date" name="einddatumFase1" required>
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+                
+                <button type="submit" href="#" class="button-toevoegen-project">TOEVOEGEN</button>
+            
+            </div>
+            
+            
+            
+
+            
+            
+	    
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="base.js"></script>
+		
+	</body>
+	
+</html>
