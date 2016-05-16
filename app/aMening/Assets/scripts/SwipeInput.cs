@@ -34,15 +34,23 @@ public class SwipeInput : MonoBehaviour
     public float flyTorque = 1000;
     public float timeToDestoryQuestion = 1;
     private LoadQuestion questionLoader;
+    private BackgroundManager bgm;
     public float NormalTextMargin = 65;
     public float SelectedTextMargin = 30;
     public bool WaitingForMore
     {
         get
         {
+            return (QueueLength != splitImageInstance.Length);
+        }
+    }
+    public int QueueLength
+    {
+        get
+        {
             int i;
             for (i = 0; i < splitImageInstance.Length && splitImageInstance[i] != null; i++) { }
-            return (i != splitImageInstance.Length);
+            return i ;
         }
     }
     public bool HasQuestions
@@ -68,7 +76,6 @@ public class SwipeInput : MonoBehaviour
             {
                 splitImageInstance[0].material.SetFloat("_Split", 1);
             }
-            splitImageInstance[0].enabled = true;
             Color c;
             //base color
             float delta = 0.5f - Mathf.Abs(Split - 0.5f);
@@ -106,23 +113,32 @@ public class SwipeInput : MonoBehaviour
 
         }
     }
-    public void fillQueue()
+    public void fillQueue(bool first)
     {
         while (WaitingForMore && questionLoader.IsQuestionAvailable)
         {
             NewInstance();
         }
-        questionLoader.SetTitle(question[0]);
+        UpdatePositions();
+        if (!first) bgm.UpdateBG();
     }
     public void Next()
     {
         MoveQueue();
-        fillQueue();
+        fillQueue(false);
         Split = 0.5f;
+    }
+    private void UpdatePositions()
+    {
+        int length = QueueLength;
+        for (int i = 0; i < length; i++)
+        {
+            splitImageInstance[i].transform.position = new Vector3(splitImageInstance[i].transform.position.x, splitImageInstance[i].transform.position.y, i - length);
+        }
     }
     private void MoveQueue()
     {
-
+        splitImageInstance[0].transform.position = new Vector3(splitImageInstance[0].transform.position.x, splitImageInstance[0].transform.position.y, splitImageInstance[0].transform.position.z - 10);
         for (int j = 0; j < splitImageInstance.Length - 1; j++)
         {
             leftText[j] = leftText[j + 1];
@@ -151,8 +167,7 @@ public class SwipeInput : MonoBehaviour
         inst.rectTransform.SetAsFirstSibling();
 
         inst.material = new Material(splitMaterial);
-        int i;
-        for (i = 0; i < splitImageInstance.Length && splitImageInstance[i] != null; i++) { }
+        int i = QueueLength;
         if (i == splitImageInstance.Length)
         {
             return i;
@@ -163,12 +178,14 @@ public class SwipeInput : MonoBehaviour
         left[i] = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Left");
         right[i] = inst.GetComponentsInChildren<LayoutElement>().First(e => e.tag == "Right");
         splitImageInstance[i] = inst;
-        question[i] = questionLoader.NextQuestion(leftText[i], rightText[i], splitImageInstance[i].material);
+        inst.gameObject.SetActive(false);
+        question[i] = questionLoader.NextQuestion(leftText[i], rightText[i], splitImageInstance[i].material, splitImageInstance[i].gameObject);
         return i;
     }
     void Awake()
     {
-        questionLoader = FindObjectOfType<LoadQuestion>();
+        questionLoader = GetComponent<LoadQuestion>();
+        bgm = GetComponent<BackgroundManager>();
 
         for (int i = 0; i < ImageContainer.childCount && !selected; i++)
         {
@@ -181,7 +198,7 @@ public class SwipeInput : MonoBehaviour
         left = new LayoutElement[buffer];
         right = new LayoutElement[buffer];
         question = new Question[buffer];
-        fillQueue();
+        fillQueue(true);
         Physics2D.gravity = new Vector2(0, -gravity * Screen.width);
     }
     void Update()
