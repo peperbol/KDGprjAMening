@@ -19,7 +19,7 @@ body {
 
 
 
-form {
+.container {
 
     margin: 0 auto;
     background-color: rgb(57, 57, 57);
@@ -184,7 +184,7 @@ form#formulier_login label {
 
 /* PROJECT TOEVOEGEN PAGINA */
 
-.form_project_toevoegen {
+.geheel_project_toevoegen {
 
     width: 600px;
     padding: 15px;
@@ -197,7 +197,7 @@ form#formulier_login label {
 
 
 
-form#formulier_add_project label, form#formulier_add_fase1 label {
+.formulier_add_project label {
     
     width:150px;
     
@@ -207,6 +207,14 @@ form#formulier_add_project label, form#formulier_add_fase1 label {
 .container_add_project {
 
     margin-bottom: 50px;
+    
+}
+
+
+
+.title_add_fase1 {
+
+    margin-top: 50px;
     
 }
 
