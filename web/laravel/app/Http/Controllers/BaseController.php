@@ -6,6 +6,7 @@ use App\Project;
 use App\Phase;
 use App\Event;
 use App\User;
+use App\Question;
 
 use Illuminate\Http\Request;
 
@@ -87,6 +88,15 @@ class BaseController extends Controller
         return view('edit_phase', ['phase' => $phase]);
     }
     
+    public function getEditEvent ($id) {
+        $event = Event::find($id);
+        //startdate and enddate are datetime --> must be converted to date and time
+        $startdate_arr = explode(" ", $event->startdate);
+        $enddate_arr = explode(" ", $event->enddate);
+        
+        return view('edit_event', ['event' => $event, 'startdate_arr' => $startdate_arr, 'enddate_arr' => $enddate_arr]);
+    }
+    
     
     //add views
     public function addPhase ($id) {
@@ -141,14 +151,12 @@ class BaseController extends Controller
                 //everything ok? -> save image on server
                 $file->move($project_images_path, $new_file_name);
                 
-                $imagepath = $project_images_path . $new_file_name;
+                $imagepath = $new_file_name;
                 
             }
             else {
                 // not ok return to add project view with error
             }
-            //dd($request->file('image')->getClientOriginalExtension());
-            //dd($project_images_path);
         }
         
         
@@ -216,16 +224,44 @@ class BaseController extends Controller
     
     public function storeNewPhase(Request $request)
     {
+        //the path where the images will be stored
+        $project_images_path = public_path() . "\\images\\project_images\\";
         
-        //voor de image, moeten we deze eerst gaan opslagen op de server op een bepaald destination path en dan dat path in de database opslagen
-        $imagepath = null;
+        //allowed extensions
+        $allowed_extensions = ["jpeg", "png"];
+        
+        /* image must be
+        *       checked for extension
+        *       moved to directory on server
+        *       path opslagen in database
+        */
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            
+            $file = $request->file('image');
+            //check whether file extension is valid
+            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
+                //the time stamp will be added to uploaded images to prevent identical names
+                $timestamp = time();
+                //create new file name
+                $new_file_name = $timestamp . $file->getClientOriginalName();
+                //everything ok? -> save image on server
+                $file->move($project_images_path, $new_file_name);
+                $imagepath = $new_file_name;
+            }
+            else {
+                // not ok return to add project view with error
+            }
+        }
+        
         $bannerpath = null;
+        
+        $order = 0;
         
         //op manier volgens https://laravel.com/docs/5.0/eloquent#inserting-related-models
         $phase = new Phase(['name' => $request->name,
                             'description' => $request->description,
                             'enddate' => $request->enddate,
-                            'order' => $request->order,
+                            'order' => $order,
                             'imagepath' => $imagepath,
                             'bannerpath' => $bannerpath,
                             'project_id' => $request->id_project
@@ -243,6 +279,10 @@ class BaseController extends Controller
         
         //voor de image, moeten we deze eerst gaan opslagen op de server op een bepaald destination path en dan dat path in de database opslagen
         $imagepath = null;
+        
+        
+        $imagepath = $this->storeImage($request);
+        
         
         $startdate = $this->convertToMysqlDatetime($request->startdate, $request->starttime);
         $enddate = $this->convertToMysqlDatetime($request->enddate, $request->endtime);
@@ -264,6 +304,37 @@ class BaseController extends Controller
     }
     
     
+    public function storeNewQuestion(Request $request)
+    {
+        
+        $hidden = 0;
+        
+        //voor de image, moeten we deze eerst gaan opslagen op de server op een bepaald destination path en dan dat path in de database opslagen
+        $left_picture_path = null;
+        $right_picture_path = null;
+        
+        
+        $left_picture_path = $this->storeQuestionImage($request, 'left_picture_path');
+        $right_picture_path =$this->storeQuestionImage($request, 'right_picture_path');
+        
+        //op manier volgens https://laravel.com/docs/5.0/eloquent#inserting-related-models
+        $question = new Question(['questiontext' => $request->questiontext,
+                                'leftlabel' => $request->leftlabel,
+                                'rightlabel' => $request->rightlabel,
+                                'left_picture_path' => $left_picture_path,
+                                'right_picture_path' => $right_picture_path,
+                                'hidden' => $hidden,
+                                'project_phase_id' => $request->id_phase
+                                ]);
+        
+        $question->save();
+        
+        
+        //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
+        return redirect('/add_question/' . $request->id_phase);
+    }
+    
+    
     
     //updates
     public function updateProject(Request $request)
@@ -272,6 +343,45 @@ class BaseController extends Controller
         
         $project = Project::find($request->id_project);
         
+        //the path where the images will be stored
+        $project_images_path = public_path() . "\\images\\project_images\\";
+        
+        //allowed extensions
+        $allowed_extensions = ["jpeg", "png"];
+        
+        
+        /* image must be
+        *       checked for extension
+        *       moved to directory on server
+        *       path opslagen in database
+        */
+        //dd($request->file('image'));
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            
+            $file = $request->file('image');
+            //check whether file extension is valid
+            //dd($file);
+            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
+                
+                //the time stamp will be added to uploaded images to prevent identical names
+                $timestamp = time();
+                //create new file name
+                $new_file_name = $timestamp . $file->getClientOriginalName();
+                
+                //everything ok? -> save image on server
+                $file->move($project_images_path, $new_file_name);
+                
+                $imagepath = $new_file_name;
+                //dd($imagepath);
+                
+            }
+            else {
+                // not ok return to add project view with error
+            }
+            //dd($request->file('image')->getClientOriginalExtension());
+            //dd($project_images_path);
+        }
+        
         //als de checkbox aangevinkt is, krijg je de waarde 1 terug, anders is de waarde blank
         $hidden = $request->hidden;
         //als hij niet aangevinkt is moeten we de 0 doorgeven:
@@ -279,8 +389,6 @@ class BaseController extends Controller
             $hidden = 0;
         }
         
-        //voor de image, moeten we deze eerst gaan opslagen op de server op een bepaald destination path en dan dat path in de database opslagen
-        $imagepath = null;
         
         if($request->street == "") {
             $street = $request->street_old;
@@ -310,7 +418,93 @@ class BaseController extends Controller
         return redirect('/overview');
     }
     
+    public function updatePhase(Request $request)
+    {
+        $phase = Phase::find($request->id_phase);
+        //$phase = Phase::where("id_project_phase", $request->id_phase)->get();
+        //dd($phase[0]);
+        //$phase = $phase[0];
+        //dd($request);
+        
+        //default $imagepath is null so it won't be changed when no new image was selected
+        $imagepath = null;
+        
+        //the path where the images will be stored
+        $project_images_path = public_path() . "\\images\\project_images\\";
+        
+        //allowed extensions
+        $allowed_extensions = ["jpeg", "png"];
+        
+        /* image must be
+        *       checked for extension
+        *       moved to directory on server
+        *       path opslagen in database
+        */
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            
+            $file = $request->file('image');
+            //check whether file extension is valid
+            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
+                //the time stamp will be added to uploaded images to prevent identical names
+                $timestamp = time();
+                //create new file name
+                $new_file_name = $timestamp . $file->getClientOriginalName();
+                //everything ok? -> save image on server
+                $file->move($project_images_path, $new_file_name);
+                $imagepath = $new_file_name;
+            }
+            else {
+                // not ok return to add project view with error
+            }
+        }
+        
+        
+        
+        $bannerpath = null;
+        
+        
+        $phase->name = $request->name;
+        $phase->description = $request->description;
+        $phase->enddate = $request->enddate;
+        if($imagepath) {
+            $phase->imagepath = $imagepath;
+        }
+        //dd($phase);
+        $phase->save();
+        
+        //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
+        return redirect('/overview');
+    }
     
+    public function updateEvent(Request $request)
+    {
+        $event = Event::find($request->id_event);
+        //$phase = Phase::where("id_project_phase", $request->id_phase)->get();
+        //dd($phase[0]);
+        //$phase = $phase[0];
+        //dd($request);
+        
+        //default $imagepath is null so it won't be changed when no new image was selected
+        $imagepath = null;
+        
+        $imagepath = $this->storeImage($request);
+        
+        $startdate = $this->convertToMysqlDatetime($request->startdate, $request->starttime);
+        $enddate = $this->convertToMysqlDatetime($request->enddate, $request->endtime);
+        
+        $event->name = $request->name;
+        $event->description = $request->description;
+        $event->startdate = $startdate;
+        $event->enddate = $enddate;
+        if($imagepath) {
+            $event->imagepath = $imagepath;
+        }
+        //dd($phase);
+        $event->save();
+        
+        //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
+        return redirect('/overview');
+    }
     
     
     
@@ -320,6 +514,81 @@ class BaseController extends Controller
     function convertToMysqlDatetime( $date , $time ) {
         $datetime = $date . " " . $time;
         return $datetime;
+    }
+    
+    
+    function storeImage($request) {
+        //the path where the images will be stored
+        $project_images_path = public_path() . "\\images\\project_images\\";
+        
+        //allowed extensions
+        $allowed_extensions = ["jpeg", "png"];
+        
+        
+        /* image must be
+        *       checked for extension
+        *       moved to directory on server
+        *       path opslagen in database
+        */
+        
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            
+            $file = $request->file('image');
+            //check whether file extension is valid
+            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
+                
+                //the time stamp will be added to uploaded images to prevent identical names
+                $timestamp = time();
+                //create new file name
+                $new_file_name = $timestamp . $file->getClientOriginalName();
+                
+                //everything ok? -> save image on server
+                $file->move($project_images_path, $new_file_name);
+                
+                $imagepath = $new_file_name;
+                return $imagepath;
+            }
+            else {
+                // not ok return to add project view with error
+            }
+        }
+    }
+    
+    function storeQuestionImage($request, $name) {
+        //the path where the images will be stored
+        $project_images_path = public_path() . "\\images\\question_images\\";
+        
+        //allowed extensions
+        $allowed_extensions = ["jpeg", "png"];
+        
+        
+        /* image must be
+        *       checked for extension
+        *       moved to directory on server
+        *       path opslagen in database
+        */
+        
+        if ($request->hasFile($name) && $request->file($name)->isValid()) {
+            
+            $file = $request->file($name);
+            //check whether file extension is valid
+            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
+                
+                //the time stamp will be added to uploaded images to prevent identical names
+                $timestamp = time();
+                //create new file name
+                $new_file_name = $timestamp . $file->getClientOriginalName();
+                
+                //everything ok? -> save image on server
+                $file->move($project_images_path, $new_file_name);
+                
+                $imagepath = $new_file_name;
+                return $imagepath;
+            }
+            else {
+                // not ok return to add project view with error
+            }
+        }
     }
     
     

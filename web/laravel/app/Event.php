@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    
+    protected $primaryKey = 'id_event';
     protected $fillable = array('name', 'description', 'startdate', 'enddate', 'project_id', 'imagepath');
     
     

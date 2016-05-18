@@ -68,7 +68,16 @@ Route::group(['middleware' => ['web']], function () {
     //API
     Route::get('/api_test', 'ApiController@test');
     Route::get('/api_project_info/{id}', 'ApiController@project_info');
-    
+    Route::get('/get_project_info/{id}', 'ApiController@get_project_info');
+    Route::get('search', ['as' => 'search', 'uses' => 'ApiController@search']);
+    //get phases project
+    Route::get('/get_phases_project/{id}', 'ApiController@get_phases_project');
+    //get events project
+    Route::get('/get_events_project/{id}', 'ApiController@get_events_project');
+    //get questions phase
+    Route::get('/get_questions_phase/{id}', 'ApiController@get_questions_phase');
+    //get comments phase
+    Route::get('/get_comments_phase/{id}', 'ApiController@get_comments_phase');
     
     
     //main dashboard admins
@@ -96,18 +105,21 @@ Route::group(['middleware' => ['web']], function () {
     
     Route::get('/edit_phase/{id}', ['as' => 'edit_phase', 'uses' => 'BaseController@getEditPhase']);
     
+    Route::get('/edit_event/{id}', ['as' => 'edit_event', 'uses' => 'BaseController@getEditEvent']);
+    
     
     
     //toevoegen uitvoeren (dus als er op de submit button geklikt wordt)
     Route::post('/new_project', 'BaseController@storeNewProject');
-    
     Route::post('/new_phase', 'BaseController@storeNewPhase');
-    
     Route::post('/new_event', 'BaseController@storeNewEvent');
+    Route::post('/new_question', 'BaseController@storeNewQuestion');
     
     
-    //update projects
+    //updates uitvoeren
     Route::post('/update_project', 'BaseController@updateProject');
+    Route::post('/update_phase', 'BaseController@updatePhase');
+    Route::post('/update_event', 'BaseController@updateEvent');
     
 
     /**

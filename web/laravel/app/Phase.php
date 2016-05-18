@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Phase extends Model
 {
     //
+    protected $primaryKey = 'id_project_phase';
     protected $fillable = array('project_id', 'enddate', 'order', 'description', 'bannerpath', 'imagepath', 'name');
     
     
