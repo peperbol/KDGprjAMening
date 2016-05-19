@@ -1,0 +1,234 @@
+body {
+    background: url(../Img/AntwerpenBNW.png) no-repeat center center;
+    background-size: cover;
+    -moz- background-size: cover;
+    -webkit- background-size: cover;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+}
+
+.header {
+    width: 100%;
+    height: auto;
+    padding-top: 50px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.navbar {
+    height: 40px;
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    list-style: none;
+    float: left;
+    position: relative;
+    display: block;    
+    background: #7FCAD3;
+
+}
+
+.navbar ul {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.headerContent {
+    width: 1024px;
+    height: auto;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.navbar ul li a {
+    display: block;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-family: sans-serif;
+    padding: 10px 20px;
+    border-left: solid white 1px;
+}
+
+/*dropdownmenu*/
+.navbar ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background: #7FCAD3;
+}
+
+.navbar ul li:hover > ul {
+    display: block;
+}
+
+.navbar ul ul li a:hover:after {
+    top: 0;
+    left: 0;
+    border-width: 0;
+}
+
+.navbar ul ul li {
+    float: none;
+    border-top: 1px solid white;
+    position: relative;
+}
+
+.navbar ul li a:hover {
+    background: #0F6B68;
+}
+
+/*
+.navbar ul li a:hover:after {
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0,0,0,0);
+	border-top-color: #0F6B68;
+	border-width: 15px;
+	margin-left: -15px;
+}
+*/
+
+.active {
+    position: relative;
+    background: #0F6B68;
+}
+
+.navbar ul li .active:hover {
+    background:#0F6B68;
+}
+
+.navbar ul li .active:hover:after {
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(0,0,0,0);
+	border-top-color: #0F6B68;
+	border-width: 15px;
+	margin-left: -15px;
+}
+
+.active:after {
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(125, 125, 125, 0);
+	border-top-color: #0F6B68;
+	border-width: 15px;
+	margin-left: -15px;
+}
+
+.page {
+    width: 100%;
+    height: auto;
+}
+
+.navbar ul .usernameLi {
+    z-index: 10;
+    float: right;
+    background: #0F6B68;
+}
+
+.navbar ul .usernameLi a:hover {
+    background: #0F6B68;
+}
+
+.pageContent {
+    width: 1024px;
+    height: 800px;
+    position: relative;
+    margin: 0 auto;
+    top: 0;
+}
+
+.pageContentBG {
+    width: 1024px;
+    height: 800px;
+    position: absolute;
+    background: lightgray;
+    z-index: -10;
+    opacity: 0.5;
+    top: 0;
+    
+}
+
+.project {
+    position: relative;
+    vertical-align: middle;
+    left: 5%;
+    top: 40px;
+    width: 90%;
+    height: 80px;
+    line-height: 80px;
+    margin-bottom: 20px;
+    background: #7FCAD3;
+}
+
+.project>*{
+    height: inherit;
+    float:left;
+}
+
+.watched {
+    font-family: untitled-font-1;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-right: 1px solid white;
+    width: 50px;
+    color: white;
+    font-size: 50px;
+    z-index: 1;
+}
+
+.projectnaam {
+    padding-left: 20px;
+    font-size: 40px;
+
+}
+
+.projectnaam a {
+    color: white;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+.icons {
+    font-family: untitled-font-1;
+    float: right;
+    padding-right: 20px;
+    padding-left: 10px;
+    border-left: 1px solid white;
+    font-size: 40px;
+}
+
+.icons a {
+    padding-left: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.icons a:hover {
+    color: #0F6B68;
+}
