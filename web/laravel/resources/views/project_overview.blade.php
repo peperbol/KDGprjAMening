@@ -31,8 +31,8 @@
                    <span>{{ $project->name }}</span>
                    {{--<a href="{{ URL::route('/testje', $project->id_project) }}"> {{ $project->id_project }}</a>--}}
                    <a href="{{ route('edit_project', [$project->id_project]) }}">Bewerken</a>
-                   <a href="{{ url('/overview') }}">results</a>
-                   <a href="{{ url('/overview') }}">comments</a>
+                   <a href="{{ route('get_results_project', [$project->id_project]) }}">results</a>
+                   <a href="{{ route('get_comments_project', [$project->id_project]) }}">comments</a>
                </li>
            @endforeach
        </ul>

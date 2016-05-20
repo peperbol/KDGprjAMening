@@ -7,6 +7,8 @@ use App\Phase;
 use App\Event;
 use App\Question;
 use App\Comment;
+use App\Answer;
+use App\Gender;
 use App\User;
 
 use Response;
@@ -60,6 +62,12 @@ class ApiController extends Controller
     }
     
     
+    //get genders
+    public function get_genders() {
+        $genders = Gender::all();
+        return response()->json($genders);
+    }
+    
     
     //project_info
      public function get_project_info($id) {
@@ -69,8 +77,24 @@ class ApiController extends Controller
     
     //fases per project
     public function get_phases_project($id) {
+        //hier eventueel nog ne order by einddatum
         $phases = Phase::where("project_id", $id)->get();
         return response()->json($phases);
+    }
+    //get phase info
+    public function get_phase_info($id) {
+        $phase = Phase::find($id);
+        //here you're going to ask for the last phase of this project
+        $current_phase = Phase::where("project_id", $phase->project_id)->orderBy('enddate', 'desc')->first();
+        //dd($current_phase);
+        if($phase->enddate == $current_phase->enddate) {
+            $is_current = true;
+        }
+        else {
+            $is_current = false;
+        }
+        
+        return response()->json([$phase, 'is_current' => $is_current]);
     }
     //event info
     public function get_events_project($id) {
@@ -88,7 +112,67 @@ class ApiController extends Controller
         return response()->json($comments);
     }
     //post van antwoorden
+    public function store_new_answer(Request $request) {
+        
+        //request contains gender, age, question_id, answer (0 or 1)
+        //for each request a new answer must be created
+        $answer = new Answer(['answer' => $request->answer,
+                            'age' => $request->age,
+                            'question_id' => $request->question_id,
+                            'gender_id' => $request->gender_id
+                            ]);
+        
+        $answer->save();
+        
+        //geen redirect, want dit is gewoon iets dat uitgevoerd moet worden op de achtergrond
+    }
     //post van comments
+    public function store_new_comment(Request $request) {
+        
+        //request contains name, gender, age, comment, project_phase_id
+        //for each request a new comment must be created
+        //hidden is 0 default
+        $hidden = 0;
+        
+        $comment = new Comment(['name' => $request->name,
+                                'age' => $request->age,
+                                'comment' => $request->comment,
+                                'gender_id' => $request->gender_id,
+                                'hidden' => $hidden,
+                                'project_phase_id' => $request->project_phase_id
+                                ]);
+        
+        $comment->save();
+        
+        //geen redirect, want dit is gewoon iets dat uitgevoerd moet worden op de achtergrond
+    }
+    
+    
+    
+    // app API extra functions
+    //return question_ids from all current phases
+    public function get_current_questions() {
+        //checken of question tot één van de current phases hoort
+        //voor elk project current phase gaan ophalen
+        //voor elk van die current phases de question id's teruggeven
+        $projects = Project::where('hidden', 0)->get();
+        $question_ids = [];
+        foreach($projects as $project) {
+            $current_phase = Phase::where("project_id", $project->id_project)->orderBy('enddate', 'desc')->first();
+            //$current_phase = Phase::where("project_id", 2)->get();
+            if($current_phase) {
+                $questions = Question::where("project_phase_id", $current_phase->id_project_phase)->get();
+                foreach($questions as $question) {
+                    array_push($question_ids, $question->id_question);
+                }
+            }
+        }
+        
+        return response()->json($question_ids);
+    }
+    
+    
+    
     
     
     

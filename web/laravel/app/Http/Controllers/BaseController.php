@@ -7,6 +7,8 @@ use App\Phase;
 use App\Event;
 use App\User;
 use App\Question;
+use App\Comment;
+use App\Answer;
 
 use Illuminate\Http\Request;
 
@@ -25,25 +27,13 @@ class BaseController extends Controller
         //$this->middleware('auth');
     }
     
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'description' => 'required|string|min:50|max:150', 
-            'startdate' => 'required|date', 
-            'hidden' => 'required', 
-            'imagepath' => 'required|string', 
-            'street' => 'required|string', 
-            'house_number' => 'required|integer', 
-            'latitude' => 'required', 
-            'longitude' => 'required',
-        ]);
-    }
-    
     
     //users homepage
     public function getHomepage() {
-        $projects = Project::all();
+        //can't be projects all
+        //$projects = Project::all();
+        //must be projects whose hidden = 0
+        $projects = Project::where('hidden', 0)->get();
         return view('homepage/home', ["projects" => $projects]);
     }
     
@@ -72,6 +62,70 @@ class BaseController extends Controller
     }
     
     
+    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+    public function getCommentsPhase ($id) {
+        $phase = Phase::find($id);
+        $comments = Comment::where('project_phase_id', $id)->get();
+        //return view('show_comments', ['phase' => $phase, 'comments' => $comments]);
+        return $comments;
+    }
+    
+    public function getResultsPhase ($id) {
+        $phase = Phase::find($id);
+        $questions = Question::where('project_phase_id', $id)->get();
+        $results = [];
+        foreach($questions as $question) {
+            //for each question get the question, the option labels and the amount of votes for those options
+            $questiontext = $question->questiontext;
+            $leftlabel = $question->leftlabel;
+            $rightlabel = $question->rightlabel;
+            $leftcount = Answer::where('question_id', $question->id_question)->where('answer', 0)->count();
+            $rightcount = Answer::where('question_id', $question->id_question)->where('answer', 1)->count();
+            //save this question data in a variabele result
+            $result = [$questiontext, $leftlabel, $rightlabel, $leftcount, $rightcount];
+            //push result tot the results array
+            array_push($results, $result);
+            //dd($results);
+            
+        }
+        
+        return $results;
+        //return view('show_results', ['phase' => $phase, 'results' => $results]);
+    }
+    
+    
+    public function getCommentsProject ($id) {
+        $project_phases = Phase::where('project_id', $id)->get();
+        $comments_project = [];
+        foreach($project_phases as $phase){
+            $phasename = $phase->name;
+            $comments = $this->getCommentsPhase($phase->id_project_phase);
+            array_push($comments_project, [$phase, $comments]);
+        }
+        return view('show_comments', ['comments_project' => $comments_project]);
+    }
+    
+    
+    public function getResultsProject ($id) {
+        $project_phases = Phase::where('project_id', $id)->get();
+        $results_project = [];
+        foreach($project_phases as $phase){
+            $phasename = $phase->name;
+            $results = $this->getResultsPhase($phase->id_project_phase);
+            array_push($results_project, [$phase, $results]);
+        }
+        //dd($results_project);
+        return view('show_results', ['results_project' => $results_project]);
+    }
+    
+    
+    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+    
+    
+    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     public function getEditProject ($id) {
         //$project = Project::where('id_project', $id)->get();
         $project = Project::with('user')->find($id);
@@ -96,8 +150,11 @@ class BaseController extends Controller
         
         return view('edit_event', ['event' => $event, 'startdate_arr' => $startdate_arr, 'enddate_arr' => $enddate_arr]);
     }
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     
+    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     //add views
     public function addPhase ($id) {
         //the id passed to this function is the id from the project to which the phase must be added
@@ -116,8 +173,10 @@ class BaseController extends Controller
         $phase = Phase::where("id_project_phase", $id)->get();
         return view('add_question', ['phase' => $phase]);
     }
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     //store / insert views
     //effectief toevoegen aan database (de werkelijke insert)
     public function storeNewProject(Request $request)
@@ -158,8 +217,6 @@ class BaseController extends Controller
                 // not ok return to add project view with error
             }
         }
-        
-        
         
         
         //als de checkbox aangevinkt is, krijg je de waarde 1 terug, anders is de waarde blank
@@ -333,9 +390,10 @@ class BaseController extends Controller
         //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
         return redirect('/add_question/' . $request->id_phase);
     }
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     
-    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     //updates
     public function updateProject(Request $request)
     {
@@ -505,7 +563,7 @@ class BaseController extends Controller
         //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
         return redirect('/overview');
     }
-    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     
     
