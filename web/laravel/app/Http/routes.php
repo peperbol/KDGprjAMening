@@ -82,8 +82,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/get_comments_phase/{id}', 'ApiController@get_comments_phase');
     //app
     Route::get('/get_question_ids', 'ApiController@get_current_questions');
+    Route::get('/get_question_info/{id}', 'ApiController@get_question_info');
+    Route::get('/get_image/{id}', 'ApiController@get_image');
     
     
+    Route::post('/post_test', 'ApiController@store_test');
     
     
     

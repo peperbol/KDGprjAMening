@@ -183,40 +183,9 @@ class BaseController extends Controller
     {
         //dd($request);
         
-        //the path where the images will be stored
-        $project_images_path = public_path() . "\\images\\project_images\\";
         
-        //allowed extensions
-        $allowed_extensions = ["jpeg", "png"];
-        
-        
-        /* image must be
-        *       checked for extension
-        *       moved to directory on server
-        *       path opslagen in database
-        */
-        
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $file = $request->file('image');
-            //check whether file extension is valid
-            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
-                
-                //the time stamp will be added to uploaded images to prevent identical names
-                $timestamp = time();
-                //create new file name
-                $new_file_name = $timestamp . $file->getClientOriginalName();
-                
-                //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
-                
-                $imagepath = $new_file_name;
-                
-            }
-            else {
-                // not ok return to add project view with error
-            }
-        }
+        $imagepath = null;
+        $imagepath = $this->storeImage($request, "image");
         
         
         //als de checkbox aangevinkt is, krijg je de waarde 1 terug, anders is de waarde blank
@@ -248,32 +217,30 @@ class BaseController extends Controller
         
         $project->save();
         
-        //of ipv hierboven het user_id toe te voegen kan je ook het volgende doen:
-        //$user = User::find($id);
-        //$project = $user->projects()->save($project);
+        
+        //project_id for new fase
+        $project_id = $project->id_project;
+        
+        //en ook ineens de nieuwe fase toevoegen
+        
+        $phase_imagepath = null;
+        $phase_imagepath = $this->storeImage($request, "phase_image");
+        
+        $bannerpath = null;
+        $order = 1;
+        
+        $phase = new Phase(['name' => $request->phase_name,
+                            'description' => $request->phase_description,
+                            'enddate' => $request->phase_enddate,
+                            'order' => $order,
+                            'bannerpath' => $bannerpath,
+                            'imagepath' => $phase_imagepath,
+                            'project_id' => $project_id
+                           ]);
+        
+        $phase->save();
         
         
-        //gaan valideren (eventueel, maar kan ook via angular denk ik)
-        /*
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ]);*/
-        
-        //ik moet hier de status ook al meegeven en het dus op onderstaande manier doen
-        /*
-        $request->user()->projects()->create([
-            'name' => $request->name,
-            'description' => 'testjeeeee',
-        ]);
-        */
-        
-        
-        //volgens de documentatie op laravel zelf, moet je wel de save method gebruiken (???)
-        //$project = new Project(['name' => $request->name]);
-
-        //$user = User::find(1);
-
-        //$comment = $post->comments()->save($comment);
         
         //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
         return redirect('/overview');
@@ -282,33 +249,8 @@ class BaseController extends Controller
     public function storeNewPhase(Request $request)
     {
         //the path where the images will be stored
-        $project_images_path = public_path() . "\\images\\project_images\\";
-        
-        //allowed extensions
-        $allowed_extensions = ["jpeg", "png"];
-        
-        /* image must be
-        *       checked for extension
-        *       moved to directory on server
-        *       path opslagen in database
-        */
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $file = $request->file('image');
-            //check whether file extension is valid
-            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
-                //the time stamp will be added to uploaded images to prevent identical names
-                $timestamp = time();
-                //create new file name
-                $new_file_name = $timestamp . $file->getClientOriginalName();
-                //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
-                $imagepath = $new_file_name;
-            }
-            else {
-                // not ok return to add project view with error
-            }
-        }
+        $imagepath = null;
+        $imagepath = $this->storeImage($request, "image");
         
         $bannerpath = null;
         
@@ -338,7 +280,7 @@ class BaseController extends Controller
         $imagepath = null;
         
         
-        $imagepath = $this->storeImage($request);
+        $imagepath = $this->storeImage($request, "image");
         
         
         $startdate = $this->convertToMysqlDatetime($request->startdate, $request->starttime);
@@ -401,44 +343,9 @@ class BaseController extends Controller
         
         $project = Project::find($request->id_project);
         
-        //the path where the images will be stored
-        $project_images_path = public_path() . "\\images\\project_images\\";
-        
-        //allowed extensions
-        $allowed_extensions = ["jpeg", "png"];
-        
-        
-        /* image must be
-        *       checked for extension
-        *       moved to directory on server
-        *       path opslagen in database
-        */
-        //dd($request->file('image'));
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $file = $request->file('image');
-            //check whether file extension is valid
-            //dd($file);
-            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
-                
-                //the time stamp will be added to uploaded images to prevent identical names
-                $timestamp = time();
-                //create new file name
-                $new_file_name = $timestamp . $file->getClientOriginalName();
-                
-                //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
-                
-                $imagepath = $new_file_name;
-                //dd($imagepath);
-                
-            }
-            else {
-                // not ok return to add project view with error
-            }
-            //dd($request->file('image')->getClientOriginalExtension());
-            //dd($project_images_path);
-        }
+        //default $imagepath is null so it won't be changed when no new image was selected
+        $imagepath = null;
+        $imagepath = $this->storeImage($request, "image");
         
         //als de checkbox aangevinkt is, krijg je de waarde 1 terug, anders is de waarde blank
         $hidden = $request->hidden;
@@ -486,35 +393,7 @@ class BaseController extends Controller
         
         //default $imagepath is null so it won't be changed when no new image was selected
         $imagepath = null;
-        
-        //the path where the images will be stored
-        $project_images_path = public_path() . "\\images\\project_images\\";
-        
-        //allowed extensions
-        $allowed_extensions = ["jpeg", "png"];
-        
-        /* image must be
-        *       checked for extension
-        *       moved to directory on server
-        *       path opslagen in database
-        */
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $file = $request->file('image');
-            //check whether file extension is valid
-            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
-                //the time stamp will be added to uploaded images to prevent identical names
-                $timestamp = time();
-                //create new file name
-                $new_file_name = $timestamp . $file->getClientOriginalName();
-                //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
-                $imagepath = $new_file_name;
-            }
-            else {
-                // not ok return to add project view with error
-            }
-        }
+        $imagepath = $this->storeImage($request, "image");
         
         
         
@@ -545,7 +424,7 @@ class BaseController extends Controller
         //default $imagepath is null so it won't be changed when no new image was selected
         $imagepath = null;
         
-        $imagepath = $this->storeImage($request);
+        $imagepath = $this->storeImage($request, "image");
         
         $startdate = $this->convertToMysqlDatetime($request->startdate, $request->starttime);
         $enddate = $this->convertToMysqlDatetime($request->enddate, $request->endtime);
@@ -575,7 +454,7 @@ class BaseController extends Controller
     }
     
     
-    function storeImage($request) {
+    function storeImage($request, $filename) {
         //the path where the images will be stored
         $project_images_path = public_path() . "\\images\\project_images\\";
         
@@ -589,9 +468,9 @@ class BaseController extends Controller
         *       path opslagen in database
         */
         
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        if ($request->hasFile($filename) && $request->file($filename)->isValid()) {
             
-            $file = $request->file('image');
+            $file = $request->file($filename);
             //check whether file extension is valid
             if (in_array($file->guessClientExtension(), $allowed_extensions)) {
                 

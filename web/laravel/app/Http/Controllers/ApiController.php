@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Redirect;
+
 class ApiController extends Controller
 {
     //
@@ -103,8 +105,14 @@ class ApiController extends Controller
     }
     //vragen per fase
     public function get_questions_phase($id) {
+        $phase = Phase::find($id);
         $questions = Question::where("project_phase_id", $id)->get();
-        return response()->json($questions);
+        return response()->json([$phase, $questions]);
+    }
+    //get question info
+    public function get_question_info($id) {
+        $question = Question::find($id);
+        return response()->json($question);
     }
     //comments per fase
     public function get_comments_phase($id) {
@@ -125,6 +133,7 @@ class ApiController extends Controller
         $answer->save();
         
         //geen redirect, want dit is gewoon iets dat uitgevoerd moet worden op de achtergrond
+        return response()->json(['status' => "success"]);
     }
     //post van comments
     public function store_new_comment(Request $request) {
@@ -144,6 +153,15 @@ class ApiController extends Controller
         
         $comment->save();
         
+        //geen redirect, want dit is gewoon iets dat uitgevoerd moet worden op de achtergrond
+        return response()->json(['status' => "success"]);
+        
+    }
+    
+    public function store_test(Request $request) {
+        
+        //dd($request);
+        return response()->json(['test' => $request->email]);
         //geen redirect, want dit is gewoon iets dat uitgevoerd moet worden op de achtergrond
     }
     
@@ -171,6 +189,14 @@ class ApiController extends Controller
         return response()->json($question_ids);
     }
     
+    public function get_image($id) {
+        
+        $question = Question::find($id);
+        
+        return Redirect::to('http://oplossingen.web-backend.local/projectontwikkeling/project02/aMening/public/images/question_images/'.$question->left_picture_path);
+        
+        //return response()->json($question_ids);
+    }
     
     
     

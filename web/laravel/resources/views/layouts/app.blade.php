@@ -13,7 +13,7 @@
 
     <body>
         <div class="container">
-            <nav class="navbar navbar-default">
+            <nav class="navbar">
                 <!-- Navbar Contents -->
                 <ul>
                     <li><a href="{{ url('/overview') }}">Project overzicht</a></li>
