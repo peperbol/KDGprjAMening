@@ -6,7 +6,7 @@
       <h1>Event toevoegen aan {{ $project->name }}</h1>
        
        
-       <form action="{{ url('new_event') }}" method="POST" >
+       <form action="{{ url('new_event') }}" method="POST" enctype="multipart/form-data">
            {{ csrf_field() }}
            <div>
                <label for="name">Naam:</label>

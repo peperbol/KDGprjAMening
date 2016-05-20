@@ -8,9 +8,10 @@ public class ToDoHandler : MonoBehaviour
 {
 
 
-    void Start()
+    public void Start()
     {
         StartCoroutine(FetchIDs());
+        Debug.Log("start");
     }
 
     List<string> CurrentQuestions;
@@ -53,7 +54,7 @@ public class ToDoHandler : MonoBehaviour
             lq.Add(item);
         }
 
-
+        FindObjectOfType<BackgroundManager>().UpdateBG();
 
     }
 
@@ -81,7 +82,7 @@ public class ToDoHandler : MonoBehaviour
     IEnumerator GetAnsweredQuestions()
     {
         isGetAnsweredQuestionsRunning = true;
-        WWW idsWww = new WWW(PathsConfig.WWWFilePrefix+PathsConfig.AnsweredListFile);
+        WWW idsWww = new WWW(PathsConfig.WWWFilePrefix + PathsConfig.AnsweredListFile);
         while (!idsWww.isDone)
         {
             yield return null;
@@ -97,11 +98,12 @@ public class ToDoHandler : MonoBehaviour
     IEnumerator GetDownloadedQuestions()
     {
         isGetDownloadedQuestionsRunning = true;
-        if (Directory.Exists(PathsConfig.FileDirectoryPath) && Directory.Exists(PathsConfig.ImageDirectoryPath))
+        if (Directory.Exists(PathsConfig.DocDirectoryPath) && Directory.Exists(PathsConfig.ImageDirectoryPath))
         {
-            DownloadedQuestions = Directory.GetFiles(PathsConfig.FileDirectoryPath).ToList().ConvertAll(e => e.Substring(0, e.IndexOf(".json")).Substring(e.LastIndexOf("/") + 1));
-
-            DownloadedQuestions = DownloadedQuestions.Where(e => (new Question(e).fullPicture) ? File.Exists(PathsConfig.ImageDirectoryPath+e+ ".jpg"):  File.Exists(PathsConfig.ImageDirectoryPath + e + "L.jpg") && File.Exists(PathsConfig.ImageDirectoryPath + e + "R.jpg")).ToList();
+            //get ids
+            DownloadedQuestions = Directory.GetFiles(PathsConfig.DocDirectoryPath).ToList().ConvertAll(e => e.Substring(0, e.IndexOf(".json")).Substring(e.LastIndexOf("/") + 1));
+            //filter if images exist
+            DownloadedQuestions = DownloadedQuestions.Where(e => (new Question(e).fullPicture) ? File.Exists(PathsConfig.ImageFullPath(e)) : File.Exists(PathsConfig.ImageLeftPath(e)) && File.Exists(PathsConfig.ImageRightPath(e))).ToList();
         }
         else
         {
@@ -123,6 +125,14 @@ public class ToDoHandler : MonoBehaviour
         }
 
         File.WriteAllText(PathsConfig.AnsweredListFile, obj.ToString());
+        DeleteData(id);
+    }
+    void DeleteData(string id)
+    {
 
+        File.Delete(PathsConfig.ImageLeftPath(id));
+        File.Delete(PathsConfig.ImageRightPath(id));
+        File.Delete(PathsConfig.ImageFullPath(id));
+        File.Delete(PathsConfig.DocPath(id));
     }
 }

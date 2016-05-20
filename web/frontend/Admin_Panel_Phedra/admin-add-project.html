@@ -14,95 +14,93 @@
 	<body>
 	
            
-            <div class="form_project_toevoegen">
-           
-               
-                <div class="container_add_project">
+            <div class="geheel_project_toevoegen">
 
                    
-                    <h3 class="title_add_project">Project:</h3>
+                <h3 class="title_add_project">Project:</h3>
+                    
+                    
+                
 
                    
-                    <form name="addProjectForm" id="formulier_add_project" novalidate>
+                <form name="addProjectForm" class="formulier_add_project">
 
-
+                       
+                       
+                    <div class="container">
+                        
+                        
                         <div class="titelProject">
-                           <label for="titelProject">Titel:</label>
-                           <input id="titelProject" type="text" name="titelProject" required>
+                            <label for="titelProject">Titel:</label>
+                            <input id="titelProject" type="text" name="titelProject" required>
                         </div>
 
 
 
-                        <div class="beschrijvingProject">
-                           <label for="beschrijvingProject">Beschrijving:</label>
-                           <input id="beschrijvingProject" type="text" name="beschrijvingProject" required>
-                        </div>
+                         <div class="beschrijvingProject">
+                            <label for="beschrijvingProject">Beschrijving:</label>
+                             <textarea id="beschrijvingProject" name="beschrijvingProject" required></textarea>
+                         </div>
 
 
 
-                        <div class="fotoProject">
-                           <label for="button-bestand-selecteren">Foto:</label>
-                            <div class="upload">
-                                <input type="file" name="button-bestand-selecteren" id="fileProject">
-                            </div>
-                            <p class="filename filenameProject">Nog geen bestand gekozen</p>
-                        </div>
+                         <div class="fotoProject">
+                            <label for="button-bestand-selecteren">Foto:</label>
+                             <div class="upload">
+                                 <input type="file" name="button-bestand-selecteren" id="fileProject" required>
+                             </div>
+                             <p class="filename filenameProject">Nog geen bestand gekozen</p>
+                         </div>
 
 
 
-                        <div class="startdatumProject">
-                            <label for="startdatumProject">Startdatum:</label>
-                            <input id="startdatumProject" type="text" name="startdatumProject" required>
-                        </div>
+                         <div class="startdatumProject">
+                             <label for="startdatumProject">Startdatum:</label>
+                             <input id="startdatumProject" type="date" name="startdatumProject" required>
+                         </div>
 
 
 
-                        <div class="zichtbaarProject">
-                            <label for="zichtbaarProject">Zichtbaar:</label>
-                            <input type="checkbox" value="None" id="checkZichtbaarProject" name="checkZichtbaarProject" />
-                        </div>
+                         <div class="zichtbaarProject">
+                             <label for="zichtbaarProject">Verborgen:</label>
+                             <input type="checkbox" value="None" id="checkZichtbaarProject" name="checkZichtbaarProject" />
+                         </div>
 
 
 
-                        <div class="adminProject">
-                            <label for="adminProject">Aangemaakt door:</label>
-                            <p class="adminNaamProject">Phedra Moerloos</p>
-                        </div>
+                         <div class="adminProject">
+                             <label for="adminProject">Aangemaakt door:</label>
+                             <p class="adminNaamProject">Phedra Moerloos</p>
+                         </div>
 
 
 
+                    </div>
+                        
+                        
 
-
-                    </form>
-
-                </div>
-
-
-
-
-
-
-                <div class="container_add_fase1">
 
                     <h3 class="title_add_fase1">Fase 1:</h3>
+                   
+                    
 
-                    <form name="addFase1Form" id="formulier_add_fase1" novalidate>
+                    <div class="container">
 
-
+                       
                         <div class="naamFase1">
-                           <label for="NaamFase1">Naam:</label>
-                           <input id="NaamFase1" type="text" name="NaamFase" required>
+                            <label for="NaamFase1">Naam:</label>
+                            <input id="NaamFase1" type="text" name="NaamFase" required>
                         </div>
 
 
                         <div class="beschrijvingFase1">
-                           <label for="beschrijvingFase1">Beschrijving:</label>
-                           <input id="beschrijvingFase1" type="text" name="beschrijvingFase1" required>
+                            <label for="beschrijvingFase1">Beschrijving:</label>
+                            <textarea id="beschrijvingFase1" type="text" name="beschrijvingFase1" required></textarea>
                         </div>
 
 
-                       <div class="fotoFase1">
-                           <label for="button-bestand-selecteren">Foto:</label>
+                        <div class="fotoFase1">
+                            <label for="button-bestand-selecteren">Foto:</label>
                             <div class="upload">
                                 <input type="file" name="button-bestand-selecteren" id="fileFase1">
                             </div>
@@ -111,16 +109,25 @@
 
                         <div class="einddatumFase1">
                             <label for="einddatumFase1">Einddatum:</label>
-                            <input id="einddatumFase1" type="text" name="einddatumFase1" required>
+                            <input id="einddatumFase1" type="date" name="einddatumFase1" required>
                         </div>
 
+                        
+                    </div>
+                        
+                        
+                        
+                        
+                    <button type="submit" href="#" class="button-toevoegen-project">TOEVOEGEN</button>
+                        
+                        
+                        
+                </form>
 
-                    </form>
+                
 
-                </div>
-
-
-                <a href="#" class="button-toevoegen-project">TOEVOEGEN</a>
+                
+                
             
             </div>
             

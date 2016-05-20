@@ -5,7 +5,7 @@ using System;
 
 public class Question
 {
-    public string FilePath { get { return PathsConfig.FileDirectoryPath + id + ".json"; } }
+    public string FilePath { get { return PathsConfig.DocDirectoryPath + id + ".json"; } }
 
     public string id { get; private set; }
     public string questionText { get; private set; }
