@@ -33,7 +33,7 @@
            
            <div>
                <label for="image">Afbeelding:</label>
-               <input type="file" id="image" name="image">
+               <input type="file" id="image" name="image" required>
            </div>
            
            

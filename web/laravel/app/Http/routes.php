@@ -72,12 +72,22 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('search', ['as' => 'search', 'uses' => 'ApiController@search']);
     //get phases project
     Route::get('/get_phases_project/{id}', 'ApiController@get_phases_project');
+    //get phase info
+    Route::get('/get_phase_info/{id}', 'ApiController@get_phase_info');
     //get events project
     Route::get('/get_events_project/{id}', 'ApiController@get_events_project');
     //get questions phase
     Route::get('/get_questions_phase/{id}', 'ApiController@get_questions_phase');
     //get comments phase
     Route::get('/get_comments_phase/{id}', 'ApiController@get_comments_phase');
+    //app
+    Route::get('/get_question_ids', 'ApiController@get_current_questions');
+    Route::get('/get_question_info/{id}', 'ApiController@get_question_info');
+    Route::get('/get_image/{id}', 'ApiController@get_image');
+    
+    
+    Route::post('/post_test', 'ApiController@store_test');
+    
     
     
     //main dashboard admins
@@ -107,6 +117,16 @@ Route::group(['middleware' => ['web']], function () {
     
     Route::get('/edit_event/{id}', ['as' => 'edit_event', 'uses' => 'BaseController@getEditEvent']);
     
+    
+    //admin part --> get comments by phase
+    Route::get('/get_comments_phase/{id}', ['as' => 'get_comments_phase', 'uses' => 'BaseController@getCommentsPhase']);
+    //admin part --> get comments by project
+    Route::get('/get_comments_project/{id}', ['as' => 'get_comments_project', 'uses' => 'BaseController@getCommentsProject']);
+    
+    //admin part --> get results by phase
+    Route::get('/get_results_phase/{id}', ['as' => 'get_results_phase', 'uses' => 'BaseController@getResultsPhase']);
+    //admin part --> get results by project
+    Route::get('/get_results_project/{id}', ['as' => 'get_results_project', 'uses' => 'BaseController@getResultsProject']);
     
     
     //toevoegen uitvoeren (dus als er op de submit button geklikt wordt)

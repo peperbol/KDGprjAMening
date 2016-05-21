@@ -14,6 +14,9 @@
        
        <form id="add_project_form" action="{{ url('new_project') }}" method="POST" enctype="multipart/form-data">
            {{ csrf_field() }}
+           
+           <h1>Project toevoegen</h1>
+           
            <div>
                <label for="name">Naam:</label>
                <input id="name" name="name" type="text" required>
@@ -48,7 +51,7 @@
            
            <div>
                <label for="image">Afbeelding:</label>
-               <input type="file" id="image" name="image">
+               <input type="file" id="image" name="image" required>
            </div>
            
            <!-- google maps met marker om locatie toe te voegen (dus met coördinaten ipv adres ) -->
@@ -75,6 +78,31 @@
                <!-- User X hieronder moet dynamisch ingevuld worden, navenant welke user ingelogd is -->
                <input type="text" id="user" name="user" value="User X" readonly>
            </div>
+           
+           
+           <h2>Eerste fase toevoegen:</h2>
+           
+           
+           <div>
+               <label for="phase_name">Naam:</label>
+               <input id="phase_name" name="phase_name" type="text" required>
+           </div>
+           
+           <div>
+               <label for="phase_description">Beschrijving:</label>
+               <textarea id="phase_description" name="phase_description" required></textarea>
+           </div>
+           
+           <div>
+               <label for="phase_enddate">Einddatum:</label>
+               <input id="phase_enddate" name="phase_enddate" type="date" required>
+           </div>
+           
+           <div>
+               <label for="phase_image">Afbeelding:</label>
+               <input type="file" id="phase_image" name="phase_image" required>
+           </div>
+           
            
            
            <div class="">
