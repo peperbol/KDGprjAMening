@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class SwipeInput : MonoBehaviour
 {
@@ -76,21 +77,21 @@ public class SwipeInput : MonoBehaviour
             {
                 splitImageInstance[0].material.SetFloat("_Split", 1);
             }
-            Color c;
+            Color tempColor;
             //base color
             float delta = 0.5f - Mathf.Abs(Split - 0.5f);
             if (delta < confirmColorSplit)
             {
-                c = Color.Lerp(confirmColorText, normalColorText, delta / confirmColorSplit);
+                tempColor = Color.Lerp(confirmColorText, normalColorText, delta / confirmColorSplit);
                 Color cBorder = Color.Lerp(confirmColorBorder, normalColorBorder, delta / confirmColorSplit);
                 if (Split < 0.5f)
                 {
-                    rightText[0].color = c;
+                    rightText[0].color = tempColor;
                     rightText[0].GetComponent<Outline>().effectColor = cBorder;
                 }
                 else
                 {
-                    leftText[0].color = c;
+                    leftText[0].color = tempColor;
                     leftText[0].GetComponent<Outline>().effectColor = cBorder;
                 }
             }
@@ -101,12 +102,12 @@ public class SwipeInput : MonoBehaviour
             //alpha
             left[0].flexibleWidth = Split * 1000;
             right[0].flexibleWidth = (1 - Split) * 1000;
-            c = leftText[0].color;
-            c.a = Split * 2;
-            leftText[0].color = c;
-            c = rightText[0].color;
-            c.a = (1 - Split) * 2;
-            rightText[0].color = c;
+            tempColor = leftText[0].color;
+            tempColor.a = Split * 2;
+            leftText[0].color = tempColor;
+            tempColor = rightText[0].color;
+            tempColor.a = (1 - Split) * 2;
+            rightText[0].color = tempColor;
 
             leftText[0].rectTransform.offsetMin = -(leftText[0].rectTransform.offsetMax = new Vector2(leftText[0].rectTransform.offsetMax.x, -Mathf.Lerp(SelectedTextMargin, NormalTextMargin, (1 - Split) * 2)));
             rightText[0].rectTransform.offsetMin = -(rightText[0].rectTransform.offsetMax = new Vector2(rightText[0].rectTransform.offsetMax.x, -Mathf.Lerp(SelectedTextMargin, NormalTextMargin, Split * 2)));
@@ -204,7 +205,9 @@ public class SwipeInput : MonoBehaviour
     void Update()
     {
         if (selected || !HasQuestions) return;
-        if (Input.touchCount > 0)
+
+        RaycastHit hit;
+        if (Input.touchCount > 0 && Physics.Raycast(Camera.main.ScreenPointToRay(Input.touches[0].position), out hit) && hit.collider.gameObject == ImageContainer.gameObject)
         {
             if (Input.touches[0].phase != TouchPhase.Moved) return;
 
@@ -233,7 +236,7 @@ public class SwipeInput : MonoBehaviour
     IEnumerator Select()
     {
         selected = true;
-        float time = 0;
+        float timer = 0;
         Rigidbody2D rb = splitImageInstance[0].gameObject.AddComponent<Rigidbody2D>();
 
         rb.velocity = Vector2.ClampMagnitude(fingerVelocity / 2, maxVelocity* Screen.width); ;
@@ -242,13 +245,13 @@ public class SwipeInput : MonoBehaviour
         questionLoader.Answer(question[0], Split < 0.5f);
         Next();
         Color c;
-        while (time < 1)
+        while (timer < 1)
         {
-            time += Time.deltaTime / timeToSelect * 2;
+            timer += Time.deltaTime / timeToSelect * 2;
             foreach (Image item in overlay.GetComponentsInChildren<Image>())
             {
                 c = item.color;
-                c.a = time;
+                c.a = timer;
                 item.color = c;
             }
             yield return null;
@@ -259,14 +262,14 @@ public class SwipeInput : MonoBehaviour
             yield return null;
         }
         questionLoader.SetTitle(question[0]);
-        while (time > 0)
+        while (timer > 0)
         {
-            time -= Time.deltaTime / timeToSelect * 2;
+            timer -= Time.deltaTime / timeToSelect * 2;
 
             foreach (Image item in overlay.GetComponentsInChildren<Image>())
             {
                 c = item.color;
-                c.a = time;
+                c.a = timer;
                 item.color = c;
             }
             yield return null;
