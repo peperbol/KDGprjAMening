@@ -29,7 +29,7 @@ public class ColliderUIFitter : MonoBehaviour {
             Vector3[] v = new Vector3[4];
             t.GetWorldCorners(v);
             b.size = new Vector3(v.Max(e => e.x) - v.Min(e => e.x), v.Max(e => e.y) - v.Min(e => e.y), 1);
-            b.center = new Vector3(0, b.size.y / 2 * yMultipier +  yOffset, 0);
+            b.center = new Vector3(0, b.size.y / 2 * ((1-t.pivot.y)*2-1) +  yOffset, 0);
         }
     }
 }
