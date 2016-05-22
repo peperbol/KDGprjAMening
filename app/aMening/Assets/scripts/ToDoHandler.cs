@@ -103,7 +103,7 @@ public class ToDoHandler : MonoBehaviour
             //get ids
             DownloadedQuestions = Directory.GetFiles(PathsConfig.DocDirectoryPath).ToList().ConvertAll(e => e.Substring(0, e.IndexOf(".json")).Substring(e.LastIndexOf("/") + 1));
             //filter if images exist
-            DownloadedQuestions = DownloadedQuestions.Where(e => (new Question(e).fullPicture) ? File.Exists(PathsConfig.ImageFullPath(e)) : File.Exists(PathsConfig.ImageLeftPath(e)) && File.Exists(PathsConfig.ImageRightPath(e))).ToList();
+            DownloadedQuestions = DownloadedQuestions.Where(e => (new Question(e, null).fullPicture) ? File.Exists(PathsConfig.ImageFullPath(e)) : File.Exists(PathsConfig.ImageLeftPath(e)) && File.Exists(PathsConfig.ImageRightPath(e))).ToList();
         }
         else
         {

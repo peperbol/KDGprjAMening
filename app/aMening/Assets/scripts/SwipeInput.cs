@@ -38,6 +38,7 @@ public class SwipeInput : MonoBehaviour
     private BackgroundManager bgm;
     public float NormalTextMargin = 65;
     public float SelectedTextMargin = 30;
+    private CommentInput commentInput;
     public bool WaitingForMore
     {
         get
@@ -51,7 +52,7 @@ public class SwipeInput : MonoBehaviour
         {
             int i;
             for (i = 0; i < splitImageInstance.Length && splitImageInstance[i] != null; i++) { }
-            return i ;
+            return i;
         }
     }
     public bool HasQuestions
@@ -187,6 +188,7 @@ public class SwipeInput : MonoBehaviour
     {
         questionLoader = GetComponent<LoadQuestion>();
         bgm = GetComponent<BackgroundManager>();
+        commentInput = FindObjectOfType<CommentInput>();
 
         for (int i = 0; i < ImageContainer.childCount && !selected; i++)
         {
@@ -201,7 +203,9 @@ public class SwipeInput : MonoBehaviour
         question = new Question[buffer];
         fillQueue(true);
         Physics2D.gravity = new Vector2(0, -gravity * Screen.width);
+        StartCoroutine(WaitForfirtstQuestion());
     }
+
     void Update()
     {
         if (selected || !HasQuestions) return;
@@ -209,10 +213,12 @@ public class SwipeInput : MonoBehaviour
         RaycastHit hit;
         if (Input.touchCount > 0 && Physics.Raycast(Camera.main.ScreenPointToRay(Input.touches[0].position), out hit) && hit.collider.gameObject == ImageContainer.gameObject)
         {
+
+            if (Input.touches[0].phase == TouchPhase.Began) commentInput.Close();
             if (Input.touches[0].phase != TouchPhase.Moved) return;
 
             Split += Input.touches[0].deltaPosition.x / Screen.width / Input.touches[0].deltaTime * Time.deltaTime;
-            fingerVelocity = Input.touches[0].deltaPosition / Input.touches[0].deltaTime ;
+            fingerVelocity = Input.touches[0].deltaPosition / Input.touches[0].deltaTime;
 
         }
         else
@@ -233,13 +239,21 @@ public class SwipeInput : MonoBehaviour
 
 
     }
+    IEnumerator WaitForfirtstQuestion()
+    {
+        while (!HasQuestions)
+        {
+            yield return null;
+        }
+        questionLoader.SetTitle(question[0]);
+    }
     IEnumerator Select()
     {
         selected = true;
         float timer = 0;
         Rigidbody2D rb = splitImageInstance[0].gameObject.AddComponent<Rigidbody2D>();
 
-        rb.velocity = Vector2.ClampMagnitude(fingerVelocity / 2, maxVelocity* Screen.width); ;
+        rb.velocity = Vector2.ClampMagnitude(fingerVelocity / 2, maxVelocity * Screen.width); ;
         fingerVelocity = Vector2.zero;
 
         questionLoader.Answer(question[0], Split < 0.5f);

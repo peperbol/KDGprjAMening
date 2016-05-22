@@ -8,6 +8,7 @@ public class CommentInput : MonoBehaviour {
     RectTransform rectTransform;
     public float speedDecay = 0.2f;
     public float tabSpeed = 5;
+    public float headerHeight = 85;
     void Start () {
         rectTransform = GetComponent<RectTransform>();
     }
@@ -17,7 +18,9 @@ public class CommentInput : MonoBehaviour {
             return 1- rectTransform.pivot.y;
         }
         set {
-            rectTransform.pivot = new Vector2(rectTransform.pivot.x, 1 - Mathf.Clamp(value, 0,1));
+            var h = Heigth;
+            if (h > 0)
+            rectTransform.pivot = new Vector2(rectTransform.pivot.x, 1 - Mathf.Clamp(value,0,1 - headerHeight / h));
         }
     }
     public float Heigth {
@@ -25,14 +28,25 @@ public class CommentInput : MonoBehaviour {
         {
             Vector3[] corners = new Vector3[4];
             rectTransform.GetWorldCorners(corners);
-            //Debug.Log(corners[0] + " " + corners[1] + " " + corners[2] + " " + corners[3]);
+
             return corners.Max(e => e.y) - corners.Min(e => e.y);
         }
     }
     Vector2 touchY;
     float speed;
     bool moved;
-	void Update () {
+
+    public void Open()
+    {
+        speed = tabSpeed;
+    }
+    public void Close()
+    {
+
+        speed = -tabSpeed;
+    }
+
+    void Update () {
         
         RaycastHit hit;
         if (Input.touchCount > 0 && Physics.Raycast(Camera.main.ScreenPointToRay(Input.touches[0].position), out hit) && hit.collider.gameObject == gameObject)
@@ -56,16 +70,15 @@ public class CommentInput : MonoBehaviour {
             }
             else if ((Input.GetTouch(0).phase == TouchPhase.Ended) && !moved)
             {
-                speed = tabSpeed;
+                Open();
             }
         }
         else
         {
             speed *= 1  - speedDecay;
-            //if(speed > 0.0001f)
+
             Position += speed* Time.deltaTime;
             
-            Debug.Log(speed);
         }
     }
 }

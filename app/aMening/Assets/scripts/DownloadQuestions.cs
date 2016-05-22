@@ -27,7 +27,7 @@ public class DownloadQuestions : MonoBehaviour
             }
             File.WriteAllBytes(PathsConfig.DocPath(ids[i]), docWWW.bytes);
 
-            if (new Question(ids[i]).fullPicture)
+            if (new Question(ids[i], null).fullPicture)
             {
                 WWW picWww = new WWW(PathsConfig.ImageFullUrl(ids[i]));
                 while (!picWww.isDone)

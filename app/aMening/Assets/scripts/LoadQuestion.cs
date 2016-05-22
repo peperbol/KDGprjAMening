@@ -15,10 +15,12 @@ public class LoadQuestion : MonoBehaviour
     public OverlaySlider loadingScreen;
     public List<string> ids;
     SwipeInput si;
+    CommentsBuilder cb;
     public bool QuestionsPending { get { return questions.Count > 0 || ids.Count > 0; } }
     void Awake()
     {
         si = FindObjectOfType<SwipeInput>();
+        cb = FindObjectOfType<CommentsBuilder>();
     }
     public void Add(string id)
     {
@@ -36,7 +38,7 @@ public class LoadQuestion : MonoBehaviour
         {
             try
             {
-                questions.Enqueue(new Question(id));
+                questions.Enqueue(new Question(id, this));
             }
             catch (System.IO.FileNotFoundException) { Debug.LogWarning("Did not find file of id " + id); }
         }
@@ -101,11 +103,18 @@ public class LoadQuestion : MonoBehaviour
         {
             questionText.text = q.questionText;
             projectText.text = q.projectText.ToUpper();
+            q.GetComments(this, e =>
+            {
+                Debug.Log("loaded");
+                cb.SetComments(e);
+            });
             Debug.Log("g");
         }
         else
         {
             questionText.text = projectText.text = "";
+
+            cb.SetComments(new Comment[0]);
         }
     }
 

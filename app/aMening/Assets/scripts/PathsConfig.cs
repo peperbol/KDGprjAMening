@@ -28,4 +28,5 @@ public static class PathsConfig
     public static string ImageRightUrl(string id) { return ImageDirectoryUrl + id + "R.jpg"; }
     public static string ImageFullUrl(string id) { return ImageDirectoryUrl + id + ".jpg"; }
     public static string CurrentIdsUrl { get { return APIurl + "/questions/getlistall"; } }
+    public static string CommentsUrl(string phaseId) { return APIurl + "/phases/getcomments/"+ phaseId+".json"; }
 }
