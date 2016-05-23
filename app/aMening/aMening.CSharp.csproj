@@ -65,6 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\AspectRatioAdjuster.cs" />
     <Compile Include="Assets\scripts\BackgroundManager.cs" />
+    <Compile Include="Assets\scripts\ColliderUIFitter.cs" />
+    <Compile Include="Assets\scripts\CommentInput.cs" />
+    <Compile Include="Assets\scripts\CommentsBuilder.cs" />
     <Compile Include="Assets\scripts\DebugActions.cs" />
     <Compile Include="Assets\scripts\DownloadQuestions.cs" />
     <Compile Include="Assets\scripts\FadePulse.cs" />

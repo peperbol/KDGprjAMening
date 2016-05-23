@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="antwerpenApp">
     <head>
         <title>A-Mening projecten</title>
 
@@ -33,12 +33,26 @@
         </div>
         
         <div class="right_box">
-            
+            {{--@if(Auth::check())
+            @else
+            niet ingelogd
+            @endif--}}
+        </div>
+        
+        <div ng-controller="projController as proj">
+            <form ng-submit="proj.sendAnswer()">
+                
+                <input type="text" name="test" id="test" required ng-model="proj.inputje">
+           
+                   <button type="submit">toevoegen</button>
+            </form>
         </div>
         
         
+        
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <!--<script src="{{ asset('js/test.js') }}" type="text/javascript"></script>-->
+    <script src="{{ asset('js/test.js') }}" type="text/javascript"></script>
     
 
     </body>

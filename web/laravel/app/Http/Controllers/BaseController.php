@@ -7,6 +7,8 @@ use App\Phase;
 use App\Event;
 use App\User;
 use App\Question;
+use App\Comment;
+use App\Answer;
 
 use Illuminate\Http\Request;
 
@@ -25,25 +27,13 @@ class BaseController extends Controller
         //$this->middleware('auth');
     }
     
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'description' => 'required|string|min:50|max:150', 
-            'startdate' => 'required|date', 
-            'hidden' => 'required', 
-            'imagepath' => 'required|string', 
-            'street' => 'required|string', 
-            'house_number' => 'required|integer', 
-            'latitude' => 'required', 
-            'longitude' => 'required',
-        ]);
-    }
-    
     
     //users homepage
     public function getHomepage() {
-        $projects = Project::all();
+        //can't be projects all
+        //$projects = Project::all();
+        //must be projects whose hidden = 0
+        $projects = Project::where('hidden', 0)->get();
         return view('homepage/home', ["projects" => $projects]);
     }
     
@@ -72,6 +62,70 @@ class BaseController extends Controller
     }
     
     
+    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+    public function getCommentsPhase ($id) {
+        $phase = Phase::find($id);
+        $comments = Comment::where('project_phase_id', $id)->get();
+        //return view('show_comments', ['phase' => $phase, 'comments' => $comments]);
+        return $comments;
+    }
+    
+    public function getResultsPhase ($id) {
+        $phase = Phase::find($id);
+        $questions = Question::where('project_phase_id', $id)->get();
+        $results = [];
+        foreach($questions as $question) {
+            //for each question get the question, the option labels and the amount of votes for those options
+            $questiontext = $question->questiontext;
+            $leftlabel = $question->leftlabel;
+            $rightlabel = $question->rightlabel;
+            $leftcount = Answer::where('question_id', $question->id_question)->where('answer', 0)->count();
+            $rightcount = Answer::where('question_id', $question->id_question)->where('answer', 1)->count();
+            //save this question data in a variabele result
+            $result = [$questiontext, $leftlabel, $rightlabel, $leftcount, $rightcount];
+            //push result tot the results array
+            array_push($results, $result);
+            //dd($results);
+            
+        }
+        
+        return $results;
+        //return view('show_results', ['phase' => $phase, 'results' => $results]);
+    }
+    
+    
+    public function getCommentsProject ($id) {
+        $project_phases = Phase::where('project_id', $id)->get();
+        $comments_project = [];
+        foreach($project_phases as $phase){
+            $phasename = $phase->name;
+            $comments = $this->getCommentsPhase($phase->id_project_phase);
+            array_push($comments_project, [$phase, $comments]);
+        }
+        return view('show_comments', ['comments_project' => $comments_project]);
+    }
+    
+    
+    public function getResultsProject ($id) {
+        $project_phases = Phase::where('project_id', $id)->get();
+        $results_project = [];
+        foreach($project_phases as $phase){
+            $phasename = $phase->name;
+            $results = $this->getResultsPhase($phase->id_project_phase);
+            array_push($results_project, [$phase, $results]);
+        }
+        //dd($results_project);
+        return view('show_results', ['results_project' => $results_project]);
+    }
+    
+    
+    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+    
+    
+    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     public function getEditProject ($id) {
         //$project = Project::where('id_project', $id)->get();
         $project = Project::with('user')->find($id);
@@ -96,8 +150,11 @@ class BaseController extends Controller
         
         return view('edit_event', ['event' => $event, 'startdate_arr' => $startdate_arr, 'enddate_arr' => $enddate_arr]);
     }
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     
+    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     //add views
     public function addPhase ($id) {
         //the id passed to this function is the id from the project to which the phase must be added
@@ -116,50 +173,19 @@ class BaseController extends Controller
         $phase = Phase::where("id_project_phase", $id)->get();
         return view('add_question', ['phase' => $phase]);
     }
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     //store / insert views
     //effectief toevoegen aan database (de werkelijke insert)
     public function storeNewProject(Request $request)
     {
         //dd($request);
         
-        //the path where the images will be stored
-        $project_images_path = public_path() . "\\images\\project_images\\";
         
-        //allowed extensions
-        $allowed_extensions = ["jpeg", "png"];
-        
-        
-        /* image must be
-        *       checked for extension
-        *       moved to directory on server
-        *       path opslagen in database
-        */
-        
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $file = $request->file('image');
-            //check whether file extension is valid
-            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
-                
-                //the time stamp will be added to uploaded images to prevent identical names
-                $timestamp = time();
-                //create new file name
-                $new_file_name = $timestamp . $file->getClientOriginalName();
-                
-                //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
-                
-                $imagepath = $new_file_name;
-                
-            }
-            else {
-                // not ok return to add project view with error
-            }
-        }
-        
-        
+        $imagepath = null;
+        $imagepath = $this->storeImage($request, "image");
         
         
         //als de checkbox aangevinkt is, krijg je de waarde 1 terug, anders is de waarde blank
@@ -191,32 +217,30 @@ class BaseController extends Controller
         
         $project->save();
         
-        //of ipv hierboven het user_id toe te voegen kan je ook het volgende doen:
-        //$user = User::find($id);
-        //$project = $user->projects()->save($project);
+        
+        //project_id for new fase
+        $project_id = $project->id_project;
+        
+        //en ook ineens de nieuwe fase toevoegen
+        
+        $phase_imagepath = null;
+        $phase_imagepath = $this->storeImage($request, "phase_image");
+        
+        $bannerpath = null;
+        $order = 1;
+        
+        $phase = new Phase(['name' => $request->phase_name,
+                            'description' => $request->phase_description,
+                            'enddate' => $request->phase_enddate,
+                            'order' => $order,
+                            'bannerpath' => $bannerpath,
+                            'imagepath' => $phase_imagepath,
+                            'project_id' => $project_id
+                           ]);
+        
+        $phase->save();
         
         
-        //gaan valideren (eventueel, maar kan ook via angular denk ik)
-        /*
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ]);*/
-        
-        //ik moet hier de status ook al meegeven en het dus op onderstaande manier doen
-        /*
-        $request->user()->projects()->create([
-            'name' => $request->name,
-            'description' => 'testjeeeee',
-        ]);
-        */
-        
-        
-        //volgens de documentatie op laravel zelf, moet je wel de save method gebruiken (???)
-        //$project = new Project(['name' => $request->name]);
-
-        //$user = User::find(1);
-
-        //$comment = $post->comments()->save($comment);
         
         //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
         return redirect('/overview');
@@ -225,33 +249,8 @@ class BaseController extends Controller
     public function storeNewPhase(Request $request)
     {
         //the path where the images will be stored
-        $project_images_path = public_path() . "\\images\\project_images\\";
-        
-        //allowed extensions
-        $allowed_extensions = ["jpeg", "png"];
-        
-        /* image must be
-        *       checked for extension
-        *       moved to directory on server
-        *       path opslagen in database
-        */
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $file = $request->file('image');
-            //check whether file extension is valid
-            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
-                //the time stamp will be added to uploaded images to prevent identical names
-                $timestamp = time();
-                //create new file name
-                $new_file_name = $timestamp . $file->getClientOriginalName();
-                //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
-                $imagepath = $new_file_name;
-            }
-            else {
-                // not ok return to add project view with error
-            }
-        }
+        $imagepath = null;
+        $imagepath = $this->storeImage($request, "image");
         
         $bannerpath = null;
         
@@ -281,7 +280,7 @@ class BaseController extends Controller
         $imagepath = null;
         
         
-        $imagepath = $this->storeImage($request);
+        $imagepath = $this->storeImage($request, "image");
         
         
         $startdate = $this->convertToMysqlDatetime($request->startdate, $request->starttime);
@@ -333,9 +332,10 @@ class BaseController extends Controller
         //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
         return redirect('/add_question/' . $request->id_phase);
     }
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     
-    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     //updates
     public function updateProject(Request $request)
     {
@@ -343,44 +343,9 @@ class BaseController extends Controller
         
         $project = Project::find($request->id_project);
         
-        //the path where the images will be stored
-        $project_images_path = public_path() . "\\images\\project_images\\";
-        
-        //allowed extensions
-        $allowed_extensions = ["jpeg", "png"];
-        
-        
-        /* image must be
-        *       checked for extension
-        *       moved to directory on server
-        *       path opslagen in database
-        */
-        //dd($request->file('image'));
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $file = $request->file('image');
-            //check whether file extension is valid
-            //dd($file);
-            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
-                
-                //the time stamp will be added to uploaded images to prevent identical names
-                $timestamp = time();
-                //create new file name
-                $new_file_name = $timestamp . $file->getClientOriginalName();
-                
-                //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
-                
-                $imagepath = $new_file_name;
-                //dd($imagepath);
-                
-            }
-            else {
-                // not ok return to add project view with error
-            }
-            //dd($request->file('image')->getClientOriginalExtension());
-            //dd($project_images_path);
-        }
+        //default $imagepath is null so it won't be changed when no new image was selected
+        $imagepath = null;
+        $imagepath = $this->storeImage($request, "image");
         
         //als de checkbox aangevinkt is, krijg je de waarde 1 terug, anders is de waarde blank
         $hidden = $request->hidden;
@@ -428,35 +393,7 @@ class BaseController extends Controller
         
         //default $imagepath is null so it won't be changed when no new image was selected
         $imagepath = null;
-        
-        //the path where the images will be stored
-        $project_images_path = public_path() . "\\images\\project_images\\";
-        
-        //allowed extensions
-        $allowed_extensions = ["jpeg", "png"];
-        
-        /* image must be
-        *       checked for extension
-        *       moved to directory on server
-        *       path opslagen in database
-        */
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            
-            $file = $request->file('image');
-            //check whether file extension is valid
-            if (in_array($file->guessClientExtension(), $allowed_extensions)) {
-                //the time stamp will be added to uploaded images to prevent identical names
-                $timestamp = time();
-                //create new file name
-                $new_file_name = $timestamp . $file->getClientOriginalName();
-                //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
-                $imagepath = $new_file_name;
-            }
-            else {
-                // not ok return to add project view with error
-            }
-        }
+        $imagepath = $this->storeImage($request, "image");
         
         
         
@@ -487,7 +424,7 @@ class BaseController extends Controller
         //default $imagepath is null so it won't be changed when no new image was selected
         $imagepath = null;
         
-        $imagepath = $this->storeImage($request);
+        $imagepath = $this->storeImage($request, "image");
         
         $startdate = $this->convertToMysqlDatetime($request->startdate, $request->starttime);
         $enddate = $this->convertToMysqlDatetime($request->enddate, $request->endtime);
@@ -505,7 +442,7 @@ class BaseController extends Controller
         //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
         return redirect('/overview');
     }
-    
+    /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     
     
@@ -517,7 +454,7 @@ class BaseController extends Controller
     }
     
     
-    function storeImage($request) {
+    function storeImage($request, $filename) {
         //the path where the images will be stored
         $project_images_path = public_path() . "\\images\\project_images\\";
         
@@ -531,9 +468,9 @@ class BaseController extends Controller
         *       path opslagen in database
         */
         
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        if ($request->hasFile($filename) && $request->file($filename)->isValid()) {
             
-            $file = $request->file('image');
+            $file = $request->file($filename);
             //check whether file extension is valid
             if (in_array($file->guessClientExtension(), $allowed_extensions)) {
                 
