@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css ">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="leftSide">
         <img class="logo" href="../img/stadlogo.jpg">
         <div id="map">
-            
+
         </div>
         <ul class="projectList">
             <li class="selectedProject"><a href="project1.html">
@@ -28,46 +29,59 @@
     </div>
 
     <div class="rightSide">
-        <div class="imgWrapper">
-            <img class="headerImg" src="../img/header.jpg">    
-        </div>
         <div class="contentWrapper">
             <h2>Project 1</h2>
             <p>Kort tekstje met uitleg over het project. Bijvoorbeeld, dit is een monument dat op de groenplaats zou komen.</p>
 
-           
+
            <div class="choiceBoxContainer">
-                <ul class="choiceBox1">
-                    <li class="choiceTitle"><p>Het monument plaatsen?</p></li>
-                    <li class="choicePick"><a href="ja">JA</a></li>
-                    <li class="choicePick"><a href="nee">NEE</a></li>
+                <ul >
+                    <li class="choiceTitle">Het monument plaatsen?</li>
+                    <li class="choicePick activeChoice">
+                      <input id="monumentIDL" type="radio" name="monumentID" value="1">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                      <label for="monumentIDL" >Ja</label>
+                    </li>
+                    <li class="choicePick">
+                      <input id="monumentIDR" type="radio" name="monumentID" value="0">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                      <label for="monumentIDR" >Nee</label>
+                    </li>
                 </ul>
 
-                <ul class="choiceBox2">
-                    <li class="choiceTitle"><p>Liever groen?</p></li>
-                    <li class="choicePick activeChoice"><a href="ja">Groen</a></li>
-                    <li class="choicePick"><a href="nee">Monument</a></li>
+                <ul >
+                    <li class="choiceTitle">Liever groen?</li>
+                    <li class="choicePick activeChoice">
+                      <input id="lievergroenIDL" type="radio" name="lievergroenID" value="1">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                      <label for="lievergroenIDL" >Groen</label>
+                    </li>
+                    <li class="choicePick">
+                      <input id="lievergroenIDR" type="radio" name="lievergroenID" value="0">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                      <label for="lievergroenIDR" >Monument</label>
+                    </li>
                 </ul>
             </div>
-            
-            <input type="text" class="feedbackInput" value="Wij horen graag jouw mening!">
-            <button class="stuurIn"><a href="stuurIn.html">STUUR IN</a></button>     
-            <button class="bekijkFeedback"><a href="bekijkFeedback.html">BEKIJK VOORGAANDE FEEDBACK</a></button>       
+
+            <textarea class="feedbackInput" placeholder="Wij horen graag jouw mening!"></textarea>
+            <button class="stuurIn"><a href="stuurIn.html">STUUR IN</a></button>
+            <button class="bekijkFeedback"><a href="bekijkFeedback.html">BEKIJK VOORGAANDE FEEDBACK</a></button>
         </div>
 
     </div>
-    
+
     <div class="timelineContainer">
         <ul class="timeline">
-            <li class="huidigeFase"><h2 class="faseHead">FASE</h2><h2 class="faseHead">4</h2><p>12/04</p></li>
+            <li class="huidigeFase">         <h2 class="faseHead">FASE</h2><h2 class="faseHead">4</h2><p>12/04</p></li>
             <li class="fase"><a href="fase3"><h2 class="faseHead">FASE</h2><h2 class="faseHead">3</h2></a></li>
             <li class="fase"><a href="fase2"><h2 class="faseHead">FASE</h2><h2 class="faseHead">2</h2></a></li>
             <li class="fase"><a href="fase1"><h2 class="faseHead">FASE</h2><h2 class="faseHead">1</h2></a></li>
         </ul>
     </div>
-<!-- _________________________________________________________________________________________________________________ -->    
-    
-    <script>             
+<!-- _________________________________________________________________________________________________________________ -->
+
+    <script>
         function initMap() {
         var myLatLng = {lat: 51.207, lng: 4.407}; //coordinaten geselecteerd project
 

@@ -1,16 +1,61 @@
 
-.leftSide {
-    width: 44vw;
-    height: 95vh;
-    margin-left: 3.5vw;
-    margin-top: 1vw;
-    float: left;
-}
+
 
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+}
+
+.leftSide {
+    width: 40vw;
+    height: 95vh;
+    margin-left: 4vw;
+    margin-top: 1vw;
+    position:fixed;
+}
+
+@media (max-width: 650px) {
+
+  .leftSide {
+    position: relative;
+
+        width: auto;
+
+        height: auto;
+        margin: 0 10px 10px;
+  }
+  #map{
+          display: none;
+  }
+  .projectList {
+
+    height: auto;
+    max-height: none;
+  }
+  body .projectList li {
+    height: 40px
+  }
+  body .projectList li a p {
+      line-height: 39px;
+
+  }
+  body .rightSide {
+
+        position: absolute;
+            left: 10px;
+            width: auto;;
+            right: 70px;
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 10px;
+
+            float: none;
+  }
+  body .timelineContainer {
+      position: absolute;
+          right:10px;
+            float: none;
+  }
 }
 
 .projectList::-webkit-scrollbar {
@@ -21,21 +66,23 @@ body {
 .projectList::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #6e6e6e;
-    
+
 }
- 
+
 .projectList::-webkit-scrollbar-thumb {
   background-color: #3a3939;
   outline: 1px solid #3a3939;
 }
 
 .rightSide {
-    width: 44vw;
-    height: 95vh;
+    width: 40vw;
+    /*height: 95vh;*/
     background-color: #3a3939;
-    margin-left: 0.8vw;
+    margin-left: 46vw;
     margin-top: 1vw;
+    margin-bottom: 1vw;
     float: left;
+    position: relative;
 }
 
 
@@ -43,7 +90,6 @@ body {
 #map {
     margin: 0;
     padding: 0;
-    float:left;
     width: inherit;
     height: 50%;
     position: relative;
@@ -56,20 +102,21 @@ body {
     padding: 0;
     height: 50%;
     width: inherit;
-    display: inline-block;
+    display: block;
     max-height: 50%;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     list-style: none;
     z-index: 11;
+    background-color: #3a3939;
 }
 
 .projectList li {
     background-color: #cf0039;
-    height: 60px;   
+    height: 60px;
     border-top: 0.5px solid #a3002d;
     box-sizing: border-box;
-    
+
     -o-transition: .3s;
     -ms-transition: .3s;
     -moz-transition: .3s;
@@ -97,13 +144,18 @@ body {
     width: 100%;
     height: 100%;
 }
-
-.headerImg {
-    
-    position: absolute;
+/*header image*/
+.rightSide::before {
+    content: '';
+    background-image: url("../img/header.jpg");
+    background-position: center;
+    background-size: cover;
     bottom: 0;
-    width: 44vw;
+    display: block;
+    width: 100%;
+    height: 180px;
     padding: 0;
+
 }
 
 .projectList li a img {
@@ -121,7 +173,7 @@ body {
     width: 100%;
     margin: 0;
     margin-top: 15px;
-    
+
 }
 
 .projectList li a p {
@@ -129,7 +181,7 @@ body {
     padding-left: 5vw;
     margin-top: auto;
     line-height: 59px;
-    
+
 }
 
 .imgWrapper {
@@ -144,8 +196,12 @@ body {
     margin: auto;
     margin-top: 15px;
     display: inline-block;
-    height: 125px;
     width: 100%;
+}
+.choiceBoxContainer::after {
+  content: '';
+  display: table;
+  clear: both;
 }
 
 .choiceBoxContainer>ul{
@@ -153,35 +209,32 @@ body {
     padding: 0;
     margin: 0;
     height: 100%;
-    width: 200px;
-    background-color: white;
+    width: 45%;
+    float: left;
+      margin-bottom: 10px;
+}
+.choiceBoxContainer>ul:nth-child(2n+1){
+  margin-right: 10%;
+
 }
 
-.choiceBox1 {
-    float:left;
-    height: inherit;
+@media (max-width: 1200px) {
+
+  .choiceBoxContainer>ul{
+  width: 100%;
 }
-
-.choiceBox2 {
-    float: right;
-    height: inherit;
 }
-
-
 .choiceTitle {
     font-family: sans-serif;
-    height: 50px;
     text-align: center;
     background-color: #272626;
-}
-
-.choiceTitle > p {
-    font-size: 16px;
-    line-height: 200%;
-    margin: 0;
-    padding: 7px;
-    box-sizing: border-box;
-    height: inherit;
+    display: block;
+        font-size: 16px;
+        line-height: 200%;
+        margin: 0;
+        padding: 7px;
+        box-sizing: border-box;
+        color:white;
 }
 
 .contentWrapper {
@@ -206,29 +259,52 @@ h2 {
     font-family: sans-serif;
     box-sizing: border-box;
     border-top: 0.5px solid #a3002d;
-    
+
     -o-transition: .3s;
     -ms-transition: .3s;
     -moz-transition: .3s;
     -webkit-transition: .3s;
     transition: .3s;
+    position: relative;
 }
 
-.choicePick a{
+.choicePick label{
     text-decoration: none;
     color: white;
     height: inherit;
     float: left;
     width: 100%;
+
 }
 
-.choicePick:hover {
+.choicePick input
+{
+    display: none;
+}
+
+.choicePick i{
+
+  position: absolute;
+    display: none;
+    margin: 5px;
+    left: 5%;
+    top:0;
+    bottom:0;
+    font-size: 25px;
+    color: #f08900;
+}
+.choicePick input:checked+i{
+  display: inline-block;
+}
+
+.choicePick:hover label {
     background-color: #f08900;
 }
-
+.choicePick:hover i {
+    color: #cf0039;
+}
 
 .feedbackInput {
-    margin-top: 10px;
     width: 100%;
     height: 125px;
     box-sizing: border-box;
@@ -251,7 +327,7 @@ h2 {
     background: #cf0039;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
-        
+
     -o-transition: .3s;
     -ms-transition: .3s;
     -moz-transition: .3s;
@@ -262,7 +338,7 @@ h2 {
 .stuurIn:hover {
     background: #f08900;
     text-decoration: none;
-    
+
 }
 
 .bekijkFeedback {
@@ -275,7 +351,7 @@ h2 {
     background: #f08900;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
-        
+
     -o-transition: .3s;
     -ms-transition: .3s;
     -moz-transition: .3s;
@@ -292,14 +368,15 @@ h2 {
 }
 
 .bekijkFeedback:hover {
-    
+
     background-color: #cf0039;
 }
 
 .timelineContainer {
-    float: left;
+
     margin-top: 1vw;
     width: 60px;
+    float: left;
 }
 
 .timeline {
@@ -310,9 +387,9 @@ h2 {
 }
 
 .huidigeFase {
-    height: 20vh;
+    height: 180px;
     box-sizing: border-box;
-    padding-top: 5vh;
+    padding-top: 50px;
     margin: 0;
     width: 100%;
     background-color: #f08900;
@@ -326,7 +403,7 @@ h2 {
 }
 
 .timeline>li>p {
-    margin: 0;   
+    margin: 0;
 }
 
 .faseHead {
@@ -341,7 +418,7 @@ h2 {
     text-align: center;
     box-sizing: border-box;
     border-top: 0.5px solid #a3002d;
-    
+
     -o-transition: .3s;
     -ms-transition: .3s;
     -moz-transition: .3s;
@@ -350,7 +427,7 @@ h2 {
 }
 
 .faseHead:first-child {
-    margin-top: 15px;    
+    margin-top: 15px;
 }
 
 .fase:hover {
@@ -363,7 +440,7 @@ h2 {
     height: inherit;
     width: 100%;
     box-sizing: border-box;
-    
+
 }
 
 .projectList .selectedProject {
