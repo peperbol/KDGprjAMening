@@ -8,14 +8,18 @@ body {
 
 .leftSide {
     width: 40vw;
-    height: 95vh;
     margin-left: 4vw;
-    margin-top: 1vw;
+    top: 2vw;
     position:fixed;
+    bottom: 1vw;
+    display: flex;
+    flex-direction:column;
 }
 
 @media (max-width: 650px) {
-
+  .logo {
+    display: none;
+  }
   .leftSide {
     position: relative;
 
@@ -51,6 +55,9 @@ body {
 
             float: none;
   }
+  body .rightSide::before{
+    display: none;
+  }
   body .timelineContainer {
       position: absolute;
           right:10px;
@@ -74,18 +81,12 @@ body {
   outline: 1px solid #3a3939;
 }
 
-.rightSide {
-    width: 40vw;
-    /*height: 95vh;*/
-    background-color: #3a3939;
-    margin-left: 46vw;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-    float: left;
-    position: relative;
+.logo{
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  z-index: 11;
 }
-
-
 
 #map {
     margin: 0;
@@ -95,15 +96,16 @@ body {
     position: relative;
     z-index: 10;
     background-color: white;
+    flex-grow: 1;
 }
 
 .projectList {
     margin: 0;
     padding: 0;
-    height: 50%;
-    width: inherit;
-    display: block;
     max-height: 50%;
+    width: inherit;
+    flex-grow: 0;
+    display: block;
     overflow-y: auto;
     overflow-x: hidden;
     list-style: none;
@@ -130,28 +132,40 @@ body {
 
 .projectList li a {
     color: white;
-    font-family: sans-serif;
     float: left;
     text-decoration: none;
     height: inherit;
     width: 100%;
+    font-family: "Calibri", sans-serif;
+    font-size: 1.8em;
 }
 
-.stuurIn>a {
-    text-decoration: none;
-    color: white;
-    font-size: 14px;
-    width: 100%;
-    height: 100%;
+.rightSide {
+    width: 40vw;
+    background-color: #3a3939;
+    margin-left: 46vw;
+    margin-top: 2vw;
+    margin-bottom: 1vw;
+    float: left;
+    position: relative;
 }
-/*header image*/
-.rightSide::before {
-    content: '';
-    background-image: url("../img/header.jpg");
+.rightSide::before{
+  content: '';
+  position: fixed;
+  width: 100%;
+  background: white;
+  display: block;
+  height: 3vw;
+  margin-top: -3vw;
+  margin-left: -3vw;
+  z-index: 1000;
+}
+
+.rightSide .header {
+
     background-position: center;
     background-size: cover;
     bottom: 0;
-    display: block;
     width: 100%;
     height: 180px;
     padding: 0;
@@ -165,16 +179,7 @@ body {
     margin-bottom: -1px;
 }
 
-.contentWrapper p {
-    color: white;
-    float: left;
-    font-family: sans-serif;
-    font-size: 14px;
-    width: 100%;
-    margin: 0;
-    margin-top: 15px;
 
-}
 
 .projectList li a p {
     float: left;
@@ -195,7 +200,6 @@ body {
     padding: 0;
     margin: auto;
     margin-top: 15px;
-    display: inline-block;
     width: 100%;
 }
 .choiceBoxContainer::after {
@@ -209,23 +213,25 @@ body {
     padding: 0;
     margin: 0;
     height: 100%;
-    width: 45%;
+    width: 47%;
     float: left;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
 }
 .choiceBoxContainer>ul:nth-child(2n+1){
-  margin-right: 10%;
+  margin-right: 6%;
 
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1300px) {
 
   .choiceBoxContainer>ul{
-  width: 100%;
-}
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+  }
 }
 .choiceTitle {
-    font-family: sans-serif;
     text-align: center;
     background-color: #272626;
     display: block;
@@ -238,25 +244,43 @@ body {
 }
 
 .contentWrapper {
-    height: 75vh;
     width: inherit;
     padding: 2vw;
     box-sizing: border-box;
+    font-family: 'calibri', sans-serif;
 }
 
 h2 {
-    font-family: sans-serif;
+    font-family:'Antwerpen',sans-serif;
     padding: 0;
     margin: 0;
     color: white;
+    font-size: 2.5em;
+    font-weight: normal;
 }
+h3 {
+    font-family:'Antwerpen',sans-serif;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 1.5em;
+    font-weight: normal;
+      margin-top: 1em;
+}
+.contentWrapper p {
+    color: white;
+    font-size: 1em;
+    width: 100%;
+    margin: 0;
+    margin-top: 15px;
+      margin-bottom: 1.5em;
 
+}
 .choicePick {
     height: 37.5px;
     line-height: 37.5px;
     text-align: center;
     background-color: #cf0039;
-    font-family: sans-serif;
     box-sizing: border-box;
     border-top: 0.5px solid #a3002d;
 
@@ -306,78 +330,98 @@ h2 {
 
 .feedbackInput {
     width: 100%;
-    height: 125px;
+    margin-top: 10px;
+    height: 80px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
     padding: 10px;
-    font-style: italic;
-    color: slategray;
+}
+::-webkit-input-placeholder {
+color: slategray;
+font-style: italic;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+color: slategray;
+font-style: italic;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+color: slategray;
+font-style: italic;
+}
+
+:-ms-input-placeholder {
+color: slategray;
+font-style: italic;
 }
 
 .stuurIn {
-    margin-top: 15px;
     float: right;
-    border: 0px;
-    font-family: Arial;
-    color: #ffffff;
-    font-size: 20px;
     background: #cf0039;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-
-    -o-transition: .3s;
-    -ms-transition: .3s;
-    -moz-transition: .3s;
-    -webkit-transition: .3s;
-    transition: .3s;
+}
+.stuurIn {
+    float: right;
+    background: #cf0039;
 }
 
 .stuurIn:hover {
     background: #f08900;
-    text-decoration: none;
+}
+.stuurIn+*{ clear: both;}
+button {
 
+      margin-top: 15px;
+      border: 0px;
+      padding: 15px 30px;
+      text-decoration: none;
+
+      -o-transition: .3s;
+      -ms-transition: .3s;
+      -moz-transition: .3s;
+      -webkit-transition: .3s;
+      transition: .3s;
+
+      color: white;
+      font-size: 1em;
+}
+.comments .bodytext{
+  margin-bottom:0 ;
+}
+.comments .bodytext+p{
+  margin-top: 0;
+  color: #acaaaa;
+}
+.comments .highlight {
+  color:#f08900;
 }
 
-.bekijkFeedback {
-    margin-top: 15px;
-    float: left;
-    border: 0px;
-    font-family: Arial;
-    color: #ffffff;
-    font-size: 20px;
+.morecomments {
+    margin: 15px auto 0 auto;
     background: #f08900;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-
-    -o-transition: .3s;
-    -ms-transition: .3s;
-    -moz-transition: .3s;
-    -webkit-transition: .3s;
-    transition: .3s;
 }
 
-.bekijkFeedback>a {
-    text-decoration: none;
-    color: white;
-    font-size: 14px;
-    width: 100%;
-    height: 100%;
+.morecomments:hover {
+    background: #cf0039;
 }
-
-.bekijkFeedback:hover {
-
-    background-color: #cf0039;
+.center{
+  text-align: center;
 }
-
+/*------------------------------------------*/
 .timelineContainer {
 
-    margin-top: 1vw;
-    width: 60px;
+    margin-top: 2vw;
+    font-family: 'calibri', sans-serif;
+    line-height: 1.5em;
+    width: 70px;
     float: left;
+    position: fixed;
+    left: 86vw;
 }
+
 
 .timeline {
     width: 100%;
@@ -397,7 +441,6 @@ h2 {
 }
 
 .huidigeFase>p {
-    font-family: sans-serif;
     color: white;
     font-size: 14px;
 }
@@ -407,13 +450,12 @@ h2 {
 }
 
 .faseHead {
-    font-family: sans-serif;
     font-size: 16px;
     line-height: 16px;
 }
 
 .fase {
-    height: 60px;
+    height: 70px;
     background-color: #cf0039;
     text-align: center;
     box-sizing: border-box;
@@ -441,6 +483,10 @@ h2 {
     width: 100%;
     box-sizing: border-box;
 
+}
+.fase.playstore {
+  margin-top: 70px;
+  background-color: #3a3939;
 }
 
 .projectList .selectedProject {
