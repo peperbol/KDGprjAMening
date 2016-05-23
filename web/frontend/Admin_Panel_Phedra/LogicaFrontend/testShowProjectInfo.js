@@ -148,6 +148,8 @@
             console.log(fase_id);
             
             
+            
+            
             $.getJSON( "fase_2_info.json", function( data ) {
                 
                 console.log(data);
@@ -165,6 +167,12 @@
             $scope.Show_fase_comments(fase_id);
             
             $scope.button_show_more_shown = true;
+            
+            $scope.button_show_more_text = "TOON MEER";
+            
+            $scope.extra_comments_shown = false;
+            
+            
             
         };//einde functie Show_fase_info
         
