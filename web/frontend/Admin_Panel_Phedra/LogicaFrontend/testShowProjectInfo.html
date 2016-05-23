@@ -36,28 +36,50 @@
             
             
             
+            <div ng-repeat="fase in timelineArray">
+                  
+                    <a ng-click="Show_fase_info(fase.id_project_phase)">{{fase.faseWithNr}}</a>
+                    
+            </div>
+            
+            
+            
+            
+            
+            <h3>{{current_Fase_Name}}</h3>
+            <p>{{current_Fase_description}}</p>
+            <p>{{current_Fase_enddate}}</p>
             
             
             
             
             
             
+            <div ng-show="first_comment_shown">
+                <p>{{first_comment.comment}}</p>
+                <p>Bericht geplaatst op {{first_comment.date}} om {{first_comment.time}}</p>
+            </div>
             
             
-            <!--
-            <h3>@{{projectCtrl.current_Fase_Name}}</h3>
-            <p>@{{projectCtrl.current_Fase_description}}</p>
-            <p>@{{projectCtrl.current_Fase_enddate}}</p>
-            <img src="@{{projectCtrl.current_Fase_imagepath}}" />
-            -->
             
             
-            <!--via ng-repeat tijdslijn aanmaken, in methode -->
+            <div ng-repeat="comment in commentsArray">
+                 
+                <div ng-show="extra_comments_shown">
+                    <p>{{comment.comment}}</p>
+                    <p>Bericht geplaatst op {{comment.date}} om {{comment.time}}</p>
+                </div>
+                    
+            </div>
             
-            <!--
-            <div ng-repeat="phase in projectCtrl.phases" class="Question">
-                <li ng-click="ProjectCtrl.GetFase(phase.id_project_phase)">Fase 4</li>
-            </div>-->
+            
+            
+            
+            
+            <button ng-show="button_show_more_shown" ng-click="Show_extra_comments()">{{button_show_more_text}}</button>
+            
+            
+            
             
             
             
