@@ -251,7 +251,7 @@ header {
 }
 
 
-/* project toevoegen en project updaten */
+/* alle forms (project toevoegen en project updaten) */
 
 
 .title {
@@ -272,7 +272,12 @@ header {
 
 #add_project_form,
 #edit_project_form,
-.phases_and_events {
+.phases_and_events,
+.add_phase_form,
+.edit_phase_form,
+.add_event_form,
+.edit_event_form,
+.add_question_form {
     margin-left: 5%;
     margin-top: 40px;
     width: 84%;
@@ -283,12 +288,22 @@ header {
 }
 
 #add_project_form div,
-#edit_project_form div {
+#edit_project_form div,
+.add_phase_form div,
+.edit_phase_form div,
+.add_event_form div,
+.edit_event_form div,
+.add_question_form div {
     margin-bottom: 10px;
 }
 
 #add_project_form div label,
-#edit_project_form div label {
+#edit_project_form div label,
+.add_phase_form label,
+.edit_phase_form label,
+.add_event_form label,
+.edit_event_form label,
+.add_question_form label {
     display: block;
     width: 150px;
     float:left;
@@ -298,21 +313,36 @@ header {
 
 #add_project_form div label[for="place-input"],
 #edit_project_form div label[for="place-input"]{
-    width: 500px;
+    width: 600px;
     margin-bottom: 10px;
     margin-top: 20px;
 }
 
 #add_project_form div input, #add_project_form div textarea,
-#edit_project_form div input, #edit_project_form div textarea {
+#edit_project_form div input, #edit_project_form div textarea,
+.add_phase_form div input, .add_phase_form div textarea,
+.edit_phase_form input, .edit_phase_form textarea,
+.add_event_form input, .add_event_form textarea,
+.edit_event_form input, .edit_event_form textarea,
+.add_question_form input, .add_question_form textarea {
     width: 300px;
     font-family: inherit;
     font-size: inherit;
     padding: 2px;
+    /*
+    background-color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    */
 }
 
 #add_project_form div textarea,
-#edit_project_form div textarea {
+#edit_project_form div textarea,
+.add_phase_form div textarea,
+.edit_phase_form textarea,
+.add_event_form textarea,
+.edit_event_form textarea,
+.add_question_form textarea {
     height: 100px;
     max-width: 500px;
     max-height: 250px;
@@ -329,8 +359,17 @@ input[readonly] {
     color: inherit;
 }
 
+input[type="time"] {
+    width: 80px;
+}
+
 .add_button button,
-.edit_button button {
+.edit_button button,
+.add_phase_form button,
+.edit_phase_form button,
+.add_event_form button,
+.edit_event_form button,
+.add_question_form button {
     width: 100%;
     padding: 10px;
     font-size: 1.2em;
@@ -350,25 +389,54 @@ input[readonly] {
 }
 
 .add_button button:hover,
-.edit_button button:hover {
+.edit_button button:hover,
+.add_phase_form button:hover,
+.edit_phase_form button:hover,
+.add_event_form button:hover,
+.edit_event_form button:hover,
+.add_question_form button:hover {
     background-color: #f08900;
 }
 
 
 
-/* ________________
 
-    PHEDRA
-_________________*/
-
-
-
-
-
-
-.pageContent h3 {
-    margin-top: 0;
+.events, .add_phases_events {
+    margin-top: 50px;
 }
+
+.phases div div, .events div div {
+    width: 200px;
+    float: left;
+}
+
+.add_question {
+    margin-top: 50px;
+}
+
+.phases div a, .events div a,
+.add_phases_events a,
+.add_question a {
+    color: inherit;
+}
+
+.phases div a:hover, .events div a:hover,
+.add_phases_events a:hover,
+.add_question a:hover {
+    color: #f08900;
+}
+
+
+footer {
+    background-color: rgb(57, 57, 57);
+    color: inherit;
+    margin-top: 50px;
+    color: #efefef;
+    text-align: center;
+    padding: 5px;
+    font-style: italic;
+}
+
 
 
 
@@ -378,15 +446,33 @@ _________________*/
 
 /* CLEARFIX */
 
+
+
 nav ul::before, nav ul::after,
-#add_project_form div::before, #add_project_form div::after {
+#add_project_form div::before, #add_project_form div::after,
+#edit_project_form div::before, #edit_project_form div::after,
+.add_phase_form div::before, .add_phase_form div::after,
+.edit_phase_form div::before, .edit_phase_form div::after,
+.add_event_form::before, .add_event_form::after,
+.edit_event_form div::before, .edit_event_form::after,
+.add_question_form div::before, .add_question_form div::after,
+.phases div::before, .phases div::after,
+.events div::before, .events div::after {
     line-height: 0;
     content: "";
     display: table;
 }
 
 nav ul::after,
-#add_project_form div::after {
+#add_project_form div::after,
+#edit_project_form div::after,
+.add_phase_form div::after,
+.edit_phase_form div::after,
+.add_event_form div::after,
+.edit_event_form div::after,
+.add_question_form div::after,
+.phases div::after,
+.events div::after {
     clear: both;
 }
 

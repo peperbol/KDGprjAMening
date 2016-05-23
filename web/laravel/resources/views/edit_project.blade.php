@@ -102,24 +102,27 @@
 
           
           <div class="phases_and_events">
-              <h3 class="title">Fases</h3>
+              
 
               <div class="phases">
+                 
+                 <h3 class="title">Fases</h3>
+                 
                   @foreach($phases as $phase)
                        <div>
-                           <span>{{ $phase->name }}</span>
+                           <div>{{ $phase->name }}</div>
                            <a href="{{ route('edit_phase', [$phase->id_project_phase]) }}">Bewerken</a>
                        </div>
                    @endforeach
               </div>
               
               
-               <h3 class="title">Events</h3>
-               
                <div class="events">
+                   <h3 class="title">Events</h3>
+                   
                    @foreach($events as $event)
                        <div>
-                           <span>{{ $event->name }}</span>
+                           <div>{{ $event->name }}</div>
                            <a href="{{ route('edit_event', [$event->id_event]) }}">Bewerken</a>
                        </div>
                    @endforeach
@@ -127,7 +130,7 @@
                
 
 
-               <div>
+               <div class="add_phases_events">
                    <a href="{{ route('add_phase', [$project->id_project]) }}">Fase toevoegen</a>
                    <a href="{{ route('add_event', [$project->id_project]) }}">Event toevoegen</a>
                </div>
