@@ -36,6 +36,7 @@
             <h3>@{{project_Name}}</h3>
             <p>@{{project_Description}}</p>
             <p>@{{project_Startdate}}</p>
+            <!--<img src="images/project_images/@{{project_Imagepath}}" alt="xx">-->
         </div>
         
         <!--
