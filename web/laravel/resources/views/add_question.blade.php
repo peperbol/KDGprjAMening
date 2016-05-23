@@ -5,7 +5,7 @@
 @section('content')
    
    <div class="temp_content">
-      <h1>Vragen toevoegen aan {{ $phase[0]->name }}</h1>
+      <h1>Vragen toevoegen aan {{ $phase->name }}</h1>
        
        
        <form action="{{ url('new_question') }}" method="POST" enctype="multipart/form-data">
@@ -37,7 +37,7 @@
            
            
            
-           <input type="number" id="phase" name="id_phase" value="{{ $phase[0]->id_project_phase }}" hidden>
+           <input type="number" id="phase" name="id_phase" value="{{ $phase->id_project_phase }}" hidden>
            
            
            

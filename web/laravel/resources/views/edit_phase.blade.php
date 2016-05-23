@@ -7,23 +7,23 @@
    <div class="temp_content">
        Hierin kan je fases aanpassen
        
-       <h1>Fase "{{ $phase[0]->name }}" aanpassen</h1>
+       <h1>Fase "{{ $phase->name }}" aanpassen</h1>
        
        <form action="{{ url('update_phase') }}" method="POST" enctype="multipart/form-data">
            {{ csrf_field() }}
            <div>
                <label for="name">Naam:</label>
-               <input id="name" name="name" type="text" value="{{ $phase[0]->name }}">
+               <input id="name" name="name" type="text" value="{{ $phase->name }}">
            </div>
            
            <div>
                <label for="description">Beschrijving:</label>
-               <textarea id="description" name="description">{{ $phase[0]->description }}</textarea>
+               <textarea id="description" name="description">{{ $phase->description }}</textarea>
            </div>
            
            <div>
                <label for="enddate">Einddatum:</label>
-               <input id="enddate" name="enddate" type="date" value="{{ $phase[0]->enddate }}">
+               <input id="enddate" name="enddate" type="date" value="{{ $phase->enddate }}">
            </div>
            
            <div>
@@ -32,7 +32,7 @@
            </div>
            
            <div>
-               <input type="number" name="id_phase" value="{{ $phase[0]->id_project_phase }}" hidden>
+               <input type="number" name="id_phase" value="{{ $phase->id_project_phase }}" hidden>
            </div>
            
            <div>
@@ -44,7 +44,7 @@
        </form>
        
        <div>
-           <a href="{{ route('add_question', [$phase[0]->id_project_phase]) }}">Vraag toevoegen</a>
+           <a href="{{ route('add_question', [$phase->id_project_phase]) }}">Vraag toevoegen</a>
        </div>
        
        

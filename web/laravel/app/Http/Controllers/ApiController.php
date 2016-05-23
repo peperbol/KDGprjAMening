@@ -190,7 +190,7 @@ class ApiController extends Controller
     }
     
     public function get_image($id) {
-        
+        //this function will be called when there's only one picture available
         $question = Question::find($id);
         
         return Redirect::to('http://oplossingen.web-backend.local/projectontwikkeling/project02/aMening/public/images/question_images/'.$question->left_picture_path);
@@ -198,7 +198,21 @@ class ApiController extends Controller
         //return response()->json($question_ids);
     }
     
-    
+    public function get_image_side($id, $side) {
+        //this function will be called to get either the left_picture or the right_picture
+        $question = Question::find($id);
+        
+        if($side == "l") {
+            $picture_path = $question->left_picture_path;
+        }
+        if($side == "r") {
+            $picture_path = $question->right_picture_path;
+        }
+        
+        return Redirect::to('http://oplossingen.web-backend.local/projectontwikkeling/project02/aMening/public/images/question_images/'.$picture_path);
+        
+        //return response()->json($question_ids);
+    }
     
     
     
