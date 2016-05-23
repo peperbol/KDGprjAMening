@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="antwerpen">
+
+	<head>
+	
+		<title>Info project tonen</title>
+		
+	</head>
+	
+	
+	<body>
+	    
+	    
+	    
+	    
+	    <div ng-controller="ProjectController">
+           
+           
+           <!--Sarah maakt lijst projecten dynamisch aan, dit zijn voorbeelden-->
+           <ul>
+               
+               <!--hier nog de project id dynamisch meegeven per project-->
+               <a href="#" ng-click="Show_project_info()">Project Antwerpen Centraal</a>
+               <a href="#" ng-click="Show_project_info()">Plaatsing Parkbrug</a>
+               <a href="#" ng-click="Show_project_info()">Vernieuwing Sint-Anneke Plage</a>
+               
+           </ul>
+           
+           
+           
+            <h3>{{project_Name}}</h3>
+            <p>{{project_Description}}</p>
+            <p>{{project_Startdate}}</p>
+            
+            
+            
+            
+            
+            <div ng-repeat="fase in timelineArray">
+                  
+                    <a ng-click="Show_fase_info(fase.id_project_phase)">{{fase.faseWithNr}}</a>
+                    
+            </div>
+            
+            
+            
+            
+            
+            <h3>{{current_Fase_Name}}</h3>
+            <p>{{current_Fase_description}}</p>
+            <p>{{current_Fase_enddate}}</p>
+            
+            
+            
+            
+            
+            
+            <div ng-show="first_comment_shown">
+                <p>{{first_comment.comment}}</p>
+                <p>Bericht geplaatst op {{first_comment.date}} om {{first_comment.time}}</p>
+            </div>
+            
+            
+            
+            
+            <div ng-repeat="comment in commentsArray">
+                 
+                <div ng-show="extra_comments_shown">
+                    <p>{{comment.comment}}</p>
+                    <p>Bericht geplaatst op {{comment.date}} om {{comment.time}}</p>
+                </div>
+                    
+            </div>
+            
+            
+            
+            
+            
+            <button ng-show="button_show_more_shown" ng-click="Show_extra_comments()">{{button_show_more_text}}</button>
+            
+            
+            
+            
+            
+            
+            
+
+            
+	    </div>
+		
+		
+		
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="testShowProjectInfo.js"></script>
+		
+	</body>
+	
+</html>

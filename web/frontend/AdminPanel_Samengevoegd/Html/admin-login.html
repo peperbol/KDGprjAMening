@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="login">
+
+	<head>
+	
+		<title>Login</title>
+		
+		<link rel="stylesheet" href="../Css/normalize.css">
+		<link rel="stylesheet" href="../Css/style2.css">
+		
+	</head>
+	
+	
+	<body>
+	
+	    <h2 class="login_title">A Mening</h2>
+	    <h4 class="login_subtitle">Adminplatform</h4>
+	    
+	    
+            <form name="LoginForm" id="formulier_login" novalidate>
+                
+
+                <div class="email">
+                   <label for="email">Email:</label>
+                   <input id="email" type="text" name="email" required>
+                </div>
+                
+                <div class="wachtwoord">
+                    <label for="wachtwoord">Wachtwoord:</label>
+                    <input id="wachtwoord" type="text" name="studentennummer" required>
+                </div>
+                
+                <!-- voorlopig nog #, later naar de admin overzicht pagina -->
+                <a href="#" ng-click="LoginForm.$valid" class="button_login_form">Login</a>
+                
+                <p id="error-message">Uw wachtwoord of email adres zijn incorrect.</p>
+
+           
+           
+            </form>
+            
+            
+            
+
+            
+            
+	    
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="base.js"></script>
+		
+	</body>
+	
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Toevoegen</title>
+    <link rel="stylesheet" href="../Css/style.css">
+    <link href="https://file.myfontastic.com/DGQi5KcuH4nnZiJNVERR6H/icons.css" rel="stylesheet">
+    <script src="script.js"></script>
+</head>
+<body>
+   <div class="header">
+          <div class="headerContent">
+              <nav class="navbar">
+                <ul>
+                    <li><a href="overzicht.html">Overzicht</a></li>
+                    <li><a href="projectToevoegen.html" class="active">Project Toevoegen</a></li>
+                    <li><a href="reacties.html">Reacties</a></li>
+                    <li class="usernameLi">
+                        <a href="#">Username</a>
+                        <ul>
+                            <li><a href="account.html">Account Wijzigen</a></li>
+                            <li><a href="adminToevoegen.html">Admin Toevoegen</a></li>
+                            <li><a href="uitloggen.html">Uitloggen</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                    
+            </nav>
+
+
+          </div>
+      </div>
+        <div class="pageContent">
+                <div class="container_add">
+                    <h3 class="title_add">PROJECT</h3>
+                    <form name="addProjectForm"
+                       class="form_add" id="formulier_add_project" novalidate>
+                        <div id="titelProject" class="formLine">
+                           <label for="titelProject">Titel:</label>
+                           <input id="titelProject" type="text" name="titelProject" required>
+                        </div>
+                        <div id="beschrijvingProject" class="formLine">
+                           <label for="beschrijvingProject">Beschrijving:</label>
+                           <input id="beschrijvingProject" type="text" name="beschrijvingProject" required>
+                        </div>
+                        <div id="fotoProject" class="formLine">
+                           <label for="button-bestand-selecteren">Foto:</label>
+                            <div class="upload">
+                                <input type="file" name="button-bestand-selecteren" id="fileProject">
+                            </div>
+                            <p class="filename filenameProject">Nog geen bestand gekozen</p>
+                        </div>
+                        <div id="startdatumProject" class="formLine">
+                            <label for="startdatumProject">Startdatum:</label>
+                            <input id="startdatumProject" type="text" name="startdatumProject" required>
+                        </div>
+                        <div class="zichtbaarProject">
+                            <label for="zichtbaarProject">Zichtbaar:</label>
+                            <input type="checkbox" value="None" id="checkZichtbaarProject" name="checkZichtbaarProject" />
+                        </div>
+                        <div id="adminProject" class="formLine">
+                            <label for="adminProject">Aangemaakt door:</label>
+                            <p class="adminNaamProject">Phedra Moerloos</p>
+                        </div>
+                    </form>
+                </div>
+                <div class="container_add">
+                    <h3 class="title_add">FASE 1</h3>
+                    <form name="addFase1Form"
+                       class="form_add" id="formulier_add_fase1" novalidate>
+                        <div id="naamFase1" class="formLine">
+                           <label for="NaamFase1">Naam:</label>
+                           <input id="NaamFase1" type="text" name="NaamFase" required>
+                        </div>
+                        <div id="beschrijvingFase1" class="formLine">
+                           <label for="beschrijvingFase1">Beschrijving:</label>
+                           <input id="beschrijvingFase1" type="text" name="beschrijvingFase1" required>
+                        </div>
+                       <div id="fotoFase1" class="formLine">
+                           <label for="button-bestand-selecteren">Foto:</label>
+                            <div class="upload">
+                                <input type="file" name="button-bestand-selecteren" id="fileFase1">
+                            </div>
+                            <p class="filename filenameFase1">Nog geen bestand gekozen</p>
+                        </div>
+                        <div id="einddatumFase1" class="formLine">
+                            <label for="einddatumFase1">Einddatum:</label>
+                            <input id="einddatumFase1" type="text" name="einddatumFase1" required>
+                        </div>
+                    </form>
+                    <div class="toevoegenButton">
+                    <a href="#" >PROJECT AANMAKEN</a>
+                </div>
+                </div>
+                
+            
+            <div class="pageContentBG"></div>
+        </div>   
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="base.js"></script>  
+</body>
+</html>

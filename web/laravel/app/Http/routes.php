@@ -84,6 +84,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/get_question_ids', 'ApiController@get_current_questions');
     Route::get('/get_question_info/{id}', 'ApiController@get_question_info');
     Route::get('/get_image/{id}', 'ApiController@get_image');
+    Route::get('/get_image_side/{id}/{side}', 'ApiController@get_image_side');
     
     
     Route::post('/post_test', 'ApiController@store_test');
