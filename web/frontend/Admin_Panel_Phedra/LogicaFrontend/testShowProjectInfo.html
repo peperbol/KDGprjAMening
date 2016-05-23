@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="antwerpen">
+
+	<head>
+	
+		<title>Info project tonen</title>
+		
+	</head>
+	
+	
+	<body>
+	    
+	    
+	    
+	    
+	    <div ng-controller="ProjectController">
+           
+           
+           <!--Sarah maakt lijst projecten dynamisch aan, dit zijn voorbeelden-->
+           <ul>
+               
+               <!--hier nog de project id dynamisch meegeven per project-->
+               <a href="#" ng-click="Show_project_info()">Project Antwerpen Centraal</a>
+               <a href="#" ng-click="Show_project_info()">Plaatsing Parkbrug</a>
+               <a href="#" ng-click="Show_project_info()">Vernieuwing Sint-Anneke Plage</a>
+               
+           </ul>
+           
+           
+           
+            <h3>{{project_Name}}</h3>
+            <p>{{project_Description}}</p>
+            <p>{{project_Startdate}}</p>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <!--
+            <h3>@{{projectCtrl.current_Fase_Name}}</h3>
+            <p>@{{projectCtrl.current_Fase_description}}</p>
+            <p>@{{projectCtrl.current_Fase_enddate}}</p>
+            <img src="@{{projectCtrl.current_Fase_imagepath}}" />
+            -->
+            
+            
+            <!--via ng-repeat tijdslijn aanmaken, in methode -->
+            
+            <!--
+            <div ng-repeat="phase in projectCtrl.phases" class="Question">
+                <li ng-click="ProjectCtrl.GetFase(phase.id_project_phase)">Fase 4</li>
+            </div>-->
+            
+            
+            
+            
+
+            
+	    </div>
+		
+		
+		
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="testShowProjectInfo.js"></script>
+		
+	</body>
+	
+</html>
