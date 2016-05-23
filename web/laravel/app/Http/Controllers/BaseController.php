@@ -139,7 +139,7 @@ class BaseController extends Controller
     
     public function getEditPhase ($id) {
         $phase = Phase::where("id_project_phase", $id)->get();
-        return view('edit_phase', ['phase' => $phase]);
+        return view('edit_phase', ['phase' => $phase[0]]);
     }
     
     public function getEditEvent ($id) {
@@ -171,7 +171,7 @@ class BaseController extends Controller
     public function addQuestion ($id) {
         //the id passed to this function is the id from the project to which the event must be added
         $phase = Phase::where("id_project_phase", $id)->get();
-        return view('add_question', ['phase' => $phase]);
+        return view('add_question', ['phase' => $phase[0]]);
     }
     /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     

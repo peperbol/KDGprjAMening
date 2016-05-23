@@ -16,9 +16,9 @@
             <nav class="navbar">
                 <!-- Navbar Contents -->
                 <ul>
-                    <li><a href="{{ url('/overview') }}">Project overzicht</a></li>
-                    <li><a href="{{ url('/add_project') }}">Project toevoegen</a></li>
-                    <li><a href="{{ url('/comments') }}">Reacties</a></li>
+                    <li class="{{ (Route::getCurrentRoute()->getPath() == 'overview') ? 'active' : '' }}"><a href="{{ url('/overview') }}">Project overzicht</a></li>
+                    <li class="{{ (Route::getCurrentRoute()->getPath() == 'add_project') ? 'active' : '' }}"><a href="{{ url('/add_project') }}">Project toevoegen</a></li>
+                    <li class="{{ (Route::getCurrentRoute()->getPath() == 'comments') ? 'active' : '' }}"><a href="{{ url('/comments') }}">Reacties</a></li>
                 </ul>
             </nav>
         </div>
