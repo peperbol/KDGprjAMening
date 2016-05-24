@@ -115,7 +115,7 @@ body {
 
 .projectList li {
     background-color: #cf0039;
-    height: 60px;
+    height: 70px;
     border-top: 0.5px solid #a3002d;
     box-sizing: border-box;
 
@@ -132,12 +132,37 @@ body {
 
 .projectList li a {
     color: white;
-    float: left;
     text-decoration: none;
-    height: inherit;
+    height: 100%;
     width: 100%;
-    font-family: "Calibri", sans-serif;
+    font-family: "SunAntwerpen", sans-serif;
+    font-weight: 700;
     font-size: 1.8em;
+    position: relative;
+    display: block;
+}
+
+.projectList li a img {
+    width: 70px;
+    margin-bottom: -1px;
+}
+
+
+
+.projectList li a p {
+    left: 90px;
+    right: 10px;
+    bottom: 0;
+    top: 0;
+    margin: 0;
+    line-height: 69px;
+    width: auto;
+    height: inherit;
+    display: block;
+    position: absolute;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .rightSide {
@@ -172,28 +197,32 @@ body {
 
 }
 
-.projectList li a img {
-    height: inherit;
-    width: 60px;
-    float: left;
-    margin-bottom: -1px;
+
+.contentWrapper {
+    width: inherit;
+    padding: 2vw;
+    box-sizing: border-box;
+    font-family: 'SunAntwerpen', sans-serif;
+    font-weight: 500;
 }
 
-
-
-.projectList li a p {
-    float: left;
-    padding-left: 5vw;
-    margin-top: auto;
-    line-height: 59px;
-
+h2 {
+    font-family:'Antwerpen',sans-serif;
+    text-transform: uppercase;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 2.5em;
+    font-weight: normal;
 }
-
-.imgWrapper {
-    width:inherit;
-    height: 20vh;
-    overflow: hidden;
-    position: relative;
+h3 {
+    font-family:'Antwerpen',sans-serif;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 2em;
+    font-weight: normal;
+      margin-top: 1em;
 }
 
 .choiceBoxContainer{
@@ -241,32 +270,7 @@ body {
         padding: 7px;
         box-sizing: border-box;
         color:white;
-}
-
-.contentWrapper {
-    width: inherit;
-    padding: 2vw;
-    box-sizing: border-box;
-    font-family: 'calibri', sans-serif;
-}
-
-h2 {
-    font-family:'Antwerpen',sans-serif;
-    text-transform: uppercase;
-    padding: 0;
-    margin: 0;
-    color: white;
-    font-size: 2.5em;
-    font-weight: normal;
-}
-h3 {
-    font-family:'Antwerpen',sans-serif;
-    padding: 0;
-    margin: 0;
-    color: white;
-    font-size: 2em;
-    font-weight: normal;
-      margin-top: 1em;
+        font-weight: bolder;
 }
 .contentWrapper p {
     color: white;
@@ -338,7 +342,8 @@ h3 {
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
-    font-family: 'calibri', sans-serif;
+    font-family: 'SunAntwerpen', sans-serif;
+    font-weight: 500;
     padding: 10px;
 }
 ::-webkit-input-placeholder {
@@ -396,6 +401,7 @@ button {
 .comments .bodytext+p{
   margin-top: 0;
   color: #acaaaa;
+  font-weight: 300;
 }
 .comments .highlight {
   color:#f08900;
@@ -416,7 +422,8 @@ button {
 .timelineContainer {
 
     margin-top: 2vw;
-    font-family: 'calibri', sans-serif;
+    font-family: 'SunAntwerpen', sans-serif;
+    font-weight: 500;
     line-height: 1.5em;
     width: 70px;
     float: left;
@@ -488,7 +495,13 @@ button {
 }
 .fase.playstore {
   margin-top: 70px;
-  background-color: #3a3939;
+  background-color: #272626;
+}
+
+.fase.playstore img {
+  width: 90%;
+    height: 90%;
+    margin: 5%;
 }
 
 .projectList .selectedProject {
