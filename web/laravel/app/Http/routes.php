@@ -98,9 +98,7 @@ Route::group(['middleware' => ['web']], function () {
         return view('add_project');
     });
     
-    Route::get('/comments', function () {
-        return view('comments');
-    });
+    Route::get('/comments', ['as' => 'comments', 'uses' => 'BaseController@getCommentsOverview']);
     
     
     //add views
@@ -125,9 +123,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/get_comments_project/{id}', ['as' => 'get_comments_project', 'uses' => 'BaseController@getCommentsProject']);
     
     //admin part --> get results by phase
-    Route::get('/get_results_phase/{id}', ['as' => 'get_results_phase', 'uses' => 'BaseController@getResultsPhase']);
+    //Route::get('/get_results_phase/{id}', ['as' => 'get_results_phase', 'uses' => 'BaseController@getResultsPhase']);
     //admin part --> get results by project
     Route::get('/get_results_project/{id}', ['as' => 'get_results_project', 'uses' => 'BaseController@getResultsProject']);
+    
     
     
     //toevoegen uitvoeren (dus als er op de submit button geklikt wordt)

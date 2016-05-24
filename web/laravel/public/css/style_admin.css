@@ -192,6 +192,7 @@ header {
     color: white;
     font-size: 50px;
     z-index: 1;
+    cursor: default;
     
     -o-transition: 0.3s;
     -moz-transition: 0.3s;
@@ -199,14 +200,12 @@ header {
     transition: 0.3s;
 }
 
-.watched:hover {
-    color: #f08900;
-    
+.watched.hide {
+    color: rgba(255, 255, 255, 0);
 }
 
 .projectnaam {
-    padding-left: 20px;
-    font-size: 40px;
+    width: 65%
 }
 
 
@@ -214,6 +213,10 @@ header {
 .projectnaam a {
     color: white;
     text-decoration: none;
+    padding-left: 20px;
+    font-size: 40px;
+    display: block;
+    width: 100%;
     
     -o-transition: 0.3s;
     -moz-transition: 0.3s;
