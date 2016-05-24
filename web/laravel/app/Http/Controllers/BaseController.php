@@ -120,6 +120,23 @@ class BaseController extends Controller
     }
     
     
+    public function getCommentsOverview () {
+        
+        $projects = Project::all();
+        $comments_overview = [];
+        foreach($projects as $project) {
+            
+            $phase = Phase::where("project_id", $project->id_project)->orderBy('enddate', 'desc')->first();
+            if($phase) {
+                $comments = Comment::where("project_phase_id", $phase->id_project_phase)->get();
+                array_push($comments_overview, [$project, $comments]);
+            }
+        }
+        
+        //return $comments_overview;
+        return view('comments', ['comments_overview' => $comments_overview]);
+    }
+    
     
     /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
@@ -457,7 +474,7 @@ class BaseController extends Controller
     function storeImage($request, $filename) {
         //the path where the images will be stored
         $project_images_path = public_path() . "\\images\\project_images\\";
-        
+        //dd(base_path());
         //allowed extensions
         $allowed_extensions = ["jpeg", "png"];
         
@@ -480,7 +497,7 @@ class BaseController extends Controller
                 $new_file_name = $timestamp . $file->getClientOriginalName();
                 
                 //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
+                $file->move(base_path() . '/public/images/project_images/', $new_file_name);
                 
                 $imagepath = $new_file_name;
                 return $imagepath;
@@ -517,7 +534,7 @@ class BaseController extends Controller
                 $new_file_name = $timestamp . $file->getClientOriginalName();
                 
                 //everything ok? -> save image on server
-                $file->move($project_images_path, $new_file_name);
+                $file->move(base_path() . '/public/images/question_images/', $new_file_name);
                 
                 $imagepath = $new_file_name;
                 return $imagepath;
