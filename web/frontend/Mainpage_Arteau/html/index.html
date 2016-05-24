@@ -1,164 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>A Mening</title>
-    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css ">
-    <link rel="stylesheet" href="../font/AntwerpenRegular/Antwerpen-Regular.css">
-    <link rel="stylesheet" href="../font/AntwerpenSmallCaps/AntwerpenSmallCaps-Regular.css">
-    <link rel="stylesheet" href="../font/AntwerpenTall/AntwerpenTall-Tall.css">
-    <link rel="stylesheet" href="../font/SunAntwerpen/SunAntwerpen.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <meta name="viewport" content="width=550">
-    <link rel="icon" type="image/png" sizes="192x192"   href="../img/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
+  <meta charset="UTF-8">
+  <title>A Mening</title>
+  <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.6.3/font-awesome.min.css ">
+  <link rel="stylesheet" href="../font/AntwerpenRegular/Antwerpen-Regular.css">
+  <link rel="stylesheet" href="../font/AntwerpenSmallCaps/AntwerpenSmallCaps-Regular.css">
+  <link rel="stylesheet" href="../font/AntwerpenTall/AntwerpenTall-Tall.css">
+  <link rel="stylesheet" href="../font/SunAntwerpen/SunAntwerpen.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="viewport" content="width=550">
+  <link rel="icon" type="image/png" sizes="192x192" href="../img/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../img/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/favicon-16x16.png">
 </head>
+
 <body>
-    <div class="leftSide">
-        <a class="logo"href="https://www.antwerpen.be/nl/home">
-        <img  width="100%" heigth="100%" src="../img/logo.jpg">
-        </a>
-        <div id="map">
-
-        </div>
-        <ul class="projectList">
-            <li class="selectedProject"><a href="project1.html">
-            <img src="../img/placeholderProjectImage.jpg"><p>Stadproject der monumenten</p></a></li>
-            <li><a href="project1.html">
-            <img src="../img/placeholderProjectImage.jpg"><p>Renovatie van het station</p></a></li>
-            <li><a href="project1.html">
-            <img src="../img/placeholderProjectImage.jpg"><p>Dit is een best lange titel die er niet altijd in past</p></a></li>
-            <li><a href="project1.html">
-            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
-            <li><a href="project1.html">
-            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
-            <li><a href="project1.html">
-            <img src="../img/placeholderProjectImage.jpg"><p>PROJECT 1</p></a></li>
-        </ul>
-    </div>
-
-    <div class="rightSide">
-      <div class="header" style="background-image: url('../img/header.jpg');"></div>
-        <div class="contentWrapper">
-            <h2>StadsProject der monumenten</h2>
-            <p>Kort tekstje met uitleg over het project. Bijvoorbeeld, dit is een monument dat op de groenplaats zou komen.</p>
-
-            <h3>Participatie fase</h3>
-            <p>Deze fase is echt super leuk! we gaan allemaal zandkastelen bouwen en nurfguns kopen! het worde heeelemaal te gek! hier, heb een watermeloen.</p>
-
-           <div class="choiceBoxContainer">
-                <ul >
-                    <li class="choiceTitle">Het monument plaatsen?</li>
-                    <li class="choicePick activeChoice">
-                      <input id="monumentIDL" type="radio" name="monumentID" value="1">
-                      <i class="fa fa-check" aria-hidden="true"></i>
-                      <label for="monumentIDL" >Ja</label>
-                    </li>
-                    <li class="choicePick">
-                      <input id="monumentIDR" type="radio" name="monumentID" value="0">
-                      <i class="fa fa-check" aria-hidden="true"></i>
-                      <label for="monumentIDR" >Nee</label>
-                    </li>
-                </ul>
-
-                <ul >
-                    <li class="choiceTitle">Liever groen?</li>
-                    <li class="choicePick activeChoice">
-                      <input id="lievergroenIDL" type="radio" name="lievergroenID" value="1">
-                      <i class="fa fa-check" aria-hidden="true"></i>
-                      <label for="lievergroenIDL" >Groen</label>
-                    </li>
-                    <li class="choicePick">
-                      <input id="lievergroenIDR" type="radio" name="lievergroenID" value="0">
-                      <i class="fa fa-check" aria-hidden="true"></i>
-                      <label for="lievergroenIDR" >Monument</label>
-                    </li>
-                </ul>
-                <ul >
-                    <li class="choiceTitle">Wilt u het station een modernere look geven?</li>
-                    <li class="choicePick activeChoice">
-                      <input id="lievergroenIDL" type="radio" name="lievergroenID" value="1">
-                      <i class="fa fa-check" aria-hidden="true"></i>
-                      <label for="lievergroenIDL" >Groen</label>
-                    </li>
-                    <li class="choicePick">
-                      <input id="lievergroenIDR" type="radio" name="lievergroenID" value="0">
-                      <i class="fa fa-check" aria-hidden="true"></i>
-                      <label for="lievergroenIDR" >Monument</label>
-                    </li>
-                </ul>
-            </div>
-
-            <textarea class="feedbackInput" placeholder="Wij horen graag jouw mening!"></textarea>
-            <button class="stuurIn">STUUR IN</button>
-
-            <h3>Comments</h3>
-            <div class="comments">
-              <div>
-                <p class="bodytext">
-                  Wat dacht je er van om een grote meloen als monument te plaatsen!
-                </p>
-                <p>
-                  <span>Bericht geplaatst op </span>
-                  <span class="highlight">22/05/2016</span>
-                  <span> om </span>
-                  <span class="highlight">08:65</span>
-                </p>
-              </div>
-                <div>
-                  <p class="bodytext">
-                    Dat lijkt mij zeker ook echt wel cool! Ik zou graag Antwerpen vertegenwoordigd zien door watermeloenen, en ook ene watermeloen festival georganiseerd zien! dat lijkt mij het beste in heel de geschiedenis van antwerpen.
-                  </p>
-                  <p>
-                    <span>Bericht geplaatst op </span>
-                    <span class="highlight">22/05/2016</span>
-                    <span> om </span>
-                    <span class="highlight">08:65</span>
-                  </p>
-                </div>
-            </div>
-            <div class="center">
-            <button class="morecomments">TOON MEER</button>
-            </div>
-        </div>
+  <div class="leftSide">
+    <a class="logo" href="https://www.antwerpen.be/nl/home">
+      <img width="100%" heigth="100%" src="../img/logo.jpg">
+    </a>
+    <div id="map">
 
     </div>
+    <input type="checkbox" id="hamburger" value="open">
+    <label for="hamburger">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+      <ul class="projectList">
+        <li>
+          <div>
+            <img src="../img/placeholderProjectImage.jpg">
+            <p>Renovatie van het station</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="../img/placeholderProjectImage.jpg">
+            <p>Dit is een best lange titel die er niet altijd in past</p>
+          </div>
+        </li>
+          <li class="selectedProject">
+            <div>
+              <img src="../img/placeholderProjectImage.jpg">
+              <p>Stadproject der monumenten</p>
+            </div>
+          </li>
+        <li>
+          <div>
+            <img src="../img/placeholderProjectImage.jpg">
+            <p>PROJECT 1</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="../img/placeholderProjectImage.jpg">
+            <p>PROJECT 1</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <img src="../img/placeholderProjectImage.jpg">
+            <p>PROJECT 1</p>
+          </div>
+        </li>
+      </ul>
+    </label>
+  </div>
 
-    <div class="timelineContainer">
-        <ul class="timeline">
-            <li class="huidigeFase">         <h2 class="faseHead">FASE</h2><h2 class="faseHead">4</h2><p>12/04</p></li>
-            <li class="fase"<a href="fase3"><h2 class="faseHead">FASE</h2><h2 class="faseHead">3</h2></li>
-            <li class="fase"><h2 class="faseHead">FASE</h2><h2 class="faseHead">2</h2></li>
-            <li class="fase"><h2 class="faseHead">FASE</h2><h2 class="faseHead">1</h2></li>
+  <div class="rightSide">
+    <div class="header" style="background-image: url('../img/header.jpg');"></div>
+    <div class="contentWrapper">
+      <h2>StadsProject der monumenten</h2>
+      <p>Kort tekstje met uitleg over het project. Bijvoorbeeld, dit is een monument dat op de groenplaats zou komen.</p>
+
+      <h3>Participatie fase</h3>
+      <p>Deze fase is echt super leuk! we gaan allemaal zandkastelen bouwen en nurfguns kopen! het worde heeelemaal te gek! hier, heb een watermeloen.</p>
+
+      <div class="choiceBoxContainer">
+        <ul>
+          <li class="choiceTitle">Het monument plaatsen?</li>
+          <li class="choicePick activeChoice">
+            <input id="monumentIDL" type="radio" name="monumentID" value="1">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <label for="monumentIDL">Ja</label>
+          </li>
+          <li class="choicePick">
+            <input id="monumentIDR" type="radio" name="monumentID" value="0">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <label for="monumentIDR">Nee</label>
+          </li>
         </ul>
 
-        <div class="fase playstore">
-          <a href="https://play.google.com/store/apps/details?id=com.pepijnwillekens.kdg.amening">
-            <img src="../img/Google_Play_logo3.png" alt="">
-          </a>
+        <ul>
+          <li class="choiceTitle">Liever groen?</li>
+          <li class="choicePick activeChoice">
+            <input id="lievergroenIDL" type="radio" name="lievergroenID" value="1">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <label for="lievergroenIDL">Groen</label>
+          </li>
+          <li class="choicePick">
+            <input id="lievergroenIDR" type="radio" name="lievergroenID" value="0">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <label for="lievergroenIDR">Monument</label>
+          </li>
+        </ul>
+        <ul>
+          <li class="choiceTitle">Wilt u het station een modernere look geven?</li>
+          <li class="choicePick activeChoice">
+            <input id="lievergroenIDL" type="radio" name="lievergroenID" value="1">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <label for="lievergroenIDL">Groen</label>
+          </li>
+          <li class="choicePick">
+            <input id="lievergroenIDR" type="radio" name="lievergroenID" value="0">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            <label for="lievergroenIDR">Monument</label>
+          </li>
+        </ul>
+      </div>
+
+      <textarea class="feedbackInput" placeholder="Wij horen graag jouw mening!"></textarea>
+      <button class="stuurIn">STUUR IN</button>
+
+      <h3>Comments</h3>
+      <div class="comments">
+        <div>
+          <p class="bodytext">
+            Wat dacht je er van om een grote meloen als monument te plaatsen!
+          </p>
+          <p>
+            <span>Bericht geplaatst op </span>
+            <span class="highlight">22/05/2016</span>
+            <span> om </span>
+            <span class="highlight">08:65</span>
+          </p>
         </div>
+        <div>
+          <p class="bodytext">
+            Dat lijkt mij zeker ook echt wel cool! Ik zou graag Antwerpen vertegenwoordigd zien door watermeloenen, en ook ene watermeloen festival georganiseerd zien! dat lijkt mij het beste in heel de geschiedenis van antwerpen.
+          </p>
+          <p>
+            <span>Bericht geplaatst op </span>
+            <span class="highlight">22/05/2016</span>
+            <span> om </span>
+            <span class="highlight">08:65</span>
+          </p>
+        </div>
+      </div>
+      <div class="center">
+        <button class="morecomments">TOON MEER</button>
+      </div>
     </div>
-<!-- _________________________________________________________________________________________________________________ -->
 
-    <script>
-        function initMap() {
-        var myLatLng = {lat: 51.207, lng: 4.407}; //coordinaten geselecteerd project
+  </div>
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 14,
-            center: myLatLng
-        });
+  <div class="timelineContainer">
+    <ul class="timeline">
+      <li class="huidigeFase">
+        <h2 class="faseHead">FASE</h2>
+        <h2 class="faseHead">4</h2>
+        <p>12/04</p>
+      </li>
+      <li class="fase" <a href="fase3">
+        <h2 class="faseHead">FASE</h2>
+        <h2 class="faseHead">3</h2>
+      </li>
+      <li class="fase">
+        <h2 class="faseHead">FASE</h2>
+        <h2 class="faseHead">2</h2>
+      </li>
+      <li class="fase">
+        <h2 class="faseHead">FASE</h2>
+        <h2 class="faseHead">1</h2>
+      </li>
+    </ul>
 
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            title: 'Project 1'
-        });
-}
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
-        async defer></script>
+    <div class="fase playstore">
+      <a href="https://play.google.com/store/apps/details?id=com.pepijnwillekens.kdg.amening">
+        <img src="../img/Google_Play_logo3.png" alt="">
+      </a>
+    </div>
+  </div>
+  <!-- _________________________________________________________________________________________________________________ -->
+
+  <script>
+    function initMap() {
+      var myLatLng = {
+        lat: 51.207,
+        lng: 4.407
+      }; //coordinaten geselecteerd project
+
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: myLatLng
+      });
+
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Project 1'
+      });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 </body>
+
 </html>

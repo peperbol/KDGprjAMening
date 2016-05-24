@@ -35,13 +35,29 @@ body {
 
     height: auto;
     max-height: none;
+    overflow-y: visible;
   }
   body .projectList li {
     height: 40px
   }
-  body .projectList li a p {
-      line-height: 39px;
+  body .projectList li div p {
+      line-height: 19px;
 
+  }
+
+  body #hamburger:not(:checked)+* .projectList li:not(.selectedProject) {
+      height: 0;
+      font-size: 0;
+      border: none;
+      overflow: hidden;
+  }
+  body #hamburger:not(:checked)+*>i{
+    display: block;
+    position: absolute;
+    color: white;
+    right: 10px;
+    font-size: 30px;
+    top: 5px;
   }
   body .rightSide {
 
@@ -98,21 +114,27 @@ body {
     background-color: white;
     flex-grow: 1;
 }
-
+#hamburger{
+  display: none;
+}
 .projectList {
     margin: 0;
     padding: 0;
     max-height: 50%;
-    width: inherit;
+    width: 100%;
     flex-grow: 0;
     display: block;
     overflow-y: auto;
     overflow-x: hidden;
     list-style: none;
-    z-index: 11;
     background-color: #3a3939;
 }
-
+label[for="hamburger"]>i {
+  display: none;
+}
+label[for="hamburger"]{
+  position: relative;
+}
 .projectList li {
     background-color: #cf0039;
     height: 70px;
@@ -124,45 +146,49 @@ body {
     -moz-transition: .3s;
     -webkit-transition: .3s;
     transition: .3s;
+    cursor: pointer;
 }
 
 .projectList li:hover {
     background-color: #f08900;
 }
 
-.projectList li a {
+.projectList li>div {
     color: white;
     text-decoration: none;
-    height: 100%;
+    height: inherit;
     width: 100%;
     font-family: "SunAntwerpen", sans-serif;
     font-weight: 700;
-    font-size: 1.8em;
-    position: relative;
+    font-size: 1.6em;
     display: block;
+    display: flex;
+    margin-top: -1px;
 }
 
-.projectList li a img {
-    width: 70px;
-    margin-bottom: -1px;
+.projectList li>div img {
+    height: 100%;
+    box-sizing: border-box;
+    flex-grow: 0;
 }
 
 
 
-.projectList li a p {
-    left: 90px;
-    right: 10px;
-    bottom: 0;
-    top: 0;
+.projectList li>div p {
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     margin: 0;
-    line-height: 69px;
+    line-height: 49px;
     width: auto;
-    height: inherit;
+    height: 100%;
+    flex-grow: 1;
     display: block;
-    position: absolute;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .rightSide {
@@ -295,6 +321,7 @@ h3 {
     -webkit-transition: .3s;
     transition: .3s;
     position: relative;
+
 }
 
 .choicePick label{
@@ -304,6 +331,7 @@ h3 {
     float: left;
     width: 100%;
 
+    cursor: pointer;
 }
 
 .choicePick input
@@ -394,6 +422,8 @@ button {
 
       color: white;
       font-size: 1em;
+
+      cursor: pointer;
 }
 .comments .bodytext{
   margin-bottom:0 ;
@@ -437,8 +467,9 @@ button {
     list-style: none;
     padding: 0;
     margin: 0;
-}
 
+        cursor: pointer;
+}
 .huidigeFase {
     height: 180px;
     box-sizing: border-box;
@@ -453,7 +484,9 @@ button {
     color: white;
     font-size: 14px;
 }
-
+.timeline h2 {
+  padding-bottom: 5px;
+}
 .timeline>li>p {
     margin: 0;
 }
@@ -475,6 +508,7 @@ button {
     -moz-transition: .3s;
     -webkit-transition: .3s;
     transition: .3s;
+
 }
 
 .faseHead:first-child {
