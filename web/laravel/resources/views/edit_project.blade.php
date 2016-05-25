@@ -34,7 +34,7 @@
                </div>
 
                <div>
-                   <input type="checkbox" name="hidden" id="hidden" value="1">
+                   <input type="checkbox" name="hidden" id="hidden" value="1" @if($project->hidden){{ "checked" }}@endif>
                    <label for="hidden">Verborgen zetten</label>
                </div>
 

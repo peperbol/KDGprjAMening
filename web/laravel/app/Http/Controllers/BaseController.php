@@ -82,8 +82,16 @@ class BaseController extends Controller
             $rightlabel = $question->rightlabel;
             $leftcount = Answer::where('question_id', $question->id_question)->where('answer', 0)->count();
             $rightcount = Answer::where('question_id', $question->id_question)->where('answer', 1)->count();
+            $total = $leftcount + $rightcount;
+            if($total == 0) {
+                $total = 1;
+            }
+            //left procent and right procent
+            $left_procent = round($leftcount/$total*100, 2);
+            $right_procent = round($rightcount/$total*100, 2);
+            
             //save this question data in a variabele result
-            $result = [$questiontext, $leftlabel, $rightlabel, $leftcount, $rightcount];
+            $result = [$questiontext, $leftlabel, $rightlabel, $leftcount, $rightcount, $left_procent, $right_procent];
             //push result tot the results array
             array_push($results, $result);
             //dd($results);
@@ -108,6 +116,7 @@ class BaseController extends Controller
     
     
     public function getResultsProject ($id) {
+        $project = Project::find($id);
         $project_phases = Phase::where('project_id', $id)->get();
         $results_project = [];
         foreach($project_phases as $phase){
@@ -116,7 +125,7 @@ class BaseController extends Controller
             array_push($results_project, [$phase, $results]);
         }
         //dd($results_project);
-        return view('show_results', ['results_project' => $results_project]);
+        return view('show_results', ['project' => $project, 'results_project' => $results_project]);
     }
     
     

@@ -430,6 +430,130 @@ input[type="time"] {
 }
 
 
+/* results page / answers page */
+.container_stat {
+    box-sizing: border-box;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 50px;
+    display: inline-block;
+}
+
+.statContainer {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    background-color: rgb(57, 57, 57);
+    padding: 30px 0;
+}
+
+.statContainer>h3 {
+    font-family: sans-serif;
+    color: white;
+    margin-left: 10%;
+}
+
+.insideStatContainer {    
+    background-color: rgb(100, 100, 100);
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 10px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.insideStatContainer::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.insideStatContainer>div::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.insideStatContainer>p {
+    color: white;
+    font-family: sans-serif;
+    text-align-last: center;
+    padding-top: 20px;
+}
+
+.insideStatContainer>div {
+    border-bottom: 1px solid white;
+    box-sizing: border-box;
+}
+
+
+.insideStatContainer>div>h4 {
+    font-family: sans-serif;
+    color: white;
+    width: 50%;
+    margin: 0;
+}
+
+.h4left {
+    float: left;
+}
+.h4right {
+    float: right;
+    text-align: right;
+}
+
+.h4Left {
+    float: left;
+}
+
+.stemmen {
+    font-family: sans-serif;
+    color: white;
+    margin-top: 10px;
+    width: 50%;
+}
+
+.leftStemmen {
+    float: left;
+    text-align: left;
+}
+
+.rightStemmen {
+    float: right;
+    text-align-last: right;
+    
+    
+}
+
+.procent {
+    display: none;
+}
+
+.statBar {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 40px;
+    background-color: #f08900;
+    border: 0px;
+}
+
+.statBar>div{
+    border: 0px;
+    display: block;
+    height: 100%;
+    background-color: #e40046;
+    width: 80%;
+    z-index: 10;
+}
+
+
+
+
+
+
+
+
 footer {
     background-color: rgb(57, 57, 57);
     color: inherit;
