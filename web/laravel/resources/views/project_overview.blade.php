@@ -24,7 +24,7 @@
            @foreach ($projects as $project)
             <div class="project">
                 <!--<img src="" alt="">-->
-                <a href="#" class="watched">
+                <a href="#" class="watched @if($project->hidden == 1)hide @endif">
                     a
                 </a>
                 <div class="projectnaam">
