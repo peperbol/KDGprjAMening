@@ -1525,19 +1525,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22494820, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22494820, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22494820, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 490
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22494820, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 980
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22494820, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_SizeDelta.y
@@ -1605,23 +1605,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22453324, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22453324, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22453324, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 490
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22453324, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -201
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22453324, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 980
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22453324, guid: 99478e9af36e8674a8b3b582810e92f5, type: 2}
       propertyPath: m_SizeDelta.y
@@ -3804,7 +3804,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 947.6062
+  orthographic size: 999.71484
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4156,7 +4156,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 1895.2124}
+  m_SizeDelta: {x: 1080, y: 1999.4297}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1788945310
 MonoBehaviour:
@@ -4412,7 +4412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b69c3ef42f4ce5429cc76b50576015b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: http://www.google.be/
+  url: http://petrichor.multimediatechnology.be/
 --- !u!224 &1924412657 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22493152, guid: 99478e9af36e8674a8b3b582810e92f5,
