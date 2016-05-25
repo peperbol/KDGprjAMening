@@ -112,7 +112,9 @@ class ApiController extends Controller
     //get question info
     public function get_question_info($id) {
         $question = Question::find($id);
-        return response()->json($question);
+        $phase = Phase::find($question->project_phase_id);
+        $project = Project::find($phase->project_id);
+        return response()->json([$project, $question]);
     }
     //comments per fase
     public function get_comments_phase($id) {
@@ -141,9 +143,10 @@ class ApiController extends Controller
         //request contains name, gender, age, comment, project_phase_id
         //for each request a new comment must be created
         //hidden is 0 default
+        $name = "anonymous";
         $hidden = 0;
         
-        $comment = new Comment(['name' => $request->name,
+        $comment = new Comment(['name' => $name,
                                 'age' => $request->age,
                                 'comment' => $request->comment,
                                 'gender_id' => $request->gender_id,

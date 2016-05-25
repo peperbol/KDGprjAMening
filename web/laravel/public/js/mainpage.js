@@ -23,6 +23,12 @@
         $scope.questionsPhase = [];
         
         var faseWithNr;
+        var id_question;
+        var answer;
+        var commentPhase;
+        var phase_id;
+
+        
         $scope.first_comment;
         $scope.first_comment_shown = false;
         $scope.extra_comments_shown = false;
@@ -282,12 +288,37 @@
                 /*post each answer per iteration*/
                 for(i=0; i<$scope.questionsPhase.length; i++){
 
-                    console.log($scope.questionsPhase[i].id_question, $scope.questionsPhase[i].answer);
+                    //console.log($scope.questionsPhase[i].id_question, $scope.questionsPhase[i].answer);
+                    
+                    id_question = $scope.questionsPhase[i].id_question;
+                    answer = $scope.questionsPhase[i].answer;
+                    
+                    $http.post('./post_answer', 
+                        {
+                        
+                        question_id: id_question,
+                        answer: answer,
+                        age: 1,
+                        gender_id: 1
 
+                        })
+                    
+                        .success(function(response) {
+                        console.log(response);
+                        })
+                    
+                        .error(function(response) {
+                        console.log(response);
+                    });
+
+                    
+                    
+                    
                 };
                 
                 
             }
+            
             
             $scope.SendComment();
             
@@ -300,12 +331,33 @@
             
             
             console.log($scope.comment);
+            
+            commentPhase = $scope.comment;
+            phase_id = $scope.questionsPhase[0].project_phase_id;
+            
             /*post comment for phase*/
+            
+            $http.post('./post_comment', 
+                        {
+                        
+                        project_phase_id : phase_id,
+                        age: 1,
+                        gender_id: 1, 
+                        comment: commentPhase
+                
+                        })
+                    
+                        .success(function(response) {
+                        console.log(response);
+                        })
+                    
+                        .error(function(response) {
+                        console.log(response);
+                    });
             
             
         };
-        
-        
+
         
         
         
