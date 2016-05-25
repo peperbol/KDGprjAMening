@@ -54,7 +54,7 @@ public class Question
             throw new FileNotFoundException();
         }
 
-        List<JSONObject> obj = JSONObject.Create(www.text).GetField("comments").list;
+        List<JSONObject> obj = JSONObject.Create(www.text).list;
         Comment[] comments = new Comment[obj.Count];
         for (int i = 0; i < obj.Count; i++)
         {
@@ -89,19 +89,18 @@ public class Question
         var obj = JSONObject.Create(www.text);
 
         string s = "";
-        obj.GetField(ref s, "question");
+        obj.GetField(ref s, "questiontext");
         questionText = s;
         obj.GetField(ref s, "leftlabel");
         leftText = s;
         obj.GetField(ref s, "rightlabel");
         rightText = s;
-        obj.GetField(ref s, "phase");
+        obj.GetField(ref s, "project_phase_id");
         phase = s;
         obj.GetField(ref s, "project");
         projectText = s;
-        bool b = false;
-        obj.GetField(ref b, "fullpicture");
-        fullPicture = b;
+        obj.GetField(ref s, "right_picture_path");
+        fullPicture = string.IsNullOrEmpty( s);
         if(mb)
             mb.StartCoroutine(LoadComments());
     }

@@ -39,6 +39,7 @@ public class DownloadQuestions : MonoBehaviour
             else
             {
 
+                Debug.Log(PathsConfig.ImageLeftUrl(ids[i]));
                 WWW picLWww = new WWW(PathsConfig.ImageLeftUrl(ids[i]));
                 while (!picLWww.isDone)
                 {
