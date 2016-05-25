@@ -55,6 +55,51 @@
             
             
             
+            
+            
+            
+            
+            
+            
+            <form name="questionForm" ng-submit="SendAnswer()" novalidate>
+               
+                  
+                <div ng-repeat="question in questionsPhase">
+                  
+                    <p>@{{question.questiontext}}</p>
+                    
+                    <input type="radio" name="@{{question.id_question}}" ng-model="question.answer" value="0" id="answL@{{question.id_question}}">
+                    <label for="answL@{{question.id_question}}">@{{question.leftlabel}}</label> <br>
+                    <input type="radio" name="@{{question.id_question}}" ng-model="question.answer" value="1" id="answR@{{question.id_question}}">
+                    <label for="answR@{{question.id_question}}">@{{question.rightlabel}} </label> <br>
+                    
+                </div>
+                    
+                    
+                    <textarea id="comment_sectie" name="commentFase" placeholder="Commentaar" ng-model="comment"></textarea>
+                    
+                
+                <button type="submit">STUUR IN</button>
+                  
+                
+            </form>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <div ng-show="first_comment_shown">
                 <p>{{first_comment.comment}}</p>
                 <p>Bericht geplaatst op {{first_comment.date}} om {{first_comment.time}}</p>
