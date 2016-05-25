@@ -34,6 +34,7 @@
         $scope.first_comment_shown = false;
         $scope.extra_comments_shown = false;
         $scope.button_show_more_shown = false;
+        $scope.form_questions_shown = false;
         $scope.button_show_more_text = "TOON MEER";
         
         
@@ -164,9 +165,11 @@
                 
                 
                 /*If phase is the most recent phase, show questions*/
-                if(data.is_current) {
+                if(!data.is_current) {
                     
                     $scope.Show_phase_questions(phase_id);
+                    
+                    $scope.form_questions_shown = true;
                     
                 }
                 
