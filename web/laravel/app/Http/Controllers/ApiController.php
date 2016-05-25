@@ -193,7 +193,7 @@ class ApiController extends Controller
         //this function will be called when there's only one picture available
         $question = Question::find($id);
         
-        return Redirect::to('http://oplossingen.web-backend.local/projectontwikkeling/project02/aMening/public/images/question_images/'.$question->left_picture_path);
+        return Redirect::to('http://petrichor.multimediatechnology.be/images/question_images/'.$question->left_picture_path);
         
         //return response()->json($question_ids);
     }
@@ -209,7 +209,7 @@ class ApiController extends Controller
             $picture_path = $question->right_picture_path;
         }
         
-        return Redirect::to('http://oplossingen.web-backend.local/projectontwikkeling/project02/aMening/public/images/question_images/'.$picture_path);
+        return Redirect::to('http://petrichor.multimediatechnology.be/images/question_images/'.$picture_path);
         
         //return response()->json($question_ids);
     }
