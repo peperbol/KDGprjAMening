@@ -16,11 +16,13 @@ public class LoadQuestion : MonoBehaviour
     public List<string> ids;
     SwipeInput si;
     CommentsBuilder cb;
+    AnswerSender aS;
     public bool QuestionsPending { get { return questions.Count > 0 || ids.Count > 0; } }
     void Awake()
     {
         si = FindObjectOfType<SwipeInput>();
         cb = FindObjectOfType<CommentsBuilder>();
+        aS = FindObjectOfType<AnswerSender>();
     }
     public void Add(string id)
     {
@@ -31,6 +33,8 @@ public class LoadQuestion : MonoBehaviour
     public void Answer(Question q, bool isLeft)
     {
        if(!DebugActions.loopQuestions) FindObjectOfType<ToDoHandler>().AddAnswered(q.id);
+        aS.SendAnswer(isLeft, q);
+
     }
     void QueueIds()
     {

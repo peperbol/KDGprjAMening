@@ -21,6 +21,7 @@ public class DownloadQuestions : MonoBehaviour
         for (int i = 0; i < ids.Count; i++)
         {
             WWW docWWW = new WWW(PathsConfig.JsonFileUrl(ids[i]));
+            
             while (!docWWW.isDone)
             {
                 yield return null;
@@ -39,7 +40,7 @@ public class DownloadQuestions : MonoBehaviour
             else
             {
 
-                Debug.Log(PathsConfig.ImageLeftUrl(ids[i]));
+
                 WWW picLWww = new WWW(PathsConfig.ImageLeftUrl(ids[i]));
                 while (!picLWww.isDone)
                 {
