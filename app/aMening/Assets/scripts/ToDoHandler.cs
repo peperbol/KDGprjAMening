@@ -72,8 +72,8 @@ public class ToDoHandler : MonoBehaviour
         }
         var obj = JSONObject.Create(idsWww.text);
 
-        if (obj.GetField("ids") != null)
-            CurrentQuestions = obj.GetField("ids").list.ConvertAll(e => e.str);
+        if (obj.list != null)
+            CurrentQuestions = obj.list.ConvertAll(e => e.i.ToString());
         else
             CurrentQuestions = new List<string>();
         isGetCurrentQuestionsRunning = false;

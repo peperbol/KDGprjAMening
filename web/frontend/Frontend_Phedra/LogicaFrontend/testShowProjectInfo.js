@@ -9,7 +9,6 @@
     
     site.controller("ProjectController", ['$scope', '$http', function($scope, $http) {
         
-        var projectData = this;
         
         $scope.projectId;
         
@@ -26,12 +25,20 @@
         $scope.time;
         
         
+        $scope.questionsPhase = [];
+        
+        
+        
         var faseWithNr;
         $scope.first_comment;
         $scope.first_comment_shown = false;
         $scope.extra_comments_shown = false;
         $scope.button_show_more_shown = false;
+        $scope.form_questions_shown = false;
         $scope.button_show_more_text = "TOON MEER";
+        
+        
+        $scope.allQuestionsFilledIn = true;
         
         
         
@@ -39,14 +46,11 @@
         $scope.Show_project_info;
         $scope.Show_timeline;
         $scope.Show_fase_info;
-        $scope.Show_fase_comments
+        $scope.Show_fase_comments;
+        $scope.Show_phase_questions;
         
         
-        
-        
-        
-        
-        var fasesProject;
+    
         
         $scope.questionsPhase = [];
         
@@ -81,7 +85,7 @@
             /*project info ophalen en in html elementen plaatsen*/
             $.getJSON( "project_2_info.json", function( data ) {
 
-                console.log(data);
+                //console.log(data);
                 
                 $scope.project_Name = data.name;
                 $scope.project_Description = data.description;
@@ -143,9 +147,9 @@
         
         
         /*Als op fase in tijdslijn klikt, de fase info + comments te zien krijgen*/
-        $scope.Show_fase_info = function(fase_id){
+        $scope.Show_fase_info = function(phase_id){
             
-            console.log(fase_id);
+            //console.log(fase_id);
             
             
             
@@ -159,12 +163,23 @@
                 $scope.current_Fase_enddate = data[0].enddate;
                 $scope.current_Fase_imagepath = data[0].imagepath;
                 
+                
+                /*If phase is the most recent phase, show questions*/
+                if(!data.is_current) {
+                    
+                    $scope.Show_phase_questions(phase_id);
+                    
+                    $scope.form_questions_shown = true;
+                    
+                }
+                
+                
                 $scope.$apply();
                 
             });
             
             
-            $scope.Show_fase_comments(fase_id);
+            $scope.Show_fase_comments(phase_id);
             
             $scope.button_show_more_shown = true;
             
@@ -181,6 +196,44 @@
         
         
 
+        
+        
+        
+        
+        
+        
+        $scope.Show_phase_questions = function(phase_id){
+            
+            
+            $.getJSON( "questions_phase.json", function( data ) {
+                        
+                
+                    /*create new object answer for each question --> fill in when form is submitted*/
+                    for(i=0; i<data.length; i++) {
+                        
+                        data[i].answer= " ";
+                        
+                    };
+                
+                
+                    $scope.questionsPhase = data;
+                
+                    $scope.$apply(); 
+                     
+                
+            });
+            
+        };
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -215,7 +268,7 @@
                     
                 }
                 
-                console.log($scope.commentsArray);
+                //console.log($scope.commentsArray);
                 
                 
                 
@@ -271,37 +324,59 @@
         
         
         
+        /**** POST ****/
+        
+        
+        /*When form questions/comment is submitted, post answer each question + post comment of fase*/
+        $scope.SendAnswer = function(){
+            
+            /*check if each question has been filled in*/
+            for(i=0; i<$scope.questionsPhase.length; i++){
+                
+                
+                /*if he finds an answer that still has the original value of " " --> change value true to false*/
+                if($scope.questionsPhase[i].answer == " ") {
+                
+                    $scope.allQuestionsFilledIn = false;
+                    
+                };
+            
+                
+            };
+            
+            
+            /*has found no answer that is empty*/
+            if($scope.allQuestionsFilledIn) {
+                
+                
+                /*post each answer per iteration*/
+                for(i=0; i<$scope.questionsPhase.length; i++){
+
+                    console.log($scope.questionsPhase[i].id_question, $scope.questionsPhase[i].answer);
+
+                };
+                
+                
+            }
+            
+            
+            $scope.SendComment();
+            
+            
+        };
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        $scope.SendComment = function(){
+            
+            
+            console.log($scope.comment);
+            /*post comment for phase*/
+            
+            
+        };
         
 
-
-        
- 
-        
         
         
         

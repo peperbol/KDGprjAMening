@@ -20,19 +20,32 @@
         $scope.time;
         
         
+        $scope.questionsPhase = [];
+        
         var faseWithNr;
+        var id_question;
+        var answer;
+        var commentPhase;
+        var phase_id;
+
+        
         $scope.first_comment;
         $scope.first_comment_shown = false;
         $scope.extra_comments_shown = false;
         $scope.button_show_more_shown = false;
+        $scope.form_questions_shown = false;
         $scope.button_show_more_text = "TOON MEER";
+        
+        
+        $scope.allQuestionsFilledIn = true;
         
         
         /*FUNCTIES*/
         $scope.Show_project_info;
         $scope.Show_timeline;
         $scope.Show_fase_info;
-        $scope.Show_fase_comments
+        $scope.Show_fase_comments;
+        $scope.Show_phase_questions;
         
         
 
@@ -115,6 +128,15 @@
                 $scope.current_Fase_enddate = data[0].enddate;
                 $scope.current_Fase_imagepath = data[0].imagepath;
                 
+                /*If phase is the most recent phase, show questions*/
+                if(data.is_current) {
+                    
+                    $scope.Show_phase_questions(phase_id);
+                    
+                    $scope.form_questions_shown = true;
+                    
+                }
+                
                 $scope.$apply();
                 
             });
@@ -129,6 +151,32 @@
             $scope.extra_comments_shown = false;
             
         };//einde functie Show_fase_info
+        
+        
+        
+        $scope.Show_phase_questions = function(phase_id){
+            
+            
+            $.getJSON( "./get_questions_phase/" + phase_id, function( data ) {
+                //console.log(phase_id);
+                //console.log(data[1]);
+                    /*create new object answer for each question --> fill in when form is submitted*/
+                    for(i=0; i<data.length; i++) {
+                        
+                        data[1][i].answer= " ";
+                        //console.log(i);
+                    };
+                    
+                    
+                
+                    $scope.questionsPhase = data[1];
+                
+                    $scope.$apply(); 
+                     
+                
+            });
+            
+        };
         
         
         
@@ -208,6 +256,108 @@
         
  
         
+        
+        
+        /**** POST ****/
+        
+        
+        /*When form questions/comment is submitted, post answer each question + post comment of fase*/
+        $scope.SendAnswer = function(){
+            
+            /*check if each question has been filled in*/
+            for(i=0; i<$scope.questionsPhase.length; i++){
+                
+                console.log($scope.questionsPhase[i].answer);
+                /*if he finds an answer that still has the original value of " " --> change value true to false*/
+                if($scope.questionsPhase[i].answer == " ") {
+                    $scope.allQuestionsFilledIn = false;
+                    break;
+                }
+                else {
+                    $scope.allQuestionsFilledIn = true;
+                }
+            
+                
+            };
+            
+            
+            /*has found no answer that is empty*/
+            if($scope.allQuestionsFilledIn) {
+                
+                
+                /*post each answer per iteration*/
+                for(i=0; i<$scope.questionsPhase.length; i++){
+
+                    //console.log($scope.questionsPhase[i].id_question, $scope.questionsPhase[i].answer);
+                    
+                    id_question = $scope.questionsPhase[i].id_question;
+                    answer = $scope.questionsPhase[i].answer;
+                    
+                    $http.post('./post_answer', 
+                        {
+                        
+                        question_id: id_question,
+                        answer: answer,
+                        age: 1,
+                        gender_id: 1
+
+                        })
+                    
+                        .success(function(response) {
+                        console.log(response);
+                        })
+                    
+                        .error(function(response) {
+                        console.log(response);
+                    });
+
+                    
+                    
+                    
+                };
+                
+                
+            }
+            
+            
+            $scope.SendComment();
+            
+            
+        };
+        
+        
+        
+        $scope.SendComment = function(){
+            
+            
+            console.log($scope.comment);
+            
+            commentPhase = $scope.comment;
+            phase_id = $scope.questionsPhase[0].project_phase_id;
+            
+            /*post comment for phase*/
+            
+            $http.post('./post_comment', 
+                        {
+                        
+                        project_phase_id : phase_id,
+                        age: 1,
+                        gender_id: 1, 
+                        comment: commentPhase
+                
+                        })
+                    
+                        .success(function(response) {
+                        console.log(response);
+                        })
+                    
+                        .error(function(response) {
+                        console.log(response);
+                    });
+            
+            
+        };
+
         
         
         
