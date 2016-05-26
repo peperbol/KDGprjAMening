@@ -523,20 +523,27 @@ button {
 
         cursor: pointer;
 }
-.huidigeFase {
+.currentPhase {
     height: 180px;
     box-sizing: border-box;
     padding-top: 50px;
     margin: 0;
     width: 100%;
-    background-color: #f08900;
     text-align: center;
+    background-color: #cf0039;
 }
 
-.huidigeFase>p {
+.currentPhase.active,
+.fase.active {
+    background-color: #f08900;
+}
+
+.currentPhase>p {
     color: white;
     font-size: 14px;
 }
+
+
 .timeline h2 {
   padding-bottom: 5px;
 }

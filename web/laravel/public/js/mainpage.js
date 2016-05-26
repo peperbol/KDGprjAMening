@@ -15,6 +15,8 @@
         
         $scope.timelineArray = [];
         
+        $scope.phase_selected;
+        
         $scope.dateObject = [];
         $scope.date;
         $scope.time;
@@ -46,6 +48,7 @@
         $scope.Show_fase_info;
         $scope.Show_fase_comments;
         $scope.Show_phase_questions;
+        $scope.Phase_selected;
         
         
 
@@ -100,9 +103,12 @@
                 
                 $scope.timelineArray.reverse();
                 
-                console.log($scope.timelineArray[0]);
                 
-                $scope.Show_fase_info($scope.timelineArray[0].id_project_phase);
+                $scope.phase_selected = $scope.timelineArray[0].faseWithNr;
+                
+                console.log($scope.phase_selected);
+                
+                $scope.Show_fase_info($scope.timelineArray[0].id_project_phase, $scope.phase_selected);
                 
                 $scope.$apply();
 
@@ -120,7 +126,7 @@
         
         
         /*Als op fase in tijdslijn klikt, de fase info + comments te zien krijgen*/
-        $scope.Show_fase_info = function(phase_id){
+        $scope.Show_fase_info = function(phase_id, phase_nr){
             
             
             $.getJSON( "./get_phase_info/" + phase_id, function( data ) {
@@ -148,6 +154,8 @@
                 
             });
             
+            $scope.phase_selected = phase_nr;
+            
             
             $scope.Show_fase_comments(phase_id);
             
@@ -158,6 +166,11 @@
             $scope.extra_comments_shown = false;
             
         };//einde functie Show_fase_info
+        
+        
+        $scope.Phase_selected = function (phase_nr) {
+            return $scope.phase_selected === phase_nr;
+        }
         
         
         

@@ -240,7 +240,7 @@
             <ul class="timeline">
              
              
-              <li ng-repeat="fase in timelineArray" ng-click="Show_fase_info(fase.id_project_phase)" ng-class="{ 'huidigeFase': fase.faseWithNr!=timelineArray.length-1 , 'fase': fase.faseWithNr==timelineArray.length-1  }">
+              <li ng-repeat="fase in timelineArray" ng-click="Show_fase_info(fase.id_project_phase, fase.faseWithNr)" ng-class="{ 'currentPhase': fase.faseWithNr!=timelineArray.length-1 , 'fase': fase.faseWithNr==timelineArray.length-1, 'active': Phase_selected(fase.faseWithNr)  }">
                 <h2 class="faseHead">FASE</h2>
                 <h2 class="faseHead">@{{fase.faseWithNr}}</h2>
                 <p ng-show="fase.faseWithNr!=timelineArray.length-1">@{{fase.enddate}}</p>
