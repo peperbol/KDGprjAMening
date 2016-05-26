@@ -91,7 +91,7 @@
                 
                 /*aanmaken extra onderdeel object fase --> "Fase 1" bv*/
                 for(i=1; i<=data.length; i++) {
-                    data[i-1].faseWithNr = "Fase " + i;
+                    data[i-1].faseWithNr = i;
                 }
                 
                 
@@ -99,6 +99,10 @@
                 $scope.timelineArray = data;
                 
                 $scope.timelineArray.reverse();
+                
+                console.log($scope.timelineArray[0]);
+                
+                $scope.Show_fase_info($scope.timelineArray[0].id_project_phase);
                 
                 $scope.$apply();
 
@@ -136,6 +140,9 @@
                     $scope.form_questions_shown = true;
                     
                 }
+                else {
+                    $scope.form_questions_shown = false;
+                }
                 
                 $scope.$apply();
                 
@@ -156,15 +163,16 @@
         
         $scope.Show_phase_questions = function(phase_id){
             
+            $scope.questionsPhase = [];
             
             $.getJSON( "./get_questions_phase/" + phase_id, function( data ) {
                 //console.log(phase_id);
                 //console.log(data[1]);
                     /*create new object answer for each question --> fill in when form is submitted*/
-                    for(i=0; i<data.length; i++) {
-                        
-                        data[1][i].answer= " ";
+                    for(i=0; i<data[1].length; i++) {
                         //console.log(i);
+                        data[1][i].answer= " ";
+                        
                     };
                     
                     
