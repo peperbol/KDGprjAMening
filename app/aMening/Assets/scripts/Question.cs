@@ -87,19 +87,19 @@ public class Question
             throw new FileNotFoundException();
         }
         var obj = JSONObject.Create(www.text);
-
+        var qObj = obj.list[1];
         string s = "";
-        obj.GetField(ref s, "questiontext");
+        qObj.GetField(ref s, "questiontext");
         questionText = s;
-        obj.GetField(ref s, "leftlabel");
+        qObj.GetField(ref s, "leftlabel");
         leftText = s;
-        obj.GetField(ref s, "rightlabel");
+        qObj.GetField(ref s, "rightlabel");
         rightText = s;
-        obj.GetField(ref s, "project_phase_id");
+        qObj.GetField(ref s, "project_phase_id");
         phase = s;
-        obj.GetField(ref s, "project");
+        obj.list[0].GetField(ref s, "name");
         projectText = s;
-        obj.GetField(ref s, "right_picture_path");
+        qObj.GetField(ref s, "right_picture_path");
         fullPicture = string.IsNullOrEmpty( s);
         if(mb)
             mb.StartCoroutine(LoadComments());
