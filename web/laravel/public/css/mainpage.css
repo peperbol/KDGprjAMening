@@ -446,6 +446,19 @@ color: slategray;
 font-style: italic;
 }
 
+
+.submit_confirmation {
+    float: right;
+    margin: 0;
+    margin-top: 10px;
+    color: #f08900;
+}
+
+.submit_confirmation+* {
+    clear: both;
+}
+
+
 .stuurIn {
     float: right;
     background: #cf0039;
@@ -604,3 +617,14 @@ button {
 .projectList .selectedProject {
     background-color: #f08900;
 }
+
+
+/*   CLEARFIX  */
+
+
+
+
+
+
+
+

@@ -26,7 +26,7 @@
         
     </head>
 
-    <body ng-controller="ProjectController">
+    <body ng-controller="ProjectController" ng-init="Show_project_info({{$projects[0]->id_project}})">
        
        <!--
        <h1>A-Mening - projecten in Antwerpen</h1>
@@ -165,7 +165,7 @@
               <h3>@{{current_Fase_Name}}</h3>
               <p>@{{current_Fase_description}}</p>
 
-             <form name="questionForm" ng-submit="SendAnswer()" ng-show="form_questions_shown" novalidate>
+             <form id="questionForm" name="questionForm" ng-submit="SendAnswer()" ng-show="form_questions_shown" novalidate>
                   <div class="choiceBoxContainer">
 
                    <!-- for each question an ul -->
@@ -186,6 +186,11 @@
                   </div>
 
                   <textarea class="feedbackInput" name="commentFase" placeholder="Wij horen graag jouw mening!" ng-model="comment"></textarea>
+                  
+                  <div class="submit_confirmation">
+                      <p></p>
+                  </div>
+                  
                   <button class="stuurIn" type="submit">STUUR IN</button>
                   
                   
