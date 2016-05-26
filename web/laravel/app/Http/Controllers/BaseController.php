@@ -33,7 +33,8 @@ class BaseController extends Controller
         //can't be projects all
         //$projects = Project::all();
         //must be projects whose hidden = 0
-        $projects = Project::where('hidden', 0)->get();
+        $projects = Project::where('hidden', 0)->orderBy('startdate', 'desc')->get();
+        //$projects = array_reverse($projects);
         return view('homepage/home', ["projects" => $projects]);
     }
     

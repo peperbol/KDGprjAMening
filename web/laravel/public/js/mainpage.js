@@ -29,8 +29,9 @@
         var answer;
         var commentPhase;
         var phase_id;
-
         
+        
+        var submit_success = true;
         $scope.first_comment;
         $scope.first_comment_shown = false;
         $scope.extra_comments_shown = false;
@@ -65,6 +66,13 @@
         
         /*show project info along with latest phase info and current question*/
         $scope.Show_project_info = function(id){
+            
+            $(".submit_confirmation").empty();
+            
+            $scope.current_Fase_Name = "";
+            $scope.current_Fase_description = "";
+            $scope.current_Fase_enddate = "";
+            $scope.current_Fase_imagepath = "";
             
             //console.log(id);
             /*get project info and put into variables*/
@@ -128,6 +136,7 @@
         /*Als op fase in tijdslijn klikt, de fase info + comments te zien krijgen*/
         $scope.Show_fase_info = function(phase_id, phase_nr){
             
+            $(".submit_confirmation").empty();
             
             $.getJSON( "./get_phase_info/" + phase_id, function( data ) {
                 
@@ -304,7 +313,9 @@
             
             /*has found no answer that is empty*/
             if($scope.allQuestionsFilledIn) {
-                
+                console.log("juist!!");
+                submit_success = true;
+                $(".submit_confirmation").empty();
                 
                 /*post each answer per iteration*/
                 for(i=0; i<$scope.questionsPhase.length; i++){
@@ -325,23 +336,43 @@
                         })
                     
                         .success(function(response) {
-                        console.log(response);
+                            console.log(response);
+                            
                         })
                     
                         .error(function(response) {
                         console.log(response);
-                    });
-
-                    
-                    
+                        submit_success = false;
+                    }); 
                     
                 };
                 
+                console.log(submit_success);
+                
+                if(submit_success) {
+                    $(".submit_confirmation").text("Bedankt voor uw inzending!");
+                    $scope.questionForm.$setPristine();
+                    document.getElementById("questionForm").reset();
+                }
+                else {
+                    $(".submit_confirmation").empty();
+                    $(".submit_confirmation").text("Sorry er ging iets mis. Probeer opnieuw!");
+                }
+                
+               
+                $scope.SendComment();
                 
             }
             
+            /*not all Questions have been filled in --> show message*/
+            else {
+                
+                $(".submit_confirmation").empty();
+                $(".submit_confirmation").text("Niet alle vragen waren ingevuld. Vul alles in en probeer opnieuw.");
+            };
             
-            $scope.SendComment();
+            
+            
             
             
         };
@@ -358,25 +389,26 @@
             
             /*post comment for phase*/
             
-            $http.post('./post_comment', 
-                        {
-                        
-                        project_phase_id : phase_id,
-                        age: 1,
-                        gender_id: 1, 
-                        comment: commentPhase
-                
-                        })
-                    
-                        .success(function(response) {
-                        console.log(response);
-                        })
-                    
-                        .error(function(response) {
-                        console.log(response);
-                    });
+            if(commentPhase != undefined) { 
             
-            
+                $http.post('./post_comment', 
+                            {
+
+                            project_phase_id : phase_id,
+                            age: 1,
+                            gender_id: 1, 
+                            comment: commentPhase
+
+                            })
+
+                            .success(function(response) {
+                            console.log(response);
+                            })
+
+                            .error(function(response) {
+                            console.log(response);
+                        });
+            }//end if
         };
 
         
