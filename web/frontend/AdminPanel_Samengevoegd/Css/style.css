@@ -13,7 +13,6 @@ body {
 .header {
     width: 100%;
     height: auto;
-    padding-top: 50px;
 }
 
 .navbar {
@@ -156,15 +155,15 @@ body {
 
 .pageContent {
     width: 1024px;
-    height: 800px;
     position: relative;
     margin: 0 auto;
     top: 0;
+    height: 85%;
 }
 
 .pageContentBG {
     width: 1024px;
-    height: 800px;
+    height: 110%;
     position: absolute;
     background: lightgray;
     z-index: -10;
@@ -481,6 +480,11 @@ input {
     color: white;
     text-align: center;
     line-height: 40px;
+    font-family: sans-serif;
+}
+
+.commentColumn>.title_add{
+    border-right: 1px solid rgb(200,200,200);
 }
 
 
@@ -614,4 +618,138 @@ input {
     background-color: #e40046;
     width: 80%;
     z-index: 10;
+}
+
+.commentTopWrapper {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 3%;
+    box-sizing: border-box;   
+    display: inline-block;
+    height: 100%;
+}
+
+.commentTable {
+    width: 100%;
+    height: 95%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.commentTable>tr {
+    width: 50px;
+    height: 90px;
+}
+
+
+
+.commentColumn {
+    width: 300px;
+    display: inline-block;
+    margin: 0;
+    border: 0;
+    font-size: 16px;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;  
+    background-color: white;
+}
+
+.commentColumn>h3 {
+    text-align: center;
+    font-family: sans-serif;
+    color: white;
+    height: 30px;
+    line-height: 30px;
+    border-right: 1px solid white;
+    background-color: rgb(75,75,75);
+
+}
+
+.commentsColumnInside {
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    float: left;
+    margin-left: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    background-color: white;
+    border-left: 1px solid rgb(105,105,105);
+}
+
+.commentsColumnInside>.comment>p {
+    word-wrap: break-word;
+    width: 280px;
+    display: block;
+    font-family: sans-serif;
+    white-space: normal;
+    text-overflow: clip;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+}
+
+.dateLine {
+    border-bottom: 1px solid rgb(200,200,200);
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgb(105,105,105);
+}
+
+.textHighlight {
+    color: #f08900;
+}
+
+
+
+
+.horizontalScroller {
+    white-space: nowrap;
+    font-size: 0;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+.comment {
+    height: auto;
+    width: inherit; 
+    padding-top: 10px;
+}
+.deleteButton {
+    display: block;
+    position: relative;
+    float: right;
+    width: 20px;
+    height: 20px;
+    opacity: 0.3;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+
+.deleteButton:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.deleteButton:before,
+.deleteButton:after {
+    position: absolute;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    background-color: #333;
+}
+
+.deleteButton:before {
+    transform: rotate(45deg);
+}
+
+.deleteButton:after {
+    transform: rotate(-45deg);
 }
