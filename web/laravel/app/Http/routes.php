@@ -88,6 +88,8 @@ Route::group(['middleware' => ['web']], function () {
     
     
     Route::post('/post_test', 'ApiController@store_test');
+    Route::post('/post_answer', 'ApiController@store_new_answer');
+    Route::post('/post_comment', 'ApiController@store_new_comment');
     
     
     

@@ -61,7 +61,7 @@
             
             
             
-            <form name="questionForm" ng-submit="SendAnswer()" novalidate>
+            <form name="questionForm" ng-submit="SendAnswer()" ng-show="form_questions_shown" novalidate>
                
                   
                 <div ng-repeat="question in questionsPhase">
