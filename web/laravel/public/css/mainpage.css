@@ -1,0 +1,606 @@
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.leftSide {
+    width: 40vw;
+    margin-left: 4vw;
+    top: 2vw;
+    position:fixed;
+    bottom: 1vw;
+    display: flex;
+    flex-direction:column;
+}
+
+@media (max-width: 650px) {
+  .logo {
+    display: none;
+  }
+  .leftSide {
+    position: relative;
+
+        width: auto;
+
+        height: auto;
+        margin: 0 10px 10px;
+  }
+  #map{
+          display: none;
+  }
+  .projectList {
+
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
+  }
+  body .projectList li {
+    height: 40px
+  }
+  body .projectList li div p {
+      line-height: 19px;
+
+  }
+
+  body #hamburger:not(:checked)+* li:not(.selectedProject) {
+      height: 0;
+      font-size: 0;
+      overflow: hidden;
+  }
+  body #hamburger:not(:checked)+* li {
+      border: none;
+  }
+  body #hamburger+*>i{
+    display: block;
+    position: absolute;
+    color: white;
+    padding: 5px 10px;
+    right: 0;
+    font-size: 29px;
+    background-color:  #f08900;
+  }/*
+  body #hamburger:not(:checked)+*>i{
+    display: block;
+    position: absolute;
+    color: white;
+    right: 10px;
+    font-size: 30px;
+    top: 5px;
+  }*/
+  body .rightSide {
+
+        position: absolute;
+            left: 10px;
+            width: auto;;
+            right: 80px;
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 10px;
+
+            float: none;
+  }
+  body .rightSide::before{
+    display: none;
+  }
+  body .timelineContainer {
+      position: absolute;
+          right:10px;
+          left:auto;
+  }
+}
+
+.projectList::-webkit-scrollbar {
+    width: 1em;
+    padding-left: 1em;
+}
+
+.projectList::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #6e6e6e;
+
+}
+
+.projectList::-webkit-scrollbar-thumb {
+  background-color: #3a3939;
+  outline: 1px solid #3a3939;
+}
+
+.logo{
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  z-index: 11;
+}
+
+#map {
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    height: 50%;
+    position: relative;
+    z-index: 10;
+    background-color: white;
+    flex-grow: 1;
+}
+#hamburger{
+  display: none;
+}
+.projectList ul {
+list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.projectList >i {
+  display: none;
+}
+.projectList {
+  position: relative;
+      max-height: 50%;
+      width: 100%;
+      flex-grow: 0;
+      display: block;
+      overflow-y: auto;
+      overflow-x: hidden;
+      background-color: #3a3939;
+}
+.projectList li {
+    background-color: #cf0039;
+    height: 70px;
+    border-top: 0.5px solid #a3002d;
+    box-sizing: border-box;
+
+    -o-transition: .3s;
+    -ms-transition: .3s;
+    -moz-transition: .3s;
+    -webkit-transition: .3s;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.projectList li:hover {
+    background-color: #f08900;
+}
+
+.projectList li>div {
+    color: white;
+    text-decoration: none;
+    height: inherit;
+    width: 100%;
+    font-family: "SunAntwerpen", sans-serif;
+    font-weight: 500;
+    font-size: 1.4em;
+    display: block;
+    display: flex;
+    margin-top: -1px;
+}
+
+.projectList li>div p {
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    margin: 0;
+    line-height: 49px;
+    width: auto;
+    height: 100%;
+    flex-grow: 1;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1000px) {
+
+  .projectList li>div {
+
+    font-size: 1em;
+  }
+
+  .projectList li {
+    height: 50px;
+  }
+
+  .projectList li>div p {
+
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+    line-height: 43px;
+  }
+
+}
+
+.projectList li>div img {
+    height: 100%;
+    box-sizing: border-box;
+    flex-grow: 0;
+}
+
+.rightSide {
+    width: 40vw;
+    background-color: #3a3939;
+    margin-left: 46vw;
+    margin-top: 2vw;
+    margin-bottom: 1vw;
+    float: left;
+    position: relative;
+}
+.rightSide::before{
+  content: '';
+  position: fixed;
+  width: 100%;
+  background: white;
+  display: block;
+  height: 3vw;
+  margin-top: -3vw;
+  margin-left: -3vw;
+  z-index: 1000;
+}
+
+.rightSide .header {
+
+    background-position: center;
+    background-size: cover;
+    bottom: 0;
+    width: 100%;
+    height: 180px;
+    padding: 0;
+
+}
+
+
+.contentWrapper {
+    width: inherit;
+    padding: 2vw;
+    box-sizing: border-box;
+    font-family: 'SunAntwerpen', sans-serif;
+    font-weight: 500;
+}
+
+h2 {
+    font-family:'Antwerpen',sans-serif;
+
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 2em;
+    font-weight: normal;
+}
+
+
+h3 {
+    font-family:'Antwerpen',sans-serif;
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 1.6em;
+    font-weight: normal;
+      margin-top: 1em;
+}
+
+@media (max-width: 1300px) {
+
+  h2 {
+
+    font-size: 2.461538461538461538461538461538vw;
+  }
+  h3 {
+    font-size: 1.969230769230769230769230769231vw;
+  }
+  @media (max-width: 1000px) {
+
+    h2 {
+      font-size: 24.6154px;
+    }
+    h3{
+     font-size:  19.6923px;
+    }
+
+  }
+}
+.choiceBoxContainer{
+    padding: 0;
+    margin: auto;
+    margin-top: 15px;
+    width: 100%;
+}
+.choiceBoxContainer::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.choiceBoxContainer>ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 47%;
+    float: left;
+      margin-bottom: 20px;
+}
+.choiceBoxContainer>ul:nth-child(2n+1){
+  margin-right: 6%;
+
+}
+
+@media (max-width: 1300px) {
+
+  .choiceBoxContainer>ul{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+  }
+}
+.choiceTitle {
+    text-align: center;
+    background-color: #272626;
+    display: block;
+        font-size: 16px;
+        line-height: 200%;
+        margin: 0;
+        padding: 7px;
+        box-sizing: border-box;
+        color:white;
+        font-weight: bolder;
+}
+.contentWrapper p {
+    color: white;
+    font-size: 1em;
+    width: 100%;
+    margin: 0;
+    margin-top: 15px;
+      margin-bottom: 1.5em;
+
+}
+.choicePick {
+    height: 37.5px;
+    line-height: 37.5px;
+    text-align: center;
+    background-color: #cf0039;
+    box-sizing: border-box;
+    border-top: 0.5px solid #a3002d;
+
+    -o-transition: .3s;
+    -ms-transition: .3s;
+    -moz-transition: .3s;
+    -webkit-transition: .3s;
+    transition: .3s;
+    position: relative;
+
+}
+
+.choicePick label{
+    text-decoration: none;
+    color: white;
+    height: inherit;
+    float: left;
+    width: 100%;
+
+    cursor: pointer;
+}
+
+.choicePick input
+{
+    display: none;
+}
+
+.choicePick i{
+
+  position: absolute;
+    display: none;
+    margin: 5px;
+    left: 5%;
+    top:0;
+    bottom:0;
+    font-size: 25px;
+    color: #f08900;
+}
+.choicePick input:checked+i{
+  display: inline-block;
+}
+
+.choicePick:hover label {
+    background-color: #f08900;
+}
+.choicePick:hover i {
+    color: #cf0039;
+}
+
+.feedbackInput {
+    width: 100%;
+    margin-top: 10px;
+    height: 80px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    font-family: 'SunAntwerpen', sans-serif;
+    font-weight: 500;
+    padding: 10px;
+}
+::-webkit-input-placeholder {
+color: slategray;
+font-style: italic;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+color: slategray;
+font-style: italic;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+color: slategray;
+font-style: italic;
+}
+
+:-ms-input-placeholder {
+color: slategray;
+font-style: italic;
+}
+
+.stuurIn {
+    float: right;
+    background: #cf0039;
+}
+.stuurIn {
+    float: right;
+    background: #cf0039;
+}
+
+.stuurIn:hover {
+    background: #f08900;
+}
+.stuurIn+*{ clear: both;
+   margin-top: 10px;}
+button {
+
+      margin-top: 15px;
+      border: 0px;
+      padding: 15px 30px;
+      text-decoration: none;
+
+      -o-transition: .3s;
+      -ms-transition: .3s;
+      -moz-transition: .3s;
+      -webkit-transition: .3s;
+      transition: .3s;
+
+      color: white;
+      font-size: 1em;
+
+      cursor: pointer;
+}
+.comments .bodytext{
+  margin-bottom:0 ;
+}
+.comments .bodytext+p{
+  margin-top: 0;
+  color: #acaaaa;
+  font-weight: 300;
+}
+.comments .highlight {
+  color:#f08900;
+}
+
+.morecomments {
+    margin: 15px auto 0 auto;
+    background: #f08900;
+}
+
+.morecomments:hover {
+    background: #cf0039;
+}
+.center{
+  text-align: center;
+}
+/*------------------------------------------*/
+.timelineContainer {
+
+    margin-top: 2vw;
+    font-family: 'SunAntwerpen', sans-serif;
+    font-weight: 500;
+    line-height: 1.5em;
+    width: 70px;
+    float: left;
+    position: fixed;
+    left: 86vw;
+}
+
+
+.timeline {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+        cursor: pointer;
+}
+.currentPhase {
+    height: 180px;
+    box-sizing: border-box;
+    padding-top: 50px;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #cf0039;
+}
+
+.currentPhase.active,
+.fase.active {
+    background-color: #f08900;
+}
+
+.currentPhase>p {
+    color: white;
+    font-size: 14px;
+}
+
+
+.timeline h2 {
+  padding-bottom: 5px;
+}
+.timeline>li>p {
+    margin: 0;
+}
+
+.faseHead {
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.fase {
+    height: 70px;
+    background-color: #cf0039;
+    text-align: center;
+    box-sizing: border-box;
+    border-top: 0.5px solid #a3002d;
+
+    -o-transition: .3s;
+    -ms-transition: .3s;
+    -moz-transition: .3s;
+    -webkit-transition: .3s;
+    transition: .3s;
+
+}
+
+.faseHead:first-child {
+    margin-top: 15px;
+}
+
+.fase:hover {
+    background-color: #f08900;
+}
+
+.fase>a {
+    text-decoration: none;
+    display: inline-block;
+    height: inherit;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+.fase.playstore {
+  margin-top: 70px;
+  background-color: black /*#272626*/;
+}
+
+.fase.playstore img {
+  width: 90%;
+    height: 90%;
+    margin: 5%;
+}
+.fase.playstore:hover {
+ background-color: #272626;
+}
+
+.projectList .selectedProject {
+    background-color: #f08900;
+}

@@ -15,6 +15,8 @@
         
         $scope.timelineArray = [];
         
+        $scope.phase_selected;
+        
         $scope.dateObject = [];
         $scope.date;
         $scope.time;
@@ -46,6 +48,7 @@
         $scope.Show_fase_info;
         $scope.Show_fase_comments;
         $scope.Show_phase_questions;
+        $scope.Phase_selected;
         
         
 
@@ -91,7 +94,7 @@
                 
                 /*aanmaken extra onderdeel object fase --> "Fase 1" bv*/
                 for(i=1; i<=data.length; i++) {
-                    data[i-1].faseWithNr = "Fase " + i;
+                    data[i-1].faseWithNr = i;
                 }
                 
                 
@@ -99,6 +102,13 @@
                 $scope.timelineArray = data;
                 
                 $scope.timelineArray.reverse();
+                
+                
+                $scope.phase_selected = $scope.timelineArray[0].faseWithNr;
+                
+                console.log($scope.phase_selected);
+                
+                $scope.Show_fase_info($scope.timelineArray[0].id_project_phase, $scope.phase_selected);
                 
                 $scope.$apply();
 
@@ -116,7 +126,7 @@
         
         
         /*Als op fase in tijdslijn klikt, de fase info + comments te zien krijgen*/
-        $scope.Show_fase_info = function(phase_id){
+        $scope.Show_fase_info = function(phase_id, phase_nr){
             
             
             $.getJSON( "./get_phase_info/" + phase_id, function( data ) {
@@ -136,10 +146,15 @@
                     $scope.form_questions_shown = true;
                     
                 }
+                else {
+                    $scope.form_questions_shown = false;
+                }
                 
                 $scope.$apply();
                 
             });
+            
+            $scope.phase_selected = phase_nr;
             
             
             $scope.Show_fase_comments(phase_id);
@@ -153,18 +168,24 @@
         };//einde functie Show_fase_info
         
         
+        $scope.Phase_selected = function (phase_nr) {
+            return $scope.phase_selected === phase_nr;
+        }
+        
+        
         
         $scope.Show_phase_questions = function(phase_id){
             
+            $scope.questionsPhase = [];
             
             $.getJSON( "./get_questions_phase/" + phase_id, function( data ) {
                 //console.log(phase_id);
                 //console.log(data[1]);
                     /*create new object answer for each question --> fill in when form is submitted*/
-                    for(i=0; i<data.length; i++) {
-                        
-                        data[1][i].answer= " ";
+                    for(i=0; i<data[1].length; i++) {
                         //console.log(i);
+                        data[1][i].answer= " ";
+                        
                     };
                     
                     
