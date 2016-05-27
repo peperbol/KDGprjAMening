@@ -1,0 +1,1 @@
+Mainpage_BackupMapScript is exact hetzelfde als Mainpage_Arteau, maar dan met het geupdatede script om de google map te updaten
