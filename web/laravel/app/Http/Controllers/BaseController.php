@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Project;
 use App\Phase;
 use App\Event;
@@ -41,8 +42,16 @@ class BaseController extends Controller
     
     //project overview
     public function getOverview() {
-        $projects = Project::orderBy('startdate', 'desc')->get();
-        return view('project_overview', ["projects" => $projects]);
+        
+        if(Auth::check()) {
+            $projects = Project::orderBy('startdate', 'desc')->get();
+            return view('project_overview', ["projects" => $projects]);
+        }
+        else {
+            return view('login_test');
+        }
+        
+        
     }
     
     public function getOverview2() {

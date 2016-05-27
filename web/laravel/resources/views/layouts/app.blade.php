@@ -15,6 +15,7 @@
     </head>
 
     <body>
+       @if(Auth::check())
         <header>
             <div class="headerContent">
                 <nav class="navbar">
@@ -25,11 +26,11 @@
                         <li><a href="{{ url('/comments') }}" class="{{ (Route::getCurrentRoute()->getPath() == 'comments') ? 'active' : '' }}">Reacties</a></li>
                         
                         <li class="usernameLi">
-                        <a href="#">Username</a>
+                        <a href="#">{{Auth::user()->name}}</a>
                         <ul>
                             <li><a href="account.html">Account Wijzigen</a></li>
                             <li><a href="adminToevoegen.html">Admin Toevoegen</a></li>
-                            <li><a href="uitloggen.html">Uitloggen</a></li>
+                            <li><a href="auth/logout">Uitloggen</a></li>
                         </ul>
                     </li>
                     </ul>
@@ -46,6 +47,13 @@
        <div>
         @yield('content')
         </div>
+        @else
+        <div class="pageContent notLoggedIn">
+            <p>Je moet ingelogd zijn om deze pagina te bekijken. Ga naar de login pagina</p>
+            <a href="{{ url('/login_test') }}">Login page</a>
+        </div>
+        @endif
+        
         
         <footer>
             <div>
