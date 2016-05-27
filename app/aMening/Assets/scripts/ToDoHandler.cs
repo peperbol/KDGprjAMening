@@ -17,7 +17,7 @@ public class ToDoHandler : MonoBehaviour
     List<string> CurrentQuestions;
     List<string> AnsweredQuestions;
     List<string> DownloadedQuestions;
-
+    public bool HasEverAnswered { get { return AnsweredQuestions.Count > 0; } }
     IEnumerator FetchIDs()
     {
         StartCoroutine(GetCurrentQuestions());

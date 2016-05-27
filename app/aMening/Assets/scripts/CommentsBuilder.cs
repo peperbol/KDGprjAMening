@@ -29,8 +29,8 @@ public class CommentsBuilder : MonoBehaviour {
         {
             Transform inst = Instantiate(commentPrefab);
             inst.Find("body").GetComponent<Text>().text = comments[i].text;
-            inst.GetComponentsInChildren<Text>().First(e=> e.gameObject.name == "date").text = comments[i].timeStamp.ToShortDateString();
-            inst.GetComponentsInChildren<Text>().First(e => e.gameObject.name == "time").text = comments[i].timeStamp.ToShortTimeString();
+            inst.GetComponentsInChildren<Text>().First(e=> e.gameObject.name == "date").text = comments[i].day;
+            inst.GetComponentsInChildren<Text>().First(e => e.gameObject.name == "time").text = comments[i].time;
             inst.SetParent(commentContainter);
             inst.localPosition = Vector3.zero;
         }

@@ -112,7 +112,7 @@ Material:
       data:
         first:
           name: _AspectRatio
-        second: 0.8872802
+        second: 1.0096742
       data:
         first:
           name: _Parallax

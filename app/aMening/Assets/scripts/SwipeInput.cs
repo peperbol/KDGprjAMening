@@ -25,7 +25,8 @@ public class SwipeInput : MonoBehaviour
     public float confirmSplit = 0.005f;
     public float confirmColorSplit = 0.15f;
     public float swipeSpeedMultiplier = 2;
-    bool selected = false;
+    [System.NonSerialized]
+    public bool selected = false;
     public float timeToSelect = 1;
     public Color normalColorText;
     public Color confirmColorText;
@@ -39,6 +40,7 @@ public class SwipeInput : MonoBehaviour
     public float NormalTextMargin = 65;
     public float SelectedTextMargin = 30;
     private CommentInput commentInput;
+    
     public bool WaitingForMore
     {
         get
@@ -256,7 +258,7 @@ public class SwipeInput : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(fingerVelocity / 2, maxVelocity * Screen.width); ;
         fingerVelocity = Vector2.zero;
 
-        questionLoader.Answer(question[0], Split < 0.5f);
+        questionLoader.Answer(question[0], Split > 0.5f);
         Next();
         Color c;
         while (timer < 1)
