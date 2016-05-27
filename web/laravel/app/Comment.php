@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    protected $primaryKey = "id_comment";
     protected $fillable = array('project_phase_id', 'comment', 'hidden', 'name', 'gender_id', 'age');
     
     public function projectphase()

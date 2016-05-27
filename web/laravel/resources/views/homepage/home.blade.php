@@ -269,31 +269,13 @@
         
     
     
-    
+    <script src="https://maps.googleapis.com/maps/api/js" async defer></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="{{ asset('js/mainpage.js') }}" type="text/javascript"></script>
     
-    <script>
-    function initMap() {
-      var myLatLng = {
-        lat: 51.207,
-        lng: 4.407
-      }; //coordinaten geselecteerd project
+    
 
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 14,
-        center: myLatLng
-      });
-
-      var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: 'Project 1'
-      });
-    }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
    
    
     </body>

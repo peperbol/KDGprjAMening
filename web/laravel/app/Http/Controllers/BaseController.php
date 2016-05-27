@@ -67,7 +67,7 @@ class BaseController extends Controller
     /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     public function getCommentsPhase ($id) {
         $phase = Phase::find($id);
-        $comments = Comment::where('project_phase_id', $id)->get();
+        $comments = Comment::where('project_phase_id', $id)->where('hidden', 0)->get();
         //return view('show_comments', ['phase' => $phase, 'comments' => $comments]);
         return $comments;
     }
@@ -106,13 +106,14 @@ class BaseController extends Controller
     
     public function getCommentsProject ($id) {
         $project_phases = Phase::where('project_id', $id)->get();
+        $project = Project::find($id);
         $comments_project = [];
         foreach($project_phases as $phase){
             $phasename = $phase->name;
             $comments = $this->getCommentsPhase($phase->id_project_phase);
             array_push($comments_project, [$phase, $comments]);
         }
-        return view('show_comments', ['comments_project' => $comments_project]);
+        return view('show_comments', ['project' => $project, 'comments_project' => $comments_project]);
     }
     
     
@@ -138,7 +139,7 @@ class BaseController extends Controller
             
             $phase = Phase::where("project_id", $project->id_project)->orderBy('enddate', 'desc')->first();
             if($phase) {
-                $comments = Comment::where("project_phase_id", $phase->id_project_phase)->get();
+                $comments = Comment::where("project_phase_id", $phase->id_project_phase)->where('hidden', 0)->get();
                 array_push($comments_overview, [$project, $comments]);
             }
         }
@@ -469,6 +470,46 @@ class BaseController extends Controller
         //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
         return redirect('/overview');
     }
+    
+    //hide comment in comment overview of project
+    public function hideComment($id)
+    {
+        $comment = Comment::find($id);
+        
+        $comment->hidden = 1;
+        
+        $comment->save();
+        
+        $phase = Phase::find($comment->project_phase_id);
+        $project = Project::find($phase->project_id);
+        
+        //dd($comment);
+        
+        //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
+        //id of project should be appended
+        return redirect('/get_comments_project/' . $project->id_project);
+    }
+    
+    //hide comment in total overview of all comments on all projects
+    public function hideCommentFromTotalOverview($id)
+    {
+        $comment = Comment::find($id);
+        
+        $comment->hidden = 1;
+        
+        $comment->save();
+        
+        $phase = Phase::find($comment->project_phase_id);
+        $project = Project::find($phase->project_id);
+        
+        //dd($comment);
+        
+        //hier moet de redirect wel nog staan, want indien het valideren en inserten lukt, gaat hij niet automatisch redirecten
+        //id of project should be appended
+        return redirect('/comments');
+    }
+    
+    
     /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
     
     

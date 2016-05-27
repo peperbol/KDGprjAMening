@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/overview';
 
     /**
      * Create a new authentication controller instance.
@@ -37,7 +37,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest', ['except' => ['logout', 'getLogout']]);
     }
 
     /**
@@ -71,4 +71,13 @@ class AuthController extends Controller
             'active' => $data['active'],
         ]);
     }
+    
+    
+    protected function signOut() {
+        //
+        //Auth::logout();
+        //Session::flush();
+        return redirect('/login_test');
+    }
+    
 }

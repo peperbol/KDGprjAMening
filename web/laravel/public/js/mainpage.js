@@ -11,6 +11,8 @@
         $scope.project_Description;
         $scope.project_Startdate;
         $scope.project_Imagepath;
+        $scope.project_Longitude;
+        $scope.project_Latitude;
         
         
         $scope.timelineArray = [];
@@ -52,6 +54,7 @@
         $scope.Show_phase_questions;
         $scope.Phase_selected;
         $scope.Project_selected;
+        $scope.Init_Map;
 
         
         
@@ -93,14 +96,16 @@
                 $scope.project_Description = data.description;
                 $scope.project_Startdate = data.startdate;
                 $scope.project_Imagepath = data.imagepath;
+                $scope.project_Longitude = data.longitude;
+                $scope.project_Latitude = data.latitude;
                 
+                $scope.Init_Map($scope.project_Latitude, $scope.project_Longitude);
                 $scope.$apply();
                 
 
             });
             
             $scope.Show_timeline(id);
-        
         };//end function show
         
         
@@ -135,6 +140,25 @@
              
         
         };//einde functie Show_timeline
+        
+        
+        
+        $scope.Init_Map = function(latitude, longitude) {
+            var myLatLng = {
+                lat: latitude,
+                lng: longitude
+            };
+            
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: myLatLng
+            });
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Project 1'
+            });
+        };
         
         
         
@@ -460,7 +484,7 @@
                         });
                 
                 $scope.Show_fase_comments(phase_id);
-                $scope.apply();
+                $scope.$apply();
                 
             }//end if
         };

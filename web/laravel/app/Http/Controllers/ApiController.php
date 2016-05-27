@@ -118,7 +118,7 @@ class ApiController extends Controller
     }
     //comments per fase
     public function get_comments_phase($id) {
-        $comments = Comment::where("project_phase_id", $id)->get();
+        $comments = Comment::where("project_phase_id", $id)->where('hidden', 0)->get();
         return response()->json($comments);
     }
     //post van antwoorden
