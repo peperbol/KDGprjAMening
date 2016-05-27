@@ -215,11 +215,22 @@ list-style: none;
 
 }
 
-.projectList li>div img {
+.projectList li>div div {
     height: 100%;
+    width: 70px;
     box-sizing: border-box;
+    position:relative;
     flex-grow: 0;
+    overflow: hidden;
 }
+
+.projectList li>div div img {
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+    
 
 .rightSide {
     width: 40vw;

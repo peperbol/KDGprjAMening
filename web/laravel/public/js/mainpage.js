@@ -16,6 +16,7 @@
         $scope.timelineArray = [];
         
         $scope.phase_selected;
+        $scope.project_selected;
         
         $scope.dateObject = [];
         $scope.date;
@@ -50,6 +51,8 @@
         $scope.Show_fase_comments;
         $scope.Show_phase_questions;
         $scope.Phase_selected;
+        $scope.Project_selected;
+
         
         
 
@@ -62,10 +65,16 @@
         
         
         
+        
+        
         /***  GETS  ****/
         
         /*show project info along with latest phase info and current question*/
         $scope.Show_project_info = function(id){
+            
+            
+            $scope.project_selected = id;
+            
             
             $(".submit_confirmation").empty();
             
@@ -136,6 +145,7 @@
         /*Als op fase in tijdslijn klikt, de fase info + comments te zien krijgen*/
         $scope.Show_fase_info = function(phase_id, phase_nr){
             
+            
             $(".submit_confirmation").empty();
             
             $.getJSON( "./get_phase_info/" + phase_id, function( data ) {
@@ -166,11 +176,8 @@
             $scope.phase_selected = phase_nr;
             
             
+            
             $scope.Show_fase_comments(phase_id);
-            
-            $scope.button_show_more_shown = true;
-            
-            $scope.button_show_more_text = "TOON MEER";
             
             $scope.extra_comments_shown = false;
             
@@ -180,6 +187,13 @@
         $scope.Phase_selected = function (phase_nr) {
             return $scope.phase_selected === phase_nr;
         }
+        
+        
+        
+        $scope.Project_selected = function (project_id) {
+            return $scope.project_selected === project_id;
+        }
+        
         
         
         
@@ -214,9 +228,17 @@
         $scope.Show_fase_comments = function(phase_id){
             
             
+            
             $.getJSON( "./get_comments_phase/" + phase_id, function( data ) {
                 
                 $scope.commentsArray = data;
+                
+                console.log($scope.commentsArray.length);
+                
+                
+                
+                
+                
                 /*comments komen in volgorde toe --> 1ste is de oudste, moeten nieuwste bovenaan hebben*/
                 $scope.commentsArray.reverse();
                 
@@ -238,13 +260,30 @@
                     
                 }
                 
+                console.log($scope.commentsArray.length);
+                if($scope.commentsArray.length == 1) {
+                    $scope.button_show_more_shown = false;
+                }
+                
+                else if($scope.commentsArray.length == 0) {
+                    $scope.first_comment_shown = false;
+                }
+                
+                
+                else {
+                    $scope.first_comment_shown = true;
+                    $scope.button_show_more_shown = true;
+                    $scope.button_show_more_text = "TOON MEER";
+                    
+                }
                 
                 
                 /*De eerste (nieuwste) comment er uit halen om altijd te tonen, blijft nog een array met de andere comments*/
                 $scope.first_comment = $scope.commentsArray.shift();
                 
-                /*ook al is er nog niks om in te vullen, hij gaat de tekst "Bericht geplaatst:" al tonen, daarom hiden en showen wanneer we willen*/
-                $scope.first_comment_shown = true;
+            
+                
+                
                 
                 $scope.$apply();
                 
@@ -266,18 +305,30 @@
         $scope.Show_extra_comments = function(){
             
             
-            if($scope.button_show_more_text == "TOON MEER") {
+            if($scope.commentsArray.length > 0){
                 
-                $scope.extra_comments_shown = true;
-                $scope.button_show_more_text = "TOON MINDER";
+            
+                if($scope.button_show_more_text == "TOON MEER") {
+
+                    $scope.extra_comments_shown = true;
+                    $scope.button_show_more_text = "TOON MINDER";
+
+                }
+
+
+                else if($scope.button_show_more_text == "TOON MINDER") {
+
+                    $scope.extra_comments_shown = false;
+                    $scope.button_show_more_text = "TOON MEER";
+
+                }
                 
             }
             
             
-            else if($scope.button_show_more_text == "TOON MINDER") {
+            else {
                 
-                $scope.extra_comments_shown = false;
-                $scope.button_show_more_text = "TOON MEER";
+                $scope.button_show_more_shown = false;
                 
             }
             
@@ -361,7 +412,6 @@
                 
                
                 $scope.SendComment();
-                
             }
             
             /*not all Questions have been filled in --> show message*/
@@ -408,6 +458,10 @@
                             .error(function(response) {
                             console.log(response);
                         });
+                
+                $scope.Show_fase_comments(phase_id);
+                $scope.apply();
+                
             }//end if
         };
 
