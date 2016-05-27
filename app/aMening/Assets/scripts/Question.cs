@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Question
 {
@@ -60,20 +61,14 @@ public class Question
         {
 
             string text = "";
-            long time = 0;
-            obj[i].GetField(ref text, "text");
-            obj[i].GetField(ref time, "time");
-            comments[i] = new Comment(text, UnixTimeStampToDateTime(time));
+            string time = "";
+            obj[i].GetField(ref text, "comment");
+            obj[i].GetField(ref time, "created_at");
+            comments[i] = new Comment(text, string.Join("/", time.Split(' ')[0].Split('-').Reverse().ToArray()) , time.Split(' ')[1].Split(':')[0]+":" +time.Split(' ')[1].Split(':')[1]);
         }
         this.comments = comments;
     }
-    public static DateTime UnixTimeStampToDateTime(long unixTimeStamp) // http://stackoverflow.com/questions/249760/how-to-convert-a-unix-timestamp-to-datetime-and-vice-versa
-    {
-        // Unix timestamp is seconds past epoch
-        DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-        dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
-        return dtDateTime;
-    }
+
     public Question(string id, MonoBehaviour mb)
     {
 
@@ -116,9 +111,10 @@ public class Question
 }
 public struct Comment {
     public string text;
-    public DateTime timeStamp;
-    public Comment(string text, DateTime timeStamp) {
+    public string day, time;
+    public Comment(string text, string day,string time) {
         this.text = text;
-        this.timeStamp = timeStamp;
+        this.day = day;
+        this.time = time;
     }
 }

@@ -11,7 +11,7 @@ public class BackgroundManager : MonoBehaviour
         Loading.SetActive(loading);
         NoAvailable.SetActive(!loading);
         if (!loading) {
-            GetComponent<LoadQuestion>().RemoveBootupScreen();
+            GetComponent<LoadQuestion>().RemoveBootupScreen(null);
             Debug.Log("noquestions");
         }
         lastResult = loading;

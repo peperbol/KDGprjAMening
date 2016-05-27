@@ -9,6 +9,9 @@ public class CommentInput : MonoBehaviour {
     public float speedDecay = 0.2f;
     public float tabSpeed = 5;
     public float headerHeight = 85;
+    public GameObject upArrow;
+    public GameObject downArrow;
+    public float topMargin = 0.05f;
     void Start () {
         rectTransform = GetComponent<RectTransform>();
     }
@@ -20,7 +23,13 @@ public class CommentInput : MonoBehaviour {
         set {
             var h = Heigth;
             if (h > 0)
-            rectTransform.pivot = new Vector2(rectTransform.pivot.x, 1 - Mathf.Clamp(value,0,1 - headerHeight / h));
+            {
+                float max = 1 - headerHeight / h;
+                rectTransform.pivot = new Vector2(rectTransform.pivot.x, 1 - Mathf.Clamp(value, 0, max));
+
+                upArrow.SetActive(value < max - topMargin);
+                downArrow.SetActive(value >= max - topMargin);
+            }
         }
     }
     public float Heigth {
@@ -70,7 +79,13 @@ public class CommentInput : MonoBehaviour {
             }
             else if ((Input.GetTouch(0).phase == TouchPhase.Ended) && !moved)
             {
-                Open();
+                Debug.Log(Position);
+                if(Position < 1 - headerHeight/Heigth - 0.005f - topMargin)
+                    Open();
+                else{
+                    
+                    Close();
+                }
             }
         }
         else

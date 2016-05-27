@@ -17,12 +17,16 @@ public class LoadQuestion : MonoBehaviour
     SwipeInput si;
     CommentsBuilder cb;
     AnswerSender aS;
+    InstructionAnimation ia;
+    ToDoHandler th;
     public bool QuestionsPending { get { return questions.Count > 0 || ids.Count > 0; } }
     void Awake()
     {
         si = FindObjectOfType<SwipeInput>();
         cb = FindObjectOfType<CommentsBuilder>();
         aS = FindObjectOfType<AnswerSender>();
+        ia = FindObjectOfType<InstructionAnimation>();
+        th = FindObjectOfType<ToDoHandler>();
     }
     public void Add(string id)
     {
@@ -72,7 +76,7 @@ public class LoadQuestion : MonoBehaviour
             lastQuestion.GetMainImage(this, e =>
             {
                 mat.SetTexture("_MainTex1", e);
-                RemoveBootupScreen();
+                RemoveBootupScreen(obj);
                 StartCoroutine(ActivateQuestion(obj));
             });
         }
@@ -84,7 +88,7 @@ public class LoadQuestion : MonoBehaviour
             lastQuestion.GetRightImage(this, e =>
             {
                 mat.SetTexture("_MainTex2", e);
-                RemoveBootupScreen();
+                RemoveBootupScreen(obj);
                 StartCoroutine(ActivateQuestion(obj));
             });
         }
@@ -95,9 +99,12 @@ public class LoadQuestion : MonoBehaviour
         yield return null;
         obj.SetActive(true);
     }
-    public void RemoveBootupScreen()
+    public void RemoveBootupScreen(GameObject obj)
     {
-
+        if(obj)
+        {
+            ia.Play(obj, !th.HasEverAnswered);
+        }
         loadingScreen.visisble = false;
 
     }
