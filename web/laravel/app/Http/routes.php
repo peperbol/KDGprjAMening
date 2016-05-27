@@ -4,6 +4,11 @@
 use App\Task;
 use Illuminate\Http\Request;
 
+use App\User;
+use App\Auth;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -142,6 +147,32 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/update_project', 'BaseController@updateProject');
     Route::post('/update_phase', 'BaseController@updatePhase');
     Route::post('/update_event', 'BaseController@updateEvent');
+    
+    
+    //delete comment
+    Route::get('/delete_comment/{id}', ['as' => 'delete_comment', 'uses' => 'BaseController@hideComment']);
+    Route::get('/delete_comment_from_overview/{id}', ['as' => 'delete_comment_from_overview', 'uses' => 'BaseController@hideCommentFromTotalOverview']);
+    
+    
+    
+    
+    
+    Route::get('/login_test', function () {
+        return view('login_test');
+    });
+    //Route::auth();
+    
+    
+    Route::get('register', 'Auth\AuthController@getRegister');
+	Route::post('auth/register', 'Auth\AuthController@postRegister');
+    
+    Route::get('auth/login', 'Auth\AuthController@getLogin');
+	Route::post('auth/login', 'Auth\AuthController@postLogin');
+    Route::get('auth/logout', 'Auth\AuthController@getLogout');
+    Route::get('auth/logout', 'Auth\AuthController@getLogout');
+    
+    
+    
     
 
     /**
