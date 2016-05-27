@@ -41,7 +41,7 @@ class BaseController extends Controller
     
     //project overview
     public function getOverview() {
-        $projects = Project::all();
+        $projects = Project::orderBy('startdate', 'desc')->get();
         return view('project_overview', ["projects" => $projects]);
     }
     

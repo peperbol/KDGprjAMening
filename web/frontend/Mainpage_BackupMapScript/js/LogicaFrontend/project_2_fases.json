@@ -1,0 +1,62 @@
+[
+{
+"id_project_phase": "1",
+"name": "Plan vastleggen",
+"enddate": "2016-05-16",
+"order": "1",
+"description": "Beslissen voor welke look we gaan bij de renovatie van het Centraal Station.",
+"bannerpath": null,
+"imagepath": null,
+"project_id": "2",
+"created_at": "2016-05-05 19:37:56",
+"updated_at": "-0001-11-30 00:00:00"
+},
+{
+"id_project_phase": "2",
+"name": "Architectenwedstrijd",
+"enddate": "2016-06-30",
+"order": "2",
+"description": "Er wordt een wedstrijd uitgeschreven waarbij Antwerpse architecten hun ontwerpen kunnen insturen. Zo zal het station door en voor Antwerpenaren zijn.",
+"bannerpath": null,
+"imagepath": null,
+"project_id": "2",
+"created_at": "2016-05-08 14:46:33",
+"updated_at": "2016-05-08 14:46:33"
+},
+{
+"id_project_phase": "3",
+"name": "Architectenwedstrijd",
+"enddate": "2016-06-30",
+"order": "3",
+"description": "Er wordt een wedstrijd uitgeschreven waarbij Antwerpse architecten hun ontwerpen kunnen insturen. Zo zal het station door en voor Antwerpenaren zijn.",
+"bannerpath": null,
+"imagepath": null,
+"project_id": "2",
+"created_at": "2016-05-08 14:46:33",
+"updated_at": "2016-05-08 14:46:33"
+},
+{
+"id_project_phase": "4",
+"name": "Architectenwedstrijd",
+"enddate": "2016-06-30",
+"order": "2",
+"description": "Er wordt een wedstrijd uitgeschreven waarbij Antwerpse architecten hun ontwerpen kunnen insturen. Zo zal het station door en voor Antwerpenaren zijn.",
+"bannerpath": null,
+"imagepath": null,
+"project_id": "4",
+"created_at": "2016-05-08 14:46:33",
+"updated_at": "2016-05-08 14:46:33"
+},
+{
+"id_project_phase": "5",
+"name": "Architectenwedstrijd",
+"enddate": "2016-06-30",
+"order": "2",
+"description": "Er wordt een wedstrijd uitgeschreven waarbij Antwerpse architecten hun ontwerpen kunnen insturen. Zo zal het station door en voor Antwerpenaren zijn.",
+"bannerpath": null,
+"imagepath": null,
+"project_id": "5",
+"created_at": "2016-05-08 14:46:33",
+"updated_at": "2016-05-08 14:46:33"
+}
+]

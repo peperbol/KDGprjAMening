@@ -142,9 +142,11 @@
               <i class="fa fa-bars" aria-hidden="true"></i>
               <ul>
                     @foreach($projects as $project)
-                        <li ng-click="Show_project_info({{$project->id_project}})">
+                        <li ng-click="Show_project_info({{$project->id_project}})" ng-class="{ 'selectedProject': Project_selected({{$project->id_project}}) }">
                           <div>
-                            <img src="images/project_images/{{$project->imagepath}}">
+                            <div>
+                               <img src="images/project_images/{{$project->imagepath}}">
+                            </div>
                             <p>{{ $project->name }}</p>
                           </div>
                         </li>
@@ -198,7 +200,7 @@
 
              
              
-              <h3>Comments</h3>
+              <h3>Reacties</h3>
               <div class="comments">
                
                 <div ng-show="first_comment_shown">
@@ -228,13 +230,15 @@
                     </div>
                     
                 </div>
-                
-                
+            
                 
               </div>
               <div class="center">
                 <button class="morecomments" ng-show="button_show_more_shown" ng-click="Show_extra_comments()">@{{button_show_more_text}}</button>
               </div>
+              
+              <p ng-hide="first_comment_shown">Voorlopig zijn er nog geen reacties geplaatst.</p>
+              
             </div>
 
           </div>
