@@ -8,39 +8,47 @@ public class SwipeInput : MonoBehaviour
 {
     public float tweenMultipier;
     public float VelocityFalloff = 0.01f;
-    private float split = 0.5f;
     public RectTransform ImageContainer;
     public Image splitImage;
     public Material splitMaterial;
+    public GameObject overlay;
+    protected Vector2 fingerVelocity;
+
+
+    public int questionBufferLength = 2;
+
+    public float gravity = 1;
+    public float maxVelocity;
+    public float confirmSplit = 0.005f;
+    public float confirmColorSplit = 0.15f;
+
+    public Color normalColorText;
+    public Color confirmColorText;
+    public Color normalColorBorder;
+    public Color confirmColorBorder;
+
+    [Tooltip("the time that it takes to go the the next question")]
+    public float timeToSelect = 1;
+    public float timeToDestoryQuestion = 1;
+
+    public float NormalTextMargin = 65;
+    public float SelectedTextMargin = 30;
+
+    private CommentInput commentInput;
+    private LoadQuestion questionLoader;
+    private BackgroundManager backgroundManager;
+
+    private float split = 0.5f;
+    [System.NonSerialized]
+    public bool selected = false;
+
     private Image[] splitImageInstance;
     private LayoutElement[] left;
     private LayoutElement[] right;
     private Text[] leftText;
     private Text[] rightText;
     private Question[] question;
-    public GameObject overlay;
-    protected Vector2 fingerVelocity;
-    public float gravity = 1;
-    public float maxVelocity;
-    public float confirmSplit = 0.005f;
-    public float confirmColorSplit = 0.15f;
-    public float swipeSpeedMultiplier = 2;
-    [System.NonSerialized]
-    public bool selected = false;
-    public float timeToSelect = 1;
-    public Color normalColorText;
-    public Color confirmColorText;
-    public Color normalColorBorder;
-    public Color confirmColorBorder;
-    public float flyForce = 1000;
-    public float flyTorque = 1000;
-    public float timeToDestoryQuestion = 1;
-    private LoadQuestion questionLoader;
-    private BackgroundManager bgm;
-    public float NormalTextMargin = 65;
-    public float SelectedTextMargin = 30;
-    private CommentInput commentInput;
-    
+
     public bool WaitingForMore
     {
         get
@@ -71,7 +79,8 @@ public class SwipeInput : MonoBehaviour
         {
             split = Mathf.Clamp(value, 0, 1);
             if (!HasQuestions) return;
-            //split
+
+            //2 or 1 picture
             if (!question[0].fullPicture)
             {
                 splitImageInstance[0].material.SetFloat("_Split", Split);
@@ -81,6 +90,7 @@ public class SwipeInput : MonoBehaviour
                 splitImageInstance[0].material.SetFloat("_Split", 1);
             }
             Color tempColor;
+
             //base color
             float delta = 0.5f - Mathf.Abs(Split - 0.5f);
             if (delta < confirmColorSplit)
@@ -102,6 +112,7 @@ public class SwipeInput : MonoBehaviour
             {
                 leftText[0].color = rightText[0].color = normalColorText;
             }
+
             //alpha
             left[0].flexibleWidth = Split * 1000;
             right[0].flexibleWidth = (1 - Split) * 1000;
@@ -124,7 +135,7 @@ public class SwipeInput : MonoBehaviour
             NewInstance();
         }
         UpdatePositions();
-        if (!first) bgm.UpdateBG();
+        if (!first) backgroundManager.UpdateBackGround();
     }
     public void Next()
     {
@@ -189,20 +200,19 @@ public class SwipeInput : MonoBehaviour
     void Awake()
     {
         questionLoader = GetComponent<LoadQuestion>();
-        bgm = GetComponent<BackgroundManager>();
+        backgroundManager = GetComponent<BackgroundManager>();
         commentInput = FindObjectOfType<CommentInput>();
 
         for (int i = 0; i < ImageContainer.childCount && !selected; i++)
         {
             Destroy(ImageContainer.GetChild(i).gameObject);
         }
-        int buffer = 2;
-        splitImageInstance = new Image[buffer];
-        leftText = new Text[buffer];
-        rightText = new Text[buffer];
-        left = new LayoutElement[buffer];
-        right = new LayoutElement[buffer];
-        question = new Question[buffer];
+        splitImageInstance = new Image[questionBufferLength];
+        leftText = new Text[questionBufferLength];
+        rightText = new Text[questionBufferLength];
+        left = new LayoutElement[questionBufferLength];
+        right = new LayoutElement[questionBufferLength];
+        question = new Question[questionBufferLength];
         fillQueue(true);
         Physics2D.gravity = new Vector2(0, -gravity * Screen.width);
         StartCoroutine(WaitForfirtstQuestion());

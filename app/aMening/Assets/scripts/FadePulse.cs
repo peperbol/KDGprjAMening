@@ -1,27 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+/// <summary>
+/// pulses alpha of an image in and out
+/// </summary>
 [RequireComponent(typeof(Image))]
 public class FadePulse : MonoBehaviour
 {
 
     public float duration = 0.1f;
     public float stay = 0.5f;
-    Image i;
-    float timer;
-    bool isOn;
+
+    private Image image;
+    private float timer;
+    private bool isOn;
+
     void Start()
     {
-        i = GetComponent<Image>();
+        image = GetComponent<Image>();
     }
     float Opacity
     {
         set
         {
-            Color c = i.color;
+            Color c = image.color;
             c.a = value;
-            i.color = c;
+            image.color = c;
         }
     }
     void Update()

@@ -4,7 +4,9 @@ using UnityEngine.UI;
 using System.Linq;
 using System.Threading;
 using System.Globalization;
-
+/// <summary>
+/// Builds the content of the comment section
+/// </summary>
 public class CommentsBuilder : MonoBehaviour {
 
     public Transform commentContainter;

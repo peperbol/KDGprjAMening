@@ -3243,7 +3243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d6e1220eeb577418253efdadbf8470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Panel: {fileID: 875893197}
+  panel: {fileID: 875893197}
+  debugEnabled: 1
 --- !u!114 &1427909849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3255,8 +3256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254c16230c8ab924a8f32cfc9be7e35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NoAvailable: {fileID: 1622636498}
-  Loading: {fileID: 251928634}
+  noAvailable: {fileID: 1622636498}
+  loading: {fileID: 251928634}
 --- !u!114 &1427909850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3528,7 +3529,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 924.4068
+  orthographic size: 1280.3226
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3880,7 +3881,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 1848.8136}
+  m_SizeDelta: {x: 1080, y: 2560.6453}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1788945310
 MonoBehaviour:

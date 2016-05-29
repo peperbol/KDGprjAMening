@@ -1,11 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System;
-using System.Text;
-using System.Collections.Specialized;
 
 public class AnswerSender : MonoBehaviour {
     IEnumerator SendToServer (bool isLeft, Question q) {

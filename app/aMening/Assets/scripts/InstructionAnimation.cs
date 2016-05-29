@@ -2,17 +2,20 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Linq;
-
+/// <summary>
+/// plays the animation of the swipe instruction
+/// </summary>
 public class InstructionAnimation : MonoBehaviour {
 
-    SwipeInput swipeInput;
-    Transform visual;
     public AnimationCurve movement;
     public float playTime = 3;
     public float fadeout;
-    Image image;
-	// Use this for initialization
-	void Start () {
+
+    private Image image;
+    private SwipeInput swipeInput;
+    private Transform visual;
+
+    void Start () {
         swipeInput = FindObjectOfType<SwipeInput>();
 	}
     float Alpha {
@@ -32,7 +35,6 @@ public class InstructionAnimation : MonoBehaviour {
         var visual = obj.GetComponentsInChildren<Transform>().First(e => e.gameObject.name == "instruction");
         if (!done && play)
         {
-            Debug.Log(5626);
             StartCoroutine(Animation(obj, visual, visual.GetComponentInChildren<Image>()));
             done = true;
         }

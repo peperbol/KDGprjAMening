@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class SetAspectRatio : MonoBehaviour {
-    public Material m;
-    RectTransform r;
+    public Material material;
+    private RectTransform rectTransform;
     void Start() {
-        r = GetComponent<RectTransform>();
+        rectTransform = GetComponent<RectTransform>();
     }
 	void Update () {
-        m.SetFloat("_AspectRatio", r.rect.size.x / r.rect.size.y);
+        material.SetFloat("_AspectRatio", rectTransform.rect.size.x / rectTransform.rect.size.y);
 	}
 }

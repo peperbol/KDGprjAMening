@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class SpriteSwitcher : MonoBehaviour {
     public Sprite[] sprites;
-    Image i;
+    Image image;
     int index;
     public float interval = 0.5f;
 
@@ -15,11 +15,11 @@ public class SpriteSwitcher : MonoBehaviour {
         {
             index = value % sprites.Length;
 
-            i.sprite = sprites[index];
+            image.sprite = sprites[index];
         }
     }
 	void Start () {
-        i = GetComponent<Image>();
+        image = GetComponent<Image>();
 	}
 
 	void Update () {

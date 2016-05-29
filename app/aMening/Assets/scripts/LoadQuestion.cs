@@ -3,41 +3,47 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
+/// <summary>
+/// Queues all questions that are ready to be asked and transfers them to SwipeInput when available to be queues in the scene.
+/// </summary>
 public class LoadQuestion : MonoBehaviour
 {
 
     public Text questionText;
     public Text projectText;
     public Queue<Question> questions = new Queue<Question>();
-    public Material Image;
+    public Material imageMaterial;
     public OverlaySlider loadingScreen;
+
+    //queue to be changed into Question- instancess
     public List<string> ids;
-    SwipeInput si;
-    CommentsBuilder cb;
-    AnswerSender aS;
-    InstructionAnimation ia;
-    ToDoHandler th;
+
+    SwipeInput swipeInput;
+    CommentsBuilder commentsBuilder;
+    AnswerSender answerSender;
+    InstructionAnimation instructionAnimation;
+    ToDoHandler todoHandler;
+
     public bool QuestionsPending { get { return questions.Count > 0 || ids.Count > 0; } }
+
     void Awake()
     {
-        si = FindObjectOfType<SwipeInput>();
-        cb = FindObjectOfType<CommentsBuilder>();
-        aS = FindObjectOfType<AnswerSender>();
-        ia = FindObjectOfType<InstructionAnimation>();
-        th = FindObjectOfType<ToDoHandler>();
+        swipeInput = FindObjectOfType<SwipeInput>();
+        commentsBuilder = FindObjectOfType<CommentsBuilder>();
+        answerSender = FindObjectOfType<AnswerSender>();
+        instructionAnimation = FindObjectOfType<InstructionAnimation>();
+        todoHandler = FindObjectOfType<ToDoHandler>();
     }
     public void Add(string id)
     {
-
         ids.Add(id);
-        si.fillQueue(false);
+        swipeInput.fillQueue(false);
     }
     public void Answer(Question q, bool isLeft)
     {
        if(!DebugActions.loopQuestions) FindObjectOfType<ToDoHandler>().AddAnswered(q.id);
-        aS.SendAnswer(isLeft, q);
+        answerSender.SendAnswer(isLeft, q);
 
     }
     void QueueIds()
@@ -103,7 +109,7 @@ public class LoadQuestion : MonoBehaviour
     {
         if(obj)
         {
-            ia.Play(obj, !th.HasEverAnswered);
+            instructionAnimation.Play(obj, !todoHandler.HasEverAnswered);
         }
         loadingScreen.visisble = false;
 
@@ -117,7 +123,7 @@ public class LoadQuestion : MonoBehaviour
             q.GetComments(this, e =>
             {
                 Debug.Log("loaded");
-                cb.SetComments(e);
+                commentsBuilder.SetComments(e);
             });
             Debug.Log("g");
         }
@@ -125,12 +131,7 @@ public class LoadQuestion : MonoBehaviour
         {
             questionText.text = projectText.text = "";
 
-            cb.SetComments(new Comment[0]);
+            commentsBuilder.SetComments(new Comment[0]);
         }
-    }
-
-    void Update()
-    {
-
     }
 }

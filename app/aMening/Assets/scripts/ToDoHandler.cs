@@ -54,7 +54,7 @@ public class ToDoHandler : MonoBehaviour
             lq.Add(item);
         }
 
-        FindObjectOfType<BackgroundManager>().UpdateBG();
+        FindObjectOfType<BackgroundManager>().UpdateBackGround();
 
     }
 

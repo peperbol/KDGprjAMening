@@ -3,7 +3,9 @@ using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-
+/// <summary>
+/// download necesary data from the API
+/// </summary>
 public class DownloadQuestions : MonoBehaviour
 {
 
@@ -11,7 +13,9 @@ public class DownloadQuestions : MonoBehaviour
     {
         StartCoroutine(Download(ids));
     }
+
     public bool DownloadsPending { private set; get; }
+
     IEnumerator Download(List<string> ids)
     {
         DownloadsPending = true;

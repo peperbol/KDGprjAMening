@@ -109,6 +109,7 @@ public class Question
         this.phase = phase;
     }
 }
+
 public struct Comment {
     public string text;
     public string day, time;

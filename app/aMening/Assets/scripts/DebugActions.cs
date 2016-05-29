@@ -3,14 +3,18 @@ using System.Collections;
 using System.IO;
 using UnityEngine.SceneManagement;
 
-public class DebugActions : MonoBehaviour {
-    public GameObject Panel;
 
+/// <summary>
+///  handles the menus for debug purposes
+/// </summary>
+public class DebugActions : MonoBehaviour {
+    public GameObject panel;
+    public bool debugEnabled = true;
     public static bool loopQuestions = false;
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && debugEnabled) //backbutton in android
         {
-            Panel.SetActive(!Panel.activeSelf);
+            panel.SetActive(!panel.activeSelf);
         }
 	}
     public void ClearAnswers()
@@ -26,7 +30,7 @@ public class DebugActions : MonoBehaviour {
 
     public void LoopQuestions()
     {
-        Panel.SetActive(false);
+        panel.SetActive(false);
         loopQuestions = !loopQuestions;
     }
 }
