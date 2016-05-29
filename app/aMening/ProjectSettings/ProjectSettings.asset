@@ -158,8 +158,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: E:/documenten/projecten/KDGprjAMening/app/pepijn.keystore
+  AndroidKeyaliasName: playstore
   AndroidTVCompatibility: 0
   AndroidIsGame: 0
   androidEnableBanner: 1

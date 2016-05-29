@@ -16,10 +16,6 @@ public class AnswerSender : MonoBehaviour {
         {
             yield return null;
         }
-        Debug.Log(PathsConfig.AnswerUrl);
-        Debug.Log("sent");
-        Debug.Log(www.error);
-        Debug.Log(www.text);
         
 
     }
