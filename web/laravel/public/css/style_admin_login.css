@@ -1,0 +1,93 @@
+body {
+    font-family: "Calibri";
+    font-size: 120%;
+    margin: 0;
+    padding: 0;
+}
+
+
+h1 {
+    text-align: center;
+}
+
+
+
+.login_form {
+    width: 420px;
+    margin: 0 auto;
+}
+
+.login_title, .login_subtitle {
+    margin: 0;
+    text-align: center;
+}
+
+
+.login_title {
+    margin-top: 75px;
+}
+
+.login_subtitle {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+
+form {
+    margin: 0 auto;
+    background-color: rgb(57, 57, 57);
+    padding: 20px;
+    width: 380px;
+    color: #efefef;
+}
+
+.email, .password {
+    margin-bottom: 10px;
+}
+
+form label {
+    float:left; 
+    text-align:right; 
+    margin-right: 5%;
+    width: 30%;
+    padding: 2px 0;
+}
+
+form input {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 2px 1.5%;
+    width: 60%;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #cf0039;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: #f0f0f0;
+    font-size: 1.1em;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+input[type="submit"]:hover {
+    background-color: #f08900;
+}
+
+
+
+
+/*  CLEARFIX */
+
+form::before, form::after {
+    content: "";
+    line-height: 0;
+    display: table;
+}
+
+form::after {
+    clear: both;
+}
+

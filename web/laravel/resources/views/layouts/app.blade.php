@@ -28,8 +28,8 @@
                         <li class="usernameLi">
                         <a href="#">{{Auth::user()->name}}</a>
                         <ul>
-                            <li><a href="account.html">Account Wijzigen</a></li>
-                            <li><a href="adminToevoegen.html">Admin Toevoegen</a></li>
+                            {{--<li><a href="account.html">Account Wijzigen</a></li>--}}
+                            {{--<li><a href="adminToevoegen.html">Admin Toevoegen</a></li>--}}
                             <li><a href="auth/logout">Uitloggen</a></li>
                         </ul>
                     </li>
@@ -49,8 +49,9 @@
         </div>
         @else
         <div class="pageContent notLoggedIn">
-            <p>Je moet ingelogd zijn om deze pagina te bekijken. Ga naar de login pagina</p>
-            <a href="{{ url('/login_test') }}">Login page</a>
+            <p>Je moet ingelogd zijn om deze pagina te bekijken.</p>
+            <p>Ga naar de <a href="{{ url('/admin_login') }}">login pagina</a>.</p>
+            
         </div>
         @endif
         

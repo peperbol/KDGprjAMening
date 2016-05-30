@@ -574,7 +574,19 @@ footer {
 
 
 
+/*  not logged in */
 
+.pageContent.notLoggedIn {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 2em;
+}
+
+.notLoggedIn + footer {
+    width: 100%;
+    bottom: 0px;
+    position: fixed;
+}
 
 
 

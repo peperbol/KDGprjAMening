@@ -29,7 +29,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/overview';
-    protected $redirectAfterLogout = '/login_test';
+    protected $redirectAfterLogout = '/admin_login';
 
     /**
      * Create a new authentication controller instance.
@@ -74,11 +74,5 @@ class AuthController extends Controller
     }
     
     
-    protected function signOut() {
-        //
-        //Auth::logout();
-        //Session::flush();
-        return redirect('/login_test');
-    }
     
 }

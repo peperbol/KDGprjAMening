@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Comments')
+@section('title', 'Reacties')
 
 @section('pageSpecificCSS')
     <link href="{{ asset('css/comments_style.css') }}" rel="stylesheet" type="text/css">

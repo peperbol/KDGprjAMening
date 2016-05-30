@@ -40,17 +40,22 @@ class BaseController extends Controller
     }
     
     
-    //project overview
-    public function getOverview() {
-        
+    public function getLoginPage() {
         if(Auth::check()) {
             $projects = Project::orderBy('startdate', 'desc')->get();
             return view('project_overview', ["projects" => $projects]);
         }
         else {
-            return view('login_test');
+            return view('admin_login');
         }
+    }
+    
+    
+    //project overview
+    public function getOverview() {
         
+        $projects = Project::orderBy('startdate', 'desc')->get();
+        return view('project_overview', ["projects" => $projects]);
         
     }
     

@@ -160,6 +160,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/login_test', function () {
         return view('login_test');
     });
+    Route::get('/admin_login', 'BaseController@getLoginPage');
+    
     //Route::auth();
     
     
