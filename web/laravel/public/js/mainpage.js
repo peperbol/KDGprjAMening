@@ -5,24 +5,24 @@
 
     site.controller("ProjectController", ['$scope', '$http', function($scope, $http) {
 
-        $scope.projectId;
+        //$scope.projectId;
 
-        $scope.project_Name;
-        $scope.project_Description;
-        $scope.project_Startdate;
-        $scope.project_Imagepath;
-        $scope.project_Longitude;
-        $scope.project_Latitude;
+        //$scope.project_Name;
+        //$scope.project_Description;
+        //$scope.project_Startdate;
+        //$scope.project_Imagepath;
+        //$scope.project_Longitude;
+        //$scope.project_Latitude;
 
 
         $scope.timelineArray = [];
 
-        $scope.phase_selected;
-        $scope.project_selected;
+        //$scope.phase_selected;
+        //$scope.project_selected;
 
         $scope.dateObject = [];
-        $scope.date;
-        $scope.time;
+        //$scope.date;
+        //$scope.time;
 
 
         $scope.questionsPhase = [];
@@ -35,7 +35,8 @@
 
 
         var submit_success = true;
-        $scope.first_comment;
+
+        //$scope.first_comment;
         $scope.first_comment_shown = false;
         $scope.extra_comments_shown = false;
         $scope.button_show_more_shown = false;
@@ -47,22 +48,22 @@
 
 
         /*FUNCTIES*/
-        $scope.Show_project_info;
-        $scope.Show_timeline;
-        $scope.Show_fase_info;
-        $scope.Show_fase_comments;
-        $scope.Show_phase_questions;
-        $scope.Phase_selected;
-        $scope.Project_selected;
-        $scope.Init_Map;
+        //$scope.Show_project_info;
+        //$scope.Show_timeline;
+        //$scope.Show_fase_info;
+        //$scope.Show_fase_comments;
+        //$scope.Show_phase_questions;
+        //$scope.Phase_selected;
+        //$scope.Project_selected;
+        //$scope.Init_Map;
 
 
 
 
-        $scope.current_Fase_Name;
-        $scope.current_Fase_description;
-        $scope.current_Fase_enddate;
-        $scope.current_Fase_imagepath;
+        //$scope.current_Fase_Name;
+        //$scope.current_Fase_description;
+        //$scope.current_Fase_enddate;
+        //$scope.current_Fase_imagepath;
 
 
 
@@ -210,13 +211,13 @@
 
         $scope.Phase_selected = function (phase_nr) {
             return $scope.phase_selected === phase_nr;
-        }
+        };
 
 
 
         $scope.Project_selected = function (project_id) {
             return $scope.project_selected === project_id;
-        }
+        };
 
 
 
@@ -233,7 +234,7 @@
                         //console.log(i);
                         data[1][i].answer= " ";
 
-                    };
+                    }
 
 
 
@@ -289,7 +290,7 @@
                     $scope.button_show_more_shown = false;
                 }
 
-                else if($scope.commentsArray.length == 0) {
+                else if($scope.commentsArray.length === 0) {
                     $scope.first_comment_shown = false;
                 }
 
@@ -383,7 +384,7 @@
                 }
 
 
-            };
+            }
 
 
             /*has found no answer that is empty*/
@@ -420,7 +421,7 @@
                         submit_success = false;
                     });
 
-                };
+                }
 
                 console.log(submit_success);
 
@@ -443,7 +444,7 @@
 
                 $(".submit_confirmation").empty();
                 $(".submit_confirmation").text("Niet alle vragen waren ingevuld. Vul alles in en probeer opnieuw.");
-            };
+            }
 
 
 
@@ -463,7 +464,7 @@
 
             /*post comment for phase*/
 
-            if(commentPhase != undefined) {
+            if(commentPhase !== undefined) {
 
                 $http.post('./post_comment',
                             {
