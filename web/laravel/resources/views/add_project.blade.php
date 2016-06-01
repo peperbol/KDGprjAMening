@@ -80,7 +80,8 @@
                <div>
                    <label for="user">Aangemaakt door:</label>
                    <!-- User X hieronder moet dynamisch ingevuld worden, navenant welke user ingelogd is -->
-                   <input type="text" id="user" name="user" value="User X" readonly>
+                   <input type="text" id="user" name="username" value="{{Auth::user()->name}}" readonly>
+                   <input type="number" id="user_id" name="user" value="{{Auth::user()->id}}" hidden>
                </div>
 
 
