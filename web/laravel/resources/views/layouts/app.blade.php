@@ -30,7 +30,7 @@
                         <ul>
                             {{--<li><a href="account.html">Account Wijzigen</a></li>--}}
                             {{--<li><a href="adminToevoegen.html">Admin Toevoegen</a></li>--}}
-                            <li><a href="auth/logout">Uitloggen</a></li>
+                            <li><a href="{{ url('/auth/logout') }}">Uitloggen</a></li>
                         </ul>
                     </li>
                     </ul>

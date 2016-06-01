@@ -286,14 +286,13 @@
                 }
                 
                 console.log($scope.commentsArray.length);
-                if($scope.commentsArray.length == 1) {
+                if($scope.commentsArray.length <= 1) {
                     $scope.button_show_more_shown = false;
+                    
+                    if($scope.commentsArray.length == 0) {
+                        $scope.first_comment_shown = false;
+                    }
                 }
-                
-                else if($scope.commentsArray.length == 0) {
-                    $scope.first_comment_shown = false;
-                }
-                
                 
                 else {
                     $scope.first_comment_shown = true;
@@ -306,7 +305,6 @@
                 /*De eerste (nieuwste) comment er uit halen om altijd te tonen, blijft nog een array met de andere comments*/
                 $scope.first_comment = $scope.commentsArray.shift();
                 
-            
                 
                 
                 
@@ -330,8 +328,8 @@
         $scope.Show_extra_comments = function(){
             
             
-            if($scope.commentsArray.length > 0){
-                
+            /*if($scope.commentsArray.length > 0){
+                */
             
                 if($scope.button_show_more_text == "TOON MEER") {
 
@@ -347,7 +345,7 @@
                     $scope.button_show_more_text = "TOON MEER";
 
                 }
-                
+              /*  
             }
             
             
@@ -356,7 +354,7 @@
                 $scope.button_show_more_shown = false;
                 
             }
-            
+            */
             
         };
         
