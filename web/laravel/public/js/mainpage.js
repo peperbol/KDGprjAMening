@@ -100,7 +100,7 @@
                 $scope.project_Longitude = data.longitude;
                 $scope.project_Latitude = data.latitude;
 
-                $scope.Init_Map($scope.project_Latitude, $scope.project_Longitude);
+                $scope.Init_Map(Number($scope.project_Latitude), Number($scope.project_Longitude));
                 $scope.$apply();
 
 
