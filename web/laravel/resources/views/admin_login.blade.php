@@ -12,7 +12,8 @@
 
 <body>
 
-   
+  <?php /*
+   <!--
     <h1>Registreer</h1>
 				<form role="form" method="POST" action="auth/register">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -27,7 +28,7 @@
 								<div>{{ $error }}</div>
 							@endforeach
 						@endif</div>
-				</form>
+				</form>-->*/ ?>
 				
 				
                <div class="login_form">

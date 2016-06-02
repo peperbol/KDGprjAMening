@@ -430,6 +430,20 @@ input[type="time"] {
 }
 
 
+.add_phases_events a {
+    background-color: #cf0039;
+    padding: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    
+}
+.add_phases_events a:hover {
+    background-color: #f08900;
+    color: inherit;
+}
+
+
+
 /* results page / answers page */
 .container_stat {
     box-sizing: border-box;

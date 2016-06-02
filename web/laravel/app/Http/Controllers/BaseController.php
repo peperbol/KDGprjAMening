@@ -239,7 +239,7 @@ class BaseController extends Controller
         
         
         //user_id moet ook meegegeven worden via de url + controller en moet hier dan worden toegekend --> moet nog gedaan worden
-        $user = 1; // VOORLOPIG !!!!
+        //$user = 1; // VOORLOPIG !!!!
         
         //aangezien we nummer niet meer gaan gebruiken, maar het hele adres in street steken, gaan we house_number gewoon standaard op 1 zetten
         $house_number = 1;
@@ -254,7 +254,7 @@ class BaseController extends Controller
                                 'house_number' => $house_number,
                                 'latitude' => $request->latitude,
                                 'longitude' => $request->longitude,
-                                'user_id' => $user
+                                'user_id' => $request->user
                                ]);
         
         $project->save();
