@@ -4,6 +4,7 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public class Question
 {
@@ -64,7 +65,7 @@ public class Question
             string time = "";
             obj[i].GetField(ref text, "comment");
             obj[i].GetField(ref time, "created_at");
-            comments[i] = new Comment(text, string.Join("/", time.Split(' ')[0].Split('-').Reverse().ToArray()) , time.Split(' ')[1].Split(':')[0]+":" +time.Split(' ')[1].Split(':')[1]);
+            comments[i] = new Comment(Regex.Unescape( text), string.Join("/", time.Split(' ')[0].Split('-').Reverse().ToArray()) , time.Split(' ')[1].Split(':')[0]+":" +time.Split(' ')[1].Split(':')[1]);
         }
         this.comments = comments;
     }
